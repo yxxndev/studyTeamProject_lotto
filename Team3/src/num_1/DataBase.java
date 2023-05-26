@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+
 public class DataBase {
 	Map<String, HashSet<UserSelectNum>> map = new HashMap();
 	

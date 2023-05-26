@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class LottoBuyTest extends JFrame {
+	DataBase data;
 	private JPanel pnl;
 	private JLabel lbl;
 
@@ -34,18 +37,32 @@ public class LottoBuyTest extends JFrame {
 	}
 
 	public void addLabelNumber() { // 레이블 추가
-		JLabel[] JLabelNumber = new JLabel[45]; // 레이블 배열 생성
-		for (int i = 0; i < JLabelNumber.length; i++) { // 1 ~ 45 까지의 이름을 가진 레이블 생성
-			JLabelNumber[i] = new JLabel(String.valueOf(i + 1));
-			pnl.add(JLabelNumber[i]);
+		JLabel[] JLabelNumber1 = new JLabel[45]; // 레이블 배열 생성
+		JLabel[] JLabelNumber2 = new JLabel[45]; // 레이블 배열 생성
+		
+		for (int i = 0; i < JLabelNumber1.length; i++) { // 1 ~ 45 까지의 이름을 가진 레이블 생성
+			JLabelNumber1[i] = new JLabel(String.valueOf(i + 1));
+			pnl.add(JLabelNumber1[i]);
 		}
+		
+		for (int i = 0; i < JLabelNumber2.length; i++) { // 1 ~ 45 까지의 이름을 가진 레이블 생성
+			JLabelNumber2[i] = new JLabel(String.valueOf(i + 1));
+			pnl.add(JLabelNumber2[i]);
+		}
+		String key1 = "A"; 
+		String key2 = "B"; 
+		String key3 = "C"; 
+		String key4 = "D"; 
+		String key5 = "E"; 
 
-		labelNumberMouseListener(JLabelNumber); // 레이블 마우스액션 (체크)
+		labelNumberMouseListener(JLabelNumber1, key1); // 레이블 마우스액션 (체크)
+		labelNumberMouseListener(JLabelNumber2, key2); // 레이블 마우스액션 (체크)
 		// getPrice(checkBoxes);
 		// addButton(checkBoxes); // 자동/반자동 버튼
 	}
 
-	public void labelNumberMouseListener(JLabel[] JLabelNumber) {
+	// 수동
+	public void labelNumberMouseListener(JLabel[] JLabelNumber, String key) {
 		Set<String> set = new HashSet<>();
 
 		for (JLabel number : JLabelNumber) {
@@ -75,9 +92,6 @@ public class LottoBuyTest extends JFrame {
 		return true;
 	}
 	
-	public void autoNumber() {
-		
-	}
 
 	/*
 	 * ItemListener itemListener = new ItemListener() { int count = 0; // select되면

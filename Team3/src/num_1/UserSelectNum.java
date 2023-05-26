@@ -1,4 +1,5 @@
 package num_1;
+
 // 유저가 선택한 넘버 객체
 public class UserSelectNum {
 	private int lotteryNum;
