@@ -57,7 +57,14 @@ public class LottoCMR extends JFrame {
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
 					int indexNum = index + 1;
-					System.out.println(indexNum);
+					
+					
+					if (!dataBase.map.get("A").contains(new UserSelectNum(indexNum, false))) {
+						dataBase.map.get("A").add(new UserSelectNum(indexNum, false));
+					}else {
+						int arrayListIndex = dataBase.map.get("A").indexOf(new UserSelectNum(indexNum, false));
+						dataBase.map.get("A").remove(arrayListIndex);
+					}
 				}
 			});
 			

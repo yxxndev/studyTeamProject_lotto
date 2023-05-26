@@ -38,11 +38,7 @@ public class UserSelectNum {
 		if (getClass() != obj.getClass())
 			return false;
 		UserSelectNum other = (UserSelectNum) obj;
-		if (auto != other.auto)
-			return false;
 		if (lotteryNum != other.lotteryNum)
-			return false;
-		if (win != other.win)
 			return false;
 		return true;
 	}
