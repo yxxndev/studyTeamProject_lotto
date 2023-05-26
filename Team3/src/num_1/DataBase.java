@@ -14,5 +14,18 @@ public class DataBase {
 		map.put("D", new HashSet<UserSelectNum>());
 		map.put("E", new HashSet<UserSelectNum>());
 	}
+
+	public Map<String, HashSet<UserSelectNum>> getMap() {
+		return map;
+	}
 	
+	
+//	연습할려고 만든 추가
+	public void add() {
+		map.get("A").add(new UserSelectNum(15, true));
+		map.get("B").add(new UserSelectNum(15, true));
+		map.get("C").add(new UserSelectNum(15, true));
+		map.get("D").add(new UserSelectNum(15, true));
+		map.get("E").add(new UserSelectNum(15, true));
+	}
 }

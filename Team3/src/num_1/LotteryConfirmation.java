@@ -15,11 +15,13 @@ import javax.swing.JPanel;
 class LotteryConfirmation extends JFrame {
 	JButton btn1;
 	JButton btn2;
-	ImageIcon img1 = new ImageIcon(LotteryConfirmation.class.getResource("../image/again.png"));
-	ImageIcon img2 = new ImageIcon(LotteryConfirmation.class.getResource("../image/exit.png"));
+	ImageIcon img1 = new ImageIcon(LotteryConfirmation.class.getResource("/image/again.png"));
+	ImageIcon img2 = new ImageIcon(LotteryConfirmation.class.getResource("/image/exit.png"));
+	DataBase database;
+	
 	
 	static JPanel bg = new JPanel() {
-		Image background = new ImageIcon(LotteryConfirmation.class.getResource("../image/background.png")).getImage();
+		Image background = new ImageIcon(LotteryConfirmation.class.getResource("/image/background.png")).getImage();
 		
 		public void paint(Graphics g) {
 			g.drawImage(background,  0 , 0,  null);
@@ -27,7 +29,7 @@ class LotteryConfirmation extends JFrame {
 	};
 	
 	static JLabel section1 = new JLabel() {
-		Image section1 = new ImageIcon(LotteryConfirmation.class.getResource("../image/headerTest.png")).getImage();
+		Image section1 = new ImageIcon(LotteryConfirmation.class.getResource("/image/headerTest.png")).getImage();
 		
 		public void paintComponent(Graphics g) {
 			g.drawImage(section1,  0 , 50,  null);
@@ -35,7 +37,7 @@ class LotteryConfirmation extends JFrame {
 	};
 	
 	static JLabel section2 = new JLabel() {
-		Image section2Test = new ImageIcon(LotteryConfirmation.class.getResource("../image/testSection2.png")).getImage();
+		Image section2Test = new ImageIcon(LotteryConfirmation.class.getResource("/image/testSection2.png")).getImage();
 //		Image sectionNum1 = new ImageIcon(LotteryConfirmation.class.getResource("../image/1_50px.png")).getImage();
 //		Image sectionNum2 = new ImageIcon(LotteryConfirmation.class.getResource("../image/2_50px.png")).getImage();
 //		Image sectionNum3 = new ImageIcon(LotteryConfirmation.class.getResource("../image/3_50px.png")).getImage();
@@ -59,7 +61,7 @@ class LotteryConfirmation extends JFrame {
 	};
 	
 	static JLabel section3 = new JLabel() {
-		Image section3 = new ImageIcon(LotteryConfirmation.class.getResource("../image/reword.png")).getImage();
+		Image section3 = new ImageIcon(LotteryConfirmation.class.getResource("/image/reword.png")).getImage();
 		
 		public void paintComponent(Graphics g) {
 			g.drawImage(section3,  0 , 0,  null);
@@ -67,7 +69,7 @@ class LotteryConfirmation extends JFrame {
 	};
 
 	static JLabel section4 = new JLabel() {
-		Image section4 = new ImageIcon(LotteryConfirmation.class.getResource("../image/result.png")).getImage();
+		Image section4 = new ImageIcon(LotteryConfirmation.class.getResource("/image/result.png")).getImage();
 		
 		public void paintComponent(Graphics g) {
 			g.drawImage(section4,  0 , 0,  null);

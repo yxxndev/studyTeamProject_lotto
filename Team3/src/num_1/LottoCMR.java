@@ -19,6 +19,7 @@ public class LottoCMR extends JFrame {
 
 	ImageIcon icon = new ImageIcon("paper.png");
 	private JPanel contentPane;
+	DataBase dataBase;
 	
 	public LottoCMR(DataBase dataBase) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
