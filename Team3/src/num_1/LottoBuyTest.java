@@ -35,6 +35,12 @@ public class LottoBuyTest extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
+	
+	public void testtt() {
+		data.map.get("A").add(new UserSelectNum(5, true));
+	}
+	
+//	5     6
 
 	public void addLabelNumber() { // 레이블 추가
 		JLabel[] JLabelNumber1 = new JLabel[45]; // 레이블 배열 생성
@@ -55,22 +61,24 @@ public class LottoBuyTest extends JFrame {
 		String key4 = "D"; 
 		String key5 = "E"; 
 
-		labelNumberMouseListener(JLabelNumber1, key1); // 레이블 마우스액션 (체크)
-		labelNumberMouseListener(JLabelNumber2, key2); // 레이블 마우스액션 (체크)
+//		labelNumberMouseListener(JLabelNumber1, key1); // 레이블 마우스액션 (체크)
+//		labelNumberMouseListener(JLabelNumber2, key2); // 레이블 마우스액션 (체크)
 		// getPrice(checkBoxes);
 		// addButton(checkBoxes); // 자동/반자동 버튼
 	}
 
 	// 수동
-	public void labelNumberMouseListener(JLabel[] JLabelNumber, String key) {
-		Set<String> set = new HashSet<>();
-
+	public void labelNumberMouseListener(JLabel[] JLabelNumber, String key, DataBase database) {
+		
+		
+		
 		for (JLabel number : JLabelNumber) {
 			number.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					JLabel lbl = (JLabel) e;
 					String labelText = number.getText();
-					if (set.contains(labelText)) { // 배열에 값이 존재하면
+					if (database.getMap().get(key).get) { // 배열에 값이 존재하면
 						set.remove(labelText); // 삭제
 					} else { // 아니라면
 						if (NumberMouseListenerRule(set)) { // 규칙 메서드 true면
