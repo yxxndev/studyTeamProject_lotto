@@ -1,15 +1,13 @@
 package num_1;
 // 추첨 결과 확인 창 GUI
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 import java.awt.Graphics;
 import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 class LotteryConfirmation extends JFrame {
 	static JPanel bg = new JPanel() {
