@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 // 당첨결과 관련 로직 메소드
 class ResultFrame extends JFrame {
 	// 임시 맵 선언
-	Map<String, HashSet<UserSelectNum>> map = new HashMap();
 	// 당첨번호 6개, 보너스 번호 1개
 	Set<Integer> lotteryNums = new HashSet<Integer>();
 	int bonusNum;
@@ -56,13 +55,6 @@ class ResultFrame extends JFrame {
 	 * 
 	 * @return void
 	 */
-	void temporaryMapKey() {
-		map.put("A", new HashSet<UserSelectNum>());
-		map.put("B", new HashSet<UserSelectNum>());
-		map.put("C", new HashSet<UserSelectNum>());
-		map.put("D", new HashSet<UserSelectNum>());
-		map.put("E", new HashSet<UserSelectNum>());
-	}
 	
 	// 임시 컴포넌트 선언, 초기화
 //	void temporaryComponent() {
