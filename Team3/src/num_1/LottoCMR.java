@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -20,7 +21,8 @@ public class LottoCMR extends JFrame {
 	ImageIcon icon = new ImageIcon("paper.png");
 	private JPanel contentPane;
 	DataBase dataBase;
-	
+	LottoBuyTest lottoBuyTest = new LottoBuyTest();
+
 	public LottoCMR(DataBase dataBase) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 700);
@@ -28,21 +30,21 @@ public class LottoCMR extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3, BorderLayout.CENTER);
 		panel_3.setLayout(null);
 		panel_3.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(259, 10, 165, 522);
 		panel_3.add(panel);
 		panel.setLayout(null);
-		
+
 		int x = 4;
 		int y = 55;
 		JLabel[] lbls = new JLabel[45];
-		
+
 		for (int i = 0; i < 45; i++) {
 			int index = i;
 			JLabel numberlbl = new JLabel("");
@@ -50,10 +52,27 @@ public class LottoCMR extends JFrame {
 			numberlbl.setBounds(x, y, 20, 28);
 			panel.add(numberlbl);
 			lbls[i] = numberlbl;
+			lbls[i].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					int indexNum = index + 1;
+					
+					
+					if (!dataBase.map.get("A").contains(new UserSelectNum(indexNum, false))) {
+						dataBase.map.get("A").add(new UserSelectNum(indexNum, false));
+					}else {
+						int arrayListIndex = dataBase.map.get("A").indexOf(new UserSelectNum(indexNum, false));
+						dataBase.map.get("A").remove(arrayListIndex);
+					}
+				}
+			});
+			
 			if ((i + 1) % 7 == 0 && i != 0) {
 				y += 43;
 				x = 4;
-			}else x += 23;
+			} else
+				x += 23;
 			if ((i + 1) % 7 == 4)
 				x += 1;
 			lbls[i].addMouseListener(new MouseAdapter() {
@@ -66,25 +85,27 @@ public class LottoCMR extends JFrame {
 			});
 		}
 		
+		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperA.png")));
 		lblNewLabel_1.setBounds(0, 0, 165, 522);
 		panel.add(lblNewLabel_1);
-		
+
 		JLabel paper = new JLabel("New label");
 		paper.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paper.png")));
 		paper.setBounds(0, 0, 1254, 550);
 		panel_3.add(paper);
-		
+
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setPreferredSize(new Dimension(100, 50));
 		panel_1.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel(" 총 구매금액 0원");
 		lblNewLabel.setBounds(517, 10, 182, 30);
 		panel_1.add(lblNewLabel);
-		
+
 		JButton btnNewButton = new JButton("구매");
 		btnNewButton.setBounds(890, 10, 97, 23);
 		panel_1.add(btnNewButton);
@@ -95,8 +116,8 @@ public class LottoCMR extends JFrame {
 				setVisible(false);
 			}
 		});
-		
+
 		setVisible(true);
-		
+
 	}
 }

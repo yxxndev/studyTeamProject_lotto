@@ -1,21 +1,25 @@
 package num_1;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+
 public class DataBase {
-	Map<String, HashSet<UserSelectNum>> map = new HashMap();
+	Map<String, ArrayList<UserSelectNum>> map = new HashMap();
 	
 	public DataBase() {
-		map.put("A", new HashSet<UserSelectNum>());
-		map.put("B", new HashSet<UserSelectNum>());
-		map.put("C", new HashSet<UserSelectNum>());
-		map.put("D", new HashSet<UserSelectNum>());
-		map.put("E", new HashSet<UserSelectNum>());
+		map.put("A", new ArrayList<UserSelectNum>());
+		map.put("B", new ArrayList<UserSelectNum>());
+		map.put("C", new ArrayList<UserSelectNum>());
+		map.put("D", new ArrayList<UserSelectNum>());
+		map.put("E", new ArrayList<UserSelectNum>());
+		
+		add();
 	}
 
-	public Map<String, HashSet<UserSelectNum>> getMap() {
+	public Map<String, ArrayList<UserSelectNum>> getMap() {
 		return map;
 	}
 	

@@ -17,6 +17,8 @@ class LotteryConfirmation extends JFrame {
 	JButton btn2;
 	ImageIcon img1 = new ImageIcon(LotteryConfirmation.class.getResource("/image/again.png"));
 	ImageIcon img2 = new ImageIcon(LotteryConfirmation.class.getResource("/image/exit.png"));
+	ImageIcon img3 = new ImageIcon(LotteryConfirmation.class.getResource("/image/againClick.png"));
+	ImageIcon img4 = new ImageIcon(LotteryConfirmation.class.getResource("/image/exitClick.png"));
 	DataBase database;
 	
 	
@@ -119,10 +121,12 @@ class LotteryConfirmation extends JFrame {
 		
 		
 		btn1 = new JButton(img1);
+		btn1.setRolloverIcon(img3);
 		btn1.setBorderPainted(false);
 		btn1.setContentAreaFilled(false);
 		btn1.setBounds(120, 130, 150, 70);
 		btn2 = new JButton(img2);
+		btn2.setRolloverIcon(img4);
 		btn2.setBorderPainted(false);
 		btn2.setContentAreaFilled(false);
 		btn2.setBounds(320, 130, 150, 70);
