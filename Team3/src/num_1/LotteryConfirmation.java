@@ -118,8 +118,6 @@ class LotteryConfirmation extends JFrame {
 		add(section4);
 		
 		// 다시하기 버튼1 + 종료 버튼2 + 툴팁 1개
-		
-		
 		btn1 = new JButton(img1);
 		btn1.setRolloverIcon(img3);
 		btn1.setBorderPainted(false);
@@ -131,6 +129,7 @@ class LotteryConfirmation extends JFrame {
 		btn2.setContentAreaFilled(false);
 		btn2.setBounds(320, 130, 150, 70);
 		
+		// 다시하기 
 		btn1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
