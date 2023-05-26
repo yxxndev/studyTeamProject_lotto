@@ -1,28 +1,23 @@
 package num_1;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 // 당첨결과 관련 로직 메소드
-class ResultFrame extends JFrame {
-	// 임시 맵 선언
+class ResultFrame2 extends JFrame {
+	DataBase data = new DataBase();
 	// 당첨번호 6개, 보너스 번호 1개
 	Set<Integer> lotteryNums = new HashSet<Integer>();
 	int bonusNum;
-	
-	public ResultFrame() {
+
+	public ResultFrame2(DataBase data) {
 		// 테스트용 객체, 메소드 호출 ---------------------------------------------------
-		temporaryMapKey();
-		HashSet<UserSelectNum> a = new HashSet<UserSelectNum>();
 		
 		// 당첨번호 숫자조정용
 		lotteryNumRan();
@@ -34,28 +29,13 @@ class ResultFrame extends JFrame {
 //		lotteryNums.add(7);
 //		bonusNum = 10;
 		
-		// A용지 유저가 선택한 번호 조정용
-		// 1,2,3 : 수동 / 4,5,6 : 자동
-		a.add(new UserSelectNum(1, false));
-		a.add(new UserSelectNum(2, false));
-		a.add(new UserSelectNum(3, false));
-		a.add(new UserSelectNum(4, true));
-		a.add(new UserSelectNum(5, true));
-		a.add(new UserSelectNum(6, true));
-		
-		map.put("A", a);
 		String score = whatScore("A");
 		System.out.println(whatPrice(score));
 		printlotteryNums();
+
 		// --------------------------------------------------------------------
 	}
 
-	/**
-	 * 임시 키 A, B, C, D, E 생성하는 메소드
-	 * 
-	 * @return void
-	 */
-	
 	// 임시 컴포넌트 선언, 초기화
 //	void temporaryComponent() {
 //		JButton restartBtn = new JButton("다시하기");
@@ -63,7 +43,7 @@ class ResultFrame extends JFrame {
 //		JLabel gradeLbl = new JLabel("N등");
 //		JLabel moneylbl = new JLabel("당첨 총 금액: N원");
 //	}
-	
+
 	/**
 	 * 유저가 입력한 번호와 당첨번호 6개와 비교하여 겹치는 숫자가 있는지 확인하는 메소드
 	 * 
@@ -71,7 +51,7 @@ class ResultFrame extends JFrame {
 	 * @return int 당첨번호와 겹치는 숫자 개수 반환
 	 */
 	int compareNum(String key) {
-		Set<UserSelectNum> listUser = map.get(key);
+		Set<UserSelectNum> listUser = data.map.get(key);
 		Set<Integer> userNumOnly = new HashSet<>();
 		for (UserSelectNum numOb : listUser) {
 			userNumOnly.add(numOb.getLotteryNum());
@@ -127,7 +107,7 @@ class ResultFrame extends JFrame {
 		JLabel lbl = new JLabel(whatScore(key));
 		return lbl;
 	}
-	
+
 	/**
 	 * (임시)등수를 받아 당첨금액 반환
 	 * 
@@ -148,10 +128,10 @@ class ResultFrame extends JFrame {
 			return "0원";
 		}
 	}
-	
+
 	// 당첨금액
 	void priceLabel(String score) {
-		
+
 	}
 
 	/**
@@ -161,7 +141,7 @@ class ResultFrame extends JFrame {
 	 * @return boolean 보너스숫자와 선택한 번호와 맞는지 여부
 	 */
 	boolean compareBonus(String key) {
-		Set<UserSelectNum> listUser = map.get(key);
+		Set<UserSelectNum> listUser = data.map.get(key);
 
 		for (UserSelectNum numOb : listUser) {
 			if (numOb.getLotteryNum() == bonusNum) {
@@ -176,10 +156,10 @@ class ResultFrame extends JFrame {
 	 * (임시) 복권당 사용자가 선택한 번호 패널에 부착
 	 * 
 	 * @param key
-	 * @return 
+	 * @return
 	 */
 	JPanel printUserNumResult(String key) {
-		HashSet<UserSelectNum> list = map.get(key);
+		HashSet<UserSelectNum> list = data.map.get(key);
 		JPanel pnl = new JPanel();
 		JLabel lblUserNum1 = new JLabel("");
 		JLabel lblUserNum2 = new JLabel("");
@@ -210,8 +190,8 @@ class ResultFrame extends JFrame {
 		}
 		return pnl;
 	}
-	
-	/** 
+
+	/**
 	 * 당첨번호 6자리, 보너스번호 1자리 생성, 필드에 저장
 	 */
 	void lotteryNumRan() {
@@ -227,9 +207,10 @@ class ResultFrame extends JFrame {
 			}
 		}
 	}
-	
-	/** 
+
+	/**
 	 * 당첨번호와 보너스번호 라벨 생성해서 패널에 부착
+	 * 
 	 * @return JPanel
 	 */
 	JPanel lotteryNums() {
@@ -258,7 +239,7 @@ class ResultFrame extends JFrame {
 		pnl1.add(lblLotteryNum7);
 		return pnl1;
 	}
-	
+
 	/**
 	 * (임시) 화면 표시
 	 */
@@ -283,6 +264,7 @@ class ResultFrame extends JFrame {
 
 public class Result {
 	public static void main(String[] args) {
-		ResultFrame r = new ResultFrame();
+		DataBase data = new DataBase();
+		ResultFrame2 r = new ResultFrame2(data);
 	}
 }
