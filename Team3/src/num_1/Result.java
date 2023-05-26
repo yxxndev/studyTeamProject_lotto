@@ -1,13 +1,16 @@
 package num_1;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 
 // 당첨결과 관련 로직 메소드
 class ResultFrame2 extends JFrame {
@@ -15,7 +18,10 @@ class ResultFrame2 extends JFrame {
 	// 당첨번호 6개, 보너스 번호 1개
 	Set<Integer> lotteryNums = new HashSet<Integer>();
 	int bonusNum;
-
+	Image[] num ;
+	
+	
+	
 	public ResultFrame2(DataBase data) {
 		// 테스트용 객체, 메소드 호출 ---------------------------------------------------
 		
@@ -175,7 +181,7 @@ class ResultFrame2 extends JFrame {
 			// 1.png
 			// num = index+1 
 			
-//			String str = String.valueOf(num);
+			String str = String.valueOf(num);
 			lbls[i] = new JLabel(str);
 
 			// 당첨 번호인가? (임시)
