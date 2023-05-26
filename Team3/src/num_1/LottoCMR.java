@@ -77,8 +77,6 @@ public class LottoCMR extends JFrame {
 				x += 1;
 		}
 		
-		
-
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperA.png")));
 		lblNewLabel_1.setBounds(0, 0, 165, 522);
@@ -112,4 +110,9 @@ public class LottoCMR extends JFrame {
 		setVisible(true);
 
 	}
+	
+	public void cancleMarking() {
+		
+	}
+	
 }
