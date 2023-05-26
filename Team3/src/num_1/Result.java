@@ -171,7 +171,11 @@ class ResultFrame2 extends JFrame {
 		int i = 0;
 		for (UserSelectNum numOb : list) {
 			int num = numOb.getLotteryNum();
-			String str = String.valueOf(num);
+			// 이미지 1 ~ 45 
+			// 1.png
+			// num = index+1 
+			
+//			String str = String.valueOf(num);
 			lbls[i] = new JLabel(str);
 
 			// 당첨 번호인가? (임시)

@@ -3,15 +3,25 @@ package num_1;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 class LotteryConfirmation extends JFrame {
+	JButton btn1;
+	JButton btn2;
+	ImageIcon img1 = new ImageIcon(LotteryConfirmation.class.getResource("/image/again.png"));
+	ImageIcon img2 = new ImageIcon(LotteryConfirmation.class.getResource("/image/exit.png"));
+	DataBase database;
+	
+	
 	static JPanel bg = new JPanel() {
-		Image background = new ImageIcon(LotteryConfirmation.class.getResource("../image/background.png")).getImage();
+		Image background = new ImageIcon(LotteryConfirmation.class.getResource("/image/background.png")).getImage();
 		
 		public void paint(Graphics g) {
 			g.drawImage(background,  0 , 0,  null);
@@ -19,7 +29,7 @@ class LotteryConfirmation extends JFrame {
 	};
 	
 	static JLabel section1 = new JLabel() {
-		Image section1 = new ImageIcon(LotteryConfirmation.class.getResource("../image/headerTest.png")).getImage();
+		Image section1 = new ImageIcon(LotteryConfirmation.class.getResource("/image/headerTest.png")).getImage();
 		
 		public void paintComponent(Graphics g) {
 			g.drawImage(section1,  0 , 50,  null);
@@ -27,7 +37,7 @@ class LotteryConfirmation extends JFrame {
 	};
 	
 	static JLabel section2 = new JLabel() {
-		Image section2Test = new ImageIcon(LotteryConfirmation.class.getResource("../image/testSection2.png")).getImage();
+		Image section2Test = new ImageIcon(LotteryConfirmation.class.getResource("/image/testSection2.png")).getImage();
 //		Image sectionNum1 = new ImageIcon(LotteryConfirmation.class.getResource("../image/1_50px.png")).getImage();
 //		Image sectionNum2 = new ImageIcon(LotteryConfirmation.class.getResource("../image/2_50px.png")).getImage();
 //		Image sectionNum3 = new ImageIcon(LotteryConfirmation.class.getResource("../image/3_50px.png")).getImage();
@@ -51,7 +61,7 @@ class LotteryConfirmation extends JFrame {
 	};
 	
 	static JLabel section3 = new JLabel() {
-		Image section3 = new ImageIcon(LotteryConfirmation.class.getResource("../image/reword.png")).getImage();
+		Image section3 = new ImageIcon(LotteryConfirmation.class.getResource("/image/reword.png")).getImage();
 		
 		public void paintComponent(Graphics g) {
 			g.drawImage(section3,  0 , 0,  null);
@@ -59,28 +69,32 @@ class LotteryConfirmation extends JFrame {
 	};
 
 	static JLabel section4 = new JLabel() {
-		Image section4 = new ImageIcon(LotteryConfirmation.class.getResource("../image/result.png")).getImage();
+		Image section4 = new ImageIcon(LotteryConfirmation.class.getResource("/image/result.png")).getImage();
 		
 		public void paintComponent(Graphics g) {
 			g.drawImage(section4,  0 , 0,  null);
 		}
 	};
+	
 
-	static JLabel section5 = new JLabel() {
-		Image sectionBtn1 = new ImageIcon(LotteryConfirmation.class.getResource("../image/again.png")).getImage();
-		Image sectionBtn2 = new ImageIcon(LotteryConfirmation.class.getResource("../image/exit.png")).getImage();
-		
-		public void paintComponent(Graphics g) {
-			g.drawImage(sectionBtn1,  120 , 120,  null);
-			g.drawImage(sectionBtn2,  320 , 120,  null);
-		}
+	public JLabel section5 = new JLabel() {
+
+
+//		Image sectionBtn1 = new ImageIcon(LotteryConfirmation.class.getResource("../image/again.png")).getImage();
+//		Image sectionBtn2 = new ImageIcon(LotteryConfirmation.class.getResource("../image/exit.png")).getImage();
+//		
+//		
+//		public void paintComponent(Graphics g) {
+//			g.drawImage(sectionBtn1,  120 , 120,  null);
+//			g.drawImage(sectionBtn2,  320 , 120,  null);
+//		}
 	};
 	
-	public LotteryConfirmation() {
-		resultframe();
+	public LotteryConfirmation(DataBase dataBase) {
+		resultframe(dataBase);
 	}
 
-	public void resultframe() {
+	public void resultframe(DataBase dataBase) {
 		// 헤더 ("추첨 결과")
 		section1.setLayout(null);
 		section1.setBounds(0, 0, 600, 110);
@@ -102,6 +116,34 @@ class LotteryConfirmation extends JFrame {
 		add(section4);
 		
 		// 다시하기 버튼1 + 종료 버튼2 + 툴팁 1개
+		
+		
+		btn1 = new JButton(img1);
+		btn1.setBorderPainted(false);
+		btn1.setContentAreaFilled(false);
+		btn1.setBounds(120, 130, 150, 70);
+		btn2 = new JButton(img2);
+		btn2.setBorderPainted(false);
+		btn2.setContentAreaFilled(false);
+		btn2.setBounds(320, 130, 150, 70);
+		
+		btn1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new LottoCMR(dataBase);
+				setVisible(false);
+			}
+		});
+
+		btn2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
+		
+		section5.add(btn1);
+		section5.add(btn2);
 		section5.setLayout(null);
 		section5.setBounds(0, 550, 600, 200);
 		add(section5);
@@ -121,7 +163,7 @@ class LotteryConfirmation extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	public static void main(String[] args) {
-		new LotteryConfirmation();
-	}
+//	public static void main(String[] args) {
+//		new LotteryConfirmation();
+//	}
 }
