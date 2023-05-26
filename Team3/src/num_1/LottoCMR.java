@@ -112,7 +112,7 @@ public class LottoCMR extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new LotteryConfirmation();
+				new LotteryConfirmation(dataBase);
 				setVisible(false);
 			}
 		});
