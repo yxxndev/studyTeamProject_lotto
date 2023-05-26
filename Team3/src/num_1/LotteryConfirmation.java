@@ -166,4 +166,3 @@ class LotteryConfirmation extends JFrame {
 		setVisible(true);
 	}
 }
-
