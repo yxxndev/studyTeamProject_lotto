@@ -2,13 +2,10 @@ package num_1;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,47 +32,47 @@ public class LottoCMR extends JFrame {
 		panel_3.setLayout(null);
 		
 		JLabel lbl1 = new JLabel("1");
-		lbl1.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\01.png"));
+		lbl1.setIcon(new ImageIcon("01.png"));
 		lbl1.setBounds(263, 67, 20, 28);
 		panel_3.add(lbl1);
 		
 		JLabel lblMarking = new JLabel("New label");
-		lblMarking.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\marking.png"));
+		lblMarking.setIcon(new ImageIcon("01.png"));
 		lblMarking.setBounds(263, 110, 20, 28);
 		panel_3.add(lblMarking);
 		
 		JLabel lbl3 = new JLabel("3");
-		lbl3.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\03.png"));
+		lbl3.setIcon(new ImageIcon("03.png"));
 		lbl3.setBounds(309, 67, 20, 28);
 		panel_3.add(lbl3);
 		
 		JLabel lbl2 = new JLabel("2");
-		lbl2.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\02.png"));
+		lbl2.setIcon(new ImageIcon("02.png"));
 		lbl2.setBounds(288, 67, 20, 28);
 		panel_3.add(lbl2);
 		
 		JLabel lbl4 = new JLabel("4");
-		lbl4.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\04.png"));
+		lbl4.setIcon(new ImageIcon("04.png"));
 		lbl4.setBounds(333, 67, 20, 28);
 		panel_3.add(lbl4);
 		
 		JLabel lbl5 = new JLabel("5");
-		lbl5.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\05.png"));
+		lbl5.setIcon(new ImageIcon("05.png"));
 		lbl5.setBounds(353, 67, 20, 28);
 		panel_3.add(lbl5);
 		
 		JLabel lbl6 = new JLabel("6");
-		lbl6.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\06.png"));
+		lbl6.setIcon(new ImageIcon("06.png"));
 		lbl6.setBounds(385, 67, 20, 28);
 		panel_3.add(lbl6);
 		
 		JLabel lbl7 = new JLabel("7");
-		lbl7.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\07.png"));
+		lbl7.setIcon(new ImageIcon("07.png"));
 		lbl7.setBounds(404, 67, 20, 28);
 		panel_3.add(lbl7);
 		
 		JLabel paper = new JLabel("New label");
-		paper.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\paper.png"));
+		paper.setIcon(icon);
 		paper.setBounds(0, 0, 1254, 550);
 		panel_3.add(paper);
 		
