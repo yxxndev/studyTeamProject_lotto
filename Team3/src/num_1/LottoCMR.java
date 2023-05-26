@@ -2,6 +2,8 @@ package num_1;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -11,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
 
 public class LottoCMR extends JFrame {
 
@@ -32,7 +35,7 @@ public class LottoCMR extends JFrame {
 		panel_3.setLayout(null);
 		
 		JLabel lbl1 = new JLabel("1");
-		lbl1.setIcon(new ImageIcon("01.png"));
+		lbl1.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\01.png"));
 		lbl1.setBounds(263, 67, 20, 28);
 		panel_3.add(lbl1);
 		
@@ -42,37 +45,37 @@ public class LottoCMR extends JFrame {
 		panel_3.add(lblMarking);
 		
 		JLabel lbl3 = new JLabel("3");
-		lbl3.setIcon(new ImageIcon("03.png"));
+		lbl3.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\03.png"));
 		lbl3.setBounds(309, 67, 20, 28);
 		panel_3.add(lbl3);
 		
 		JLabel lbl2 = new JLabel("2");
-		lbl2.setIcon(new ImageIcon("02.png"));
+		lbl2.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\02.png"));
 		lbl2.setBounds(288, 67, 20, 28);
 		panel_3.add(lbl2);
 		
 		JLabel lbl4 = new JLabel("4");
-		lbl4.setIcon(new ImageIcon("04.png"));
+		lbl4.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\04.png"));
 		lbl4.setBounds(333, 67, 20, 28);
 		panel_3.add(lbl4);
 		
 		JLabel lbl5 = new JLabel("5");
-		lbl5.setIcon(new ImageIcon("05.png"));
+		lbl5.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\05.png"));
 		lbl5.setBounds(353, 67, 20, 28);
 		panel_3.add(lbl5);
 		
 		JLabel lbl6 = new JLabel("6");
-		lbl6.setIcon(new ImageIcon("06.png"));
+		lbl6.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\06.png"));
 		lbl6.setBounds(385, 67, 20, 28);
 		panel_3.add(lbl6);
 		
 		JLabel lbl7 = new JLabel("7");
-		lbl7.setIcon(new ImageIcon("07.png"));
+		lbl7.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\07.png"));
 		lbl7.setBounds(404, 67, 20, 28);
 		panel_3.add(lbl7);
 		
 		JLabel paper = new JLabel("New label");
-		paper.setIcon(icon);
+		paper.setIcon(new ImageIcon("C:\\Users\\GGG\\git\\Lotto3\\Team3\\paper.png"));
 		paper.setBounds(0, 0, 1254, 550);
 		panel_3.add(paper);
 		
@@ -97,9 +100,24 @@ public class LottoCMR extends JFrame {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setPreferredSize(new Dimension(100, 50));
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel(" 총 구매금액 0원");
+		lblNewLabel.setBounds(517, 10, 182, 30);
+		panel_1.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("구매");
+		btnNewButton.setBounds(890, 10, 97, 23);
+		panel_1.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new LotteryConfirmation();
+				setVisible(false);
+			}
+		});
 		
 		setVisible(true);
 		
 	}
-	
 }
