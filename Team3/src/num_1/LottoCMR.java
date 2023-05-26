@@ -20,25 +20,7 @@ public class LottoCMR extends JFrame {
 	ImageIcon icon = new ImageIcon("paper.png");
 	private JPanel contentPane;
 	DataBase dataBase;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LottoCMR frame = new LottoCMR();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public LottoCMR(DataBase dataBase) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 700);
@@ -119,7 +101,7 @@ public class LottoCMR extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setPreferredSize(new Dimension(100, 50));
 		
-		
+		setVisible(true);
 		
 	}
 	
