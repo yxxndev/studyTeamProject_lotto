@@ -39,28 +39,46 @@ public class LottoBuyTest extends JFrame {
 			JLabelNumber[i] = new JLabel(String.valueOf(i + 1));
 			pnl.add(JLabelNumber[i]);
 		}
-		
+
 		labelNumberMouseListener(JLabelNumber); // 레이블 마우스액션 (체크)
 		// getPrice(checkBoxes);
 		// addButton(checkBoxes); // 자동/반자동 버튼
 	}
 
-	public void labelNumberMouseListener(JLabel[] JLabelNumber) { // 마우스액션
+	public void labelNumberMouseListener(JLabel[] JLabelNumber) {
+		Set<String> set = new HashSet<>();
 
 		for (JLabel number : JLabelNumber) {
 			number.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					System.out.println(number.getText());
+					String labelText = number.getText();
+					if (set.contains(labelText)) { // 배열에 값이 존재하면
+						set.remove(labelText); // 삭제
+					} else { // 아니라면
+						if (NumberMouseListenerRule(set)) { // 규칙 메서드 true면
+							set.add(labelText); // 추가
+						}
+					}
+					for (String test : set) { // 테스트용
+						System.out.println(test);
+					}
 				}
 			});
 		}
 	}
-	// 숫자를 저장했다가
-	// 다시 같은 숫자를 받으면
-	// 원소가 삭제
+
+	public boolean NumberMouseListenerRule(Set<String> set) {
+		if (set.size() == 6) {
+			return false;
+		}
+		return true;
+	}
 	
-	
+	public void autoNumber() {
+		
+	}
+
 	/*
 	 * ItemListener itemListener = new ItemListener() { int count = 0; // select되면
 	 * 카운트
