@@ -44,6 +44,7 @@ public class LottoCMR extends JFrame {
 		JLabel[] lbls = new JLabel[45];
 		
 		for (int i = 0; i < 45; i++) {
+			int index = i;
 			JLabel numberlbl = new JLabel("");
 			numberlbl.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
 			numberlbl.setBounds(x, y, 20, 28);
@@ -55,6 +56,14 @@ public class LottoCMR extends JFrame {
 			}else x += 23;
 			if ((i + 1) % 7 == 4)
 				x += 1;
+			lbls[i].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					int indexNum = index;
+					System.out.println(indexNum);
+				}
+			});
 		}
 		
 		JLabel lblNewLabel_1 = new JLabel("");
