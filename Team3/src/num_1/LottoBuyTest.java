@@ -2,8 +2,8 @@ package num_1;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -11,15 +11,20 @@ import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class LottoBuyTest extends JFrame {
 	private JPanel pnl;
+	private JLabel lbl;
 
 	public LottoBuyTest() {
 		pnl = new JPanel();
+		lbl = new JLabel("가격: ");
 
-		addCheckBox(); // 체크박스 호출
+		pnl.add(lbl);
+
+		addLabelNumber(); // 체크박스 호출
 
 		add(pnl);
 
@@ -28,40 +33,49 @@ public class LottoBuyTest extends JFrame {
 		setVisible(true);
 	}
 
-	public void addCheckBox() { // 체크박스 추가
-		JCheckBox[] checkBoxes = new JCheckBox[45]; // 첫 번째 체크박스 배열 생성
-		for (int i = 0; i < checkBoxes.length; i++) { // 1 ~ 45 까지의 이름을 가진 체크박스 생성
-			checkBoxes[i] = new JCheckBox(String.valueOf(i + 1));
-			pnl.add(checkBoxes[i]);
+	public void addLabelNumber() { // 레이블 추가
+		JLabel[] JLabelNumber = new JLabel[45]; // 레이블 배열 생성
+		for (int i = 0; i < JLabelNumber.length; i++) { // 1 ~ 45 까지의 이름을 가진 레이블 생성
+			JLabelNumber[i] = new JLabel(String.valueOf(i + 1));
+			pnl.add(JLabelNumber[i]);
 		}
-		checkBoxItemListener(checkBoxes); // 체크박스 규칙 호출 (7개 이상 클릭 x)
-		addButton(checkBoxes); // 자동/반자동 버튼
+		
+		labelNumberMouseListener(JLabelNumber); // 레이블 마우스액션 (체크)
+		// getPrice(checkBoxes);
+		// addButton(checkBoxes); // 자동/반자동 버튼
 	}
 
-	public void checkBoxItemListener(JCheckBox[] checkBoxes) { // 체크박스 규칙 (7개 이상 클릭 x)
-		ItemListener itemListener = new ItemListener() {
-			int count = 0; // select되면 카운트
+	public void labelNumberMouseListener(JLabel[] JLabelNumber) { // 마우스액션
 
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					count++;
-				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
-					count--;
+		for (JLabel number : JLabelNumber) {
+			number.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					System.out.println(number.getText());
 				}
-
-				if (count > 6) {
-					((JCheckBox) e.getItem()).setSelected(false); // 선택 상태 변경 취소
-				}
-			}
-		};
-
-		for (JCheckBox checkBox : checkBoxes) {
-			checkBox.addItemListener(itemListener); // 각 체크박스에 ItemListener 설정
+			});
 		}
 	}
-
+	// 숫자를 저장했다가
+	// 다시 같은 숫자를 받으면
+	// 원소가 삭제
 	
+	
+	/*
+	 * ItemListener itemListener = new ItemListener() { int count = 0; // select되면
+	 * 카운트
+	 * 
+	 * @Override public void itemStateChanged(ItemEvent e) { if (e.getStateChange()
+	 * == ItemEvent.SELECTED) { count++; } else if (e.getStateChange() ==
+	 * ItemEvent.DESELECTED) { count--; }
+	 * 
+	 * if (count > 6) { ((JCheckBox) e.getItem()).setSelected(false); // 선택 상태 변경 취소
+	 * } int price = getPrice(checkBoxes); lbl.setText(("가격: " + price)); } };
+	 * 
+	 * for (JLabel number : JLabelNumber) { number.addItemListener(itemListener); //
+	 * 각 체크박스에 ItemListener 설정 }
+	 */
+
 	// 버튼 비활성화?
 	public void addButton(JCheckBox[] checkBoxes) { // 버튼추가
 		JButton btn1 = new JButton("자동반자동테스트");
@@ -75,8 +89,19 @@ public class LottoBuyTest extends JFrame {
 		});
 	}
 
-	public void getPrice() {
-		// 총 구매 금액 출력
+	public int getPrice(JCheckBox[] checkBoxes) { // 총 구매 금액 출력
+		int count = 0;
+		int price = 0;
+
+		for (JCheckBox checkBox : checkBoxes) {
+			if (checkBox.isSelected()) {
+				count++;
+			}
+		}
+		if (count == 6) {
+			price += 1000;
+		}
+		return price;
 	}
 
 	public void purchaseRules() {
@@ -109,23 +134,32 @@ public class LottoBuyTest extends JFrame {
 			set.add(ran);
 			testSet.add(new UserSelectNum(ran, true));
 
-			for (JCheckBox checkBox : checkBoxes) {	// 자동 번호 체크박스 체크
+			for (JCheckBox checkBox : checkBoxes) { // 자동 번호 체크박스 체크
 				if (Integer.parseInt(checkBox.getText()) == ran) {
 					checkBox.setSelected(true);
 				}
 			}
 		}
 
-		for (UserSelectNum qwe : testSet) {	// 테스트용 출력
+		for (UserSelectNum qwe : testSet) { // 테스트용 출력
 			System.out.println(qwe.getLotteryNum());
 		}
 	}
 
 	public void resetMarking() { // 복권 번호 선택 초기화
+
+		// 체크
+		// 배열
+		// index = select number
+		// mouse acction = 배열 생성 , 수동
+		// 이미지 add
+
+		// 체크해제
+		// 원소 remove
+		// 이미지 remove
 	}
 
 	public static void main(String[] args) {
-		LottoBuyTest test = new LottoBuyTest();
-		test.addCheckBox();
+		new LottoBuyTest();
 	}
 }
