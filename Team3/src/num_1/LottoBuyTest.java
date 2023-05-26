@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class LottoBuyTest extends JFrame {
+	DataBase data;
 	private JPanel pnl;
 	private JLabel lbl;
 
@@ -33,34 +36,82 @@ public class LottoBuyTest extends JFrame {
 		setVisible(true);
 	}
 
+	public void testtt() {
+		data.map.get("A").add(new UserSelectNum(5, true));
+	}
+
+//	5     6
+
 	public void addLabelNumber() { // 레이블 추가
-		JLabel[] JLabelNumber = new JLabel[45]; // 레이블 배열 생성
-		for (int i = 0; i < JLabelNumber.length; i++) { // 1 ~ 45 까지의 이름을 가진 레이블 생성
-			JLabelNumber[i] = new JLabel(String.valueOf(i + 1));
-			pnl.add(JLabelNumber[i]);
+		JLabel[] JLabelNumber1 = new JLabel[45]; // 레이블 배열 생성
+		JLabel[] JLabelNumber2 = new JLabel[45]; // 레이블 배열 생성
+
+		for (int i = 0; i < JLabelNumber1.length; i++) { // 1 ~ 45 까지의 이름을 가진 레이블 생성
+			JLabelNumber1[i] = new JLabel(String.valueOf(i + 1));
+			pnl.add(JLabelNumber1[i]);
 		}
-		
-		labelNumberMouseListener(JLabelNumber); // 레이블 마우스액션 (체크)
+
+		for (int i = 0; i < JLabelNumber2.length; i++) { // 1 ~ 45 까지의 이름을 가진 레이블 생성
+			JLabelNumber2[i] = new JLabel(String.valueOf(i + 1));
+			pnl.add(JLabelNumber2[i]);
+		}
+		String key1 = "A";
+		String key2 = "B";
+		String key3 = "C";
+		String key4 = "D";
+		String key5 = "E";
+
+//		labelNumberMouseListener(JLabelNumber1, key1); // 레이블 마우스액션 (체크)
+//		labelNumberMouseListener(JLabelNumber2, key2); // 레이블 마우스액션 (체크)
 		// getPrice(checkBoxes);
 		// addButton(checkBoxes); // 자동/반자동 버튼
 	}
 
-	public void labelNumberMouseListener(JLabel[] JLabelNumber) { // 마우스액션
-
-		for (JLabel number : JLabelNumber) {
-			number.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					System.out.println(number.getText());
-				}
-			});
-		}
+	public void labeNumberMouseListenr(JLabel lbls) {
+		for (int i = 0; i < 45; i++) {
+			int index = i;
+		lbls[i].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				int indexNum = index + 1;
+				
+				
+				System.out.println(indexNum);
+			}
+		});
 	}
-	// 숫자를 저장했다가
-	// 다시 같은 숫자를 받으면
-	// 원소가 삭제
-	
-	
+
+	// 수동
+//	public void labelNumberMouseListener(JLabel[] JLabelNumber, String key, DataBase database) {
+//		for (JLabel number : JLabelNumber) {
+//			number.addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					JLabel lbl = (JLabel) e;
+//					String labelText = number.getText();
+//					if (database.getMap().get(key).get) { // 배열에 값이 존재하면
+//						set.remove(labelText); // 삭제
+//					} else { // 아니라면
+//						if (NumberMouseListenerRule(set)) { // 규칙 메서드 true면
+//							set.add(labelText); // 추가
+//						}
+//					}
+//					for (String test : set) { // 테스트용
+//						System.out.println(test);
+//					}
+//				}
+//			});
+//		}
+//	}
+
+	public boolean NumberMouseListenerRule(Set<String> set) {
+		if (set.size() == 6) {
+			return false;
+		}
+		return true;
+	}
+
 	/*
 	 * ItemListener itemListener = new ItemListener() { int count = 0; // select되면
 	 * 카운트
