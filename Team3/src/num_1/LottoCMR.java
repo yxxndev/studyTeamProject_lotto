@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Set;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -57,17 +58,16 @@ public class LottoCMR extends JFrame {
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
 					int indexNum = index + 1;
-					
-					
-					if (!dataBase.map.get("A").contains(new UserSelectNum(indexNum, false))) {
-						dataBase.map.get("A").add(new UserSelectNum(indexNum, false));
-					}else {
-						int arrayListIndex = dataBase.map.get("A").indexOf(new UserSelectNum(indexNum, false));
-						dataBase.map.get("A").remove(arrayListIndex);
+					if (dataBase.map.get("A").contains(new UserSelectNum(indexNum, false))) { // 같은게 있다면
+						int arrayListIndex = dataBase.map.get("A").indexOf(new UserSelectNum(indexNum, false)); // index 번호 호출
+						dataBase.map.get("A").remove(arrayListIndex); // 제거
+					} else { // 같은게 없을때
+						if (dataBase.map.get("A").size() < 6) // 크기가 6이하면
+						dataBase.map.get("A").add(new UserSelectNum(indexNum, false)); // 추가
 					}
 				}
 			});
-			
+
 			if ((i + 1) % 7 == 0 && i != 0) {
 				y += 43;
 				x = 4;
@@ -76,7 +76,7 @@ public class LottoCMR extends JFrame {
 			if ((i + 1) % 7 == 4)
 				x += 1;
 		}
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperA.png")));
 		lblNewLabel_1.setBounds(0, 0, 165, 522);
@@ -110,9 +110,16 @@ public class LottoCMR extends JFrame {
 		setVisible(true);
 
 	}
-	
-	public void cancleMarking() {
-		
+
+	public boolean NumberMouseListenerRule(DataBase database) {
+		if (database.getMap().get("A").size() == 6) {
+			return false;
+		}
+		return true;
 	}
-	
+
+	public void cancleMarking() {
+
+	}
+
 }
