@@ -9,12 +9,12 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import javax.swing.JButton;
 
 public class LottoCMR extends JFrame {
 
@@ -45,14 +45,12 @@ public class LottoCMR extends JFrame {
 		int y = 55;
 		lbls = new JLabel[45];
 
-		/*
-		 * 현재 DataBase 클래스에서 테스트를 위해 UserSelectNum에 15를 미리 집어 넣었기 때문에 처음에 아무 숫자를 누르면 15가
-		 * 같이 출력되는게 정상이에요.
-		 */
-
 		for (int i = 0; i < 45; i++) {
 			int index = i;
 			JLabel numberlbl = new JLabel("");
+			
+			// 지금 DataBase에서 테스트를 위해 UserSelectNum에 15가 추가된 상태이니
+			// 여기 테스트하려면 DataBase클래스에서 주석 처리 후 테스트하세요
 
 			numberlbl.setBounds(x, y, 20, 28);
 			panel.add(numberlbl);
@@ -67,7 +65,7 @@ public class LottoCMR extends JFrame {
 																												// 번호 호출
 						dataBase.map.get("A").remove(arrayListIndex); // 제거
 						lbls[index].setIcon(null); // 마킹 제거
-						
+
 					} else { // 같은게 없을때
 						if (dataBase.map.get("A").size() < 6) { // 크기가 6이하면
 							dataBase.map.get("A").add(new UserSelectNum(indexNum, false)); // 추가
@@ -117,10 +115,14 @@ public class LottoCMR extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new LotteryConfirmation(dataBase);
-				setVisible(false);
+				if (purchaseRules(dataBase)) {
+					new LotteryConfirmation(dataBase);
+					setVisible(false);
+				}
 			}
 		});
+
+		// ----------------------------- 테스트용 임시 추가 버튼들
 
 		JButton btn1 = new JButton("초기화테스트");
 		btn1.setBounds(290, 10, 97, 23);
@@ -148,11 +150,11 @@ public class LottoCMR extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dataBase.map.get("A").clear(); // key값 받아서 전체 삭제
-				
+
 				for (JLabel lbl : lbls) {
-	                lbl.setIcon(null); // 아이콘 제거
-	            }
-				
+					lbl.setIcon(null); // 아이콘 제거
+				}
+
 				lblNewLabel.setText(" 총 구매금액 " + getPrice(dataBase) + "원"); // 금액 변경
 			}
 		});
@@ -198,20 +200,28 @@ public class LottoCMR extends JFrame {
 	// 6개가 SELECTED된 게 하나도 없을 때 "최소 1개 이상의 게임이 선택되어야 합니다."
 	// SELECTED가 완료된 복권이 있고, 1 ~ 5 SELECTED 된 복권이 있을 때 "[B] 복권의 번호 입력이 3개 부족합니다."
 	// 테스트를 위해 배열 하나 더 생성 필요
-	public void purchaseRules(DataBase dataBase) {
+	public boolean purchaseRules(DataBase dataBase) {
 		int fullNum = 6;
-		int MarkedNum = dataBase.map.get("A").size();
+		int markedNum = dataBase.map.get("A").size();
 		int finishMarking = 0;
-		if (MarkedNum > 0 && MarkedNum < 6) {
-			System.out.println("[A] 복권의 번호 입력이 " + (fullNum - MarkedNum) + "개 부족합니다.");
-		}
+		String message = "";
 		
-		if (MarkedNum == 6) {
+		if (markedNum == 6) {
 			finishMarking += 1;
 		}
 		
-		if (finishMarking == 0) {
-			System.out.println("최소 한 개 이상의 게임이 선택되어야 합니다.");
+		if (markedNum > 0 && markedNum < 6) {  // 조건 마다 메시지 한 줄 씩 추가
+			message += "[A] 복권의 번호 입력이 " + (fullNum - markedNum) + "개 부족합니다.";
 		}
+
+		if (finishMarking == 0) {
+			message += "최소 한 개 이상의 게임이 선택되어야 합니다.";
+		}
+		if (!message.equals("")) {	// 메시지가 있으면 출력
+			JOptionPane.showMessageDialog(null, message, "테스트용 경고 창", JOptionPane.WARNING_MESSAGE);
+	        return false;
+		}
+		
+		return true;
 	}
 }
