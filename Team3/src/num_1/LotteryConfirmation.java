@@ -13,15 +13,49 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 class LotteryConfirmation extends JFrame {
-	JButton btn1;
-	JButton btn2;
-	ImageIcon img1 = new ImageIcon(LotteryConfirmation.class.getResource("/image/again.png"));
-	ImageIcon img2 = new ImageIcon(LotteryConfirmation.class.getResource("/image/exit.png"));
-	ImageIcon img3 = new ImageIcon(LotteryConfirmation.class.getResource("/image/againClick.png"));
-	ImageIcon img4 = new ImageIcon(LotteryConfirmation.class.getResource("/image/exitClick.png"));
-	DataBase database;
+	static JButton btn1;
+	static JButton btn2;
+	DataBase dataBase;
 	
+	// 버튼1(다시하기) 생성
+	 JButton againBtn() {
+		ImageIcon img1 = new ImageIcon(LotteryConfirmation.class.getResource("/image/again.png"));
+		ImageIcon img3 = new ImageIcon(LotteryConfirmation.class.getResource("/image/againClick.png"));
+		btn1 = new JButton(img1);
+		btn1.setRolloverIcon(img3);
+		btn1.setBorderPainted(false);
+		btn1.setContentAreaFilled(false);
+		btn1.setBounds(120, 130, 150, 70);
+
+		btn1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new LottoCMR(dataBase);
+			}
+		});
+		return btn1;
+	}
 	
+	// 버튼2(종료) 생성
+	 JButton exitBtn() {
+		ImageIcon img2 = new ImageIcon(LotteryConfirmation.class.getResource("/image/exit.png"));
+		ImageIcon img4 = new ImageIcon(LotteryConfirmation.class.getResource("/image/exitClick.png"));
+		btn2 = new JButton(img2);
+		btn2.setRolloverIcon(img4);
+		btn2.setBorderPainted(false);
+		btn2.setContentAreaFilled(false);
+		btn2.setBounds(320, 130, 150, 70);
+
+		btn2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
+		return btn2;
+	}
+	
+	// 배경깔기
 	static JPanel bg = new JPanel() {
 		Image background = new ImageIcon(LotteryConfirmation.class.getResource("/image/background.png")).getImage();
 		
@@ -30,6 +64,7 @@ class LotteryConfirmation extends JFrame {
 		}
 	};
 	
+	// 섹션1 생성 : "추첨 결과" 텍스트
 	static JLabel section1 = new JLabel() {
 		Image section1 = new ImageIcon(LotteryConfirmation.class.getResource("/image/headerTest.png")).getImage();
 		
@@ -38,6 +73,7 @@ class LotteryConfirmation extends JFrame {
 		}
 	};
 	
+	// 섹션2 생성: 당첨번호 출력
 	static JLabel section2 = new JLabel() {
 		Image section2Test = new ImageIcon(LotteryConfirmation.class.getResource("/image/testSection2.png")).getImage();
 //		Image sectionNum1 = new ImageIcon(LotteryConfirmation.class.getResource("../image/1_50px.png")).getImage();
@@ -62,6 +98,7 @@ class LotteryConfirmation extends JFrame {
 		}
 	};
 	
+	// 섹션3 생성: 당첨 최고 등수 + 당첨 총 금액 출력
 	static JLabel section3 = new JLabel() {
 		Image section3 = new ImageIcon(LotteryConfirmation.class.getResource("/image/reword.png")).getImage();
 		
@@ -70,6 +107,7 @@ class LotteryConfirmation extends JFrame {
 		}
 	};
 
+	// 섹션4 생성: 유저 번호 출력 (A~E)
 	static JLabel section4 = new JLabel() {
 		Image section4 = new ImageIcon(LotteryConfirmation.class.getResource("/image/result.png")).getImage();
 		
@@ -78,74 +116,38 @@ class LotteryConfirmation extends JFrame {
 		}
 	};
 	
-
+	
+	// 섹션5 생성:
 	public JLabel section5 = new JLabel() {
-
-
-//		Image sectionBtn1 = new ImageIcon(LotteryConfirmation.class.getResource("../image/again.png")).getImage();
-//		Image sectionBtn2 = new ImageIcon(LotteryConfirmation.class.getResource("../image/exit.png")).getImage();
-//		
-//		
-//		public void paintComponent(Graphics g) {
-//			g.drawImage(sectionBtn1,  120 , 120,  null);
-//			g.drawImage(sectionBtn2,  320 , 120,  null);
-//		}
 	};
 	
 	public LotteryConfirmation(DataBase dataBase) {
 		resultframe(dataBase);
 	}
 
+	
 	public void resultframe(DataBase dataBase) {
-		// 헤더 ("추첨 결과")
+		// 섹션1 추가
 		section1.setLayout(null);
 		section1.setBounds(0, 0, 600, 110);
 		add(section1);
 
-		// 당첨 번호 섹션
+		// 섹션2 추가
 		section2.setLayout(null);
 		section2.setBounds(0, 150, 600, 100);
 		add(section2);
 
-		// 당첨 등수 + 당첨 총 금액 안내 섹션
+		// 섹션3 추가
 		section3.setLayout(null);
 		section3.setBounds(0, 235, 600, 70);
 		add(section3);
 
-		// 내 추첨 번호 결과 표 섹션
+		// 섹션4 추가
 		section4.setLayout(null);
 		section4.setBounds(50, 320, 600, 350);
 		add(section4);
 		
-		// 다시하기 버튼1 + 종료 버튼2 + 툴팁 1개
-		
-		
-		btn1 = new JButton(img1);
-		btn1.setRolloverIcon(img3);
-		btn1.setBorderPainted(false);
-		btn1.setContentAreaFilled(false);
-		btn1.setBounds(120, 130, 150, 70);
-		btn2 = new JButton(img2);
-		btn2.setRolloverIcon(img4);
-		btn2.setBorderPainted(false);
-		btn2.setContentAreaFilled(false);
-		btn2.setBounds(320, 130, 150, 70);
-		
-		btn1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new LottoCMR(dataBase);
-				setVisible(false);
-			}
-		});
-
-		btn2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
-		
+		// 섹션5 추가
 		section5.add(btn1);
 		section5.add(btn2);
 		section5.setLayout(null);
@@ -166,8 +168,4 @@ class LotteryConfirmation extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
-
-//	public static void main(String[] args) {
-//		new LotteryConfirmation();
-//	}
 }
