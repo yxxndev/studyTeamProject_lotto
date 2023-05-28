@@ -14,8 +14,8 @@ import javax.swing.border.EmptyBorder;
 
 public class PrintPanel extends JPanel {
 	private static final long serialVersionUID = 0;
-	private JPanel userNumsArea;
-	private DataBase data = new DataBase();
+	JPanel userNumsArea; // 임시로 LotteryComfirmation에서 쓰려고 default로 변경
+//	private DataBase data = new DataBase(); // CMR에서 받아오려고 주석처리함
 	private List<?> list;
 	int x = 50;
 	int y = 50;
@@ -23,7 +23,7 @@ public class PrintPanel extends JPanel {
 	// 기본 출력 틀 생성
 	public void init(List<Integer> list) {
 //		this.setLayout(null);
-//		this.setSize(370, 100);
+		this.setSize(370, 100); // 확인하려고 해제
 //		this.setLocation(null); // 정중앙 위치에 배치
 		userNumsArea = new JPanel();
 		userNumsArea.setSize(370, 66);
@@ -36,7 +36,8 @@ public class PrintPanel extends JPanel {
 		this.setVisible(true); // setVisible을 이곳에서 실행
 	}
 
-	public PrintPanel(String key) {
+	public PrintPanel(DataBase data) { // CMR에서  data 받아옴
+		String key = "A";
 		List<UserSelectNum> tempArr = new ArrayList<>(data.map.get(key)); // 입력받은 key값에 대한 value를 새로운 리스트로 저장
 		List<Integer> numsList = tempArr.stream().map(UserSelectNum::getLotteryNum).collect(Collectors.toList()); // 새로운
 		init(numsList); // 최종적으로 출력할 리스트 전달
