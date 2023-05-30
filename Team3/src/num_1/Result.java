@@ -1,16 +1,22 @@
 package num_1;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.OverlayLayout;
 
 // 당첨결과 관련 로직 
 // 여기 로직이 잘 이동되어 작동되는지 테스트하기 위해 여기서 패널 붙이는 문구를 주석처리함.
@@ -26,12 +32,16 @@ class Result extends JFrame {
 	ArrayList<UserSelectNum> eList;
 	JPanel pnl1;
 
+	// ------------------------------------------------------
+
 	public Result(DataBase data) {
 		aList = data.map.get("A");
 		bList = data.map.get("B");
 		cList = data.map.get("C");
 		dList = data.map.get("D");
 		eList = data.map.get("E");
+
+		// ---------------------------------------------------
 
 		// 당첨번호 숫자조정용
 		lotteryNumRan();
@@ -43,60 +53,105 @@ class Result extends JFrame {
 //		lotteryNums.add(7);
 //		bonusNum = 6;
 
-//		JPanel pnl = new JPanel(new FlowLayout());
+//		JPanel pnl = new JPanel();
 //
 		// 당첨번호 패널
 		pnl1 = lotteryNums();
-//		pnl.add(pnl1);
+		add(pnl1);
 
+		JButton btnExit = exitBtn();
+		add(btnExit);
+		
+		JButton btnAgain = againBtn();
+		add(btnAgain);
+		
 		// A 항목 정보
 		if (aList.size() == 6) {
-//			int correctCount = compareNum("A", aList);
-//			JPanel pnl2 = printUserNumResult("A", aList);
-//			String score = whatScore(correctCount, "A", aList);
-//			JLabel lbl3 = printScoreLabel(score);
-//			moneyPlus(score);
-//			
-//			pnl.add(pnl2);
-//			pnl.add(lbl3);
-//		}
+			int correctCount = compareNum("A", aList);
+			JPanel pnl2 = printUserNumResult("A", aList);
+			String score = whatScore(correctCount, "A", aList);
+			JLabel lbl3 = printScoreLabel(score);
+			moneyPlus(score);
 
-			// B 항목 정보
-//		if (bList.size() == 6) {
+			pnl1.setBackground(Color.WHITE);
+			pnl1.setBounds(20, 120, 550, 80);
+
+			pnl2.setBackground(new Color(255, 0, 0, 0));
+			pnl2.setBounds(60, 335, 600, 110);
+			add(pnl2);
+			lbl3.setBounds(120, 335, 100, 50);
+			lbl3.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
+			add(lbl3);
+		}
+
+		// B 항목 정보
+		if (bList.size() == 6) {
 
 		}
 
-//		if (cList.size() == 6) {
-//
-//		}
-//
-//		if (dList.size() == 6) {
-//
-//		}
-//
-//		if (eList.size() == 6) {
-//
-//		}
-//
+		if (cList.size() == 6) {
+
+		}
+
+		if (dList.size() == 6) {
+
+		}
+
+		if (eList.size() == 6) {
+
+		}
+
 		// 총 당첨금액 라벨
 		JLabel lblMoney = totalMoneyLabel();
-//		pnl.add(lblMoney);
-//
+		add(lblMoney);
+
 		// 등수 안내 라벨
 		JLabel lblInfo = new JLabel("?");
 		lblInfo.setToolTipText("1등: 128,000,000원 \n 2등: 50,000,000원 \n 3등: 1,500,000원 \n 4등: 50,000원 \n 5등: 5,000원");
-//		pnl.add(lblInfo);
-//
+		add(lblInfo);
+
 		// 다시하기 버튼
-		JButton btnRe = reStartButton();
-//		pnl.add(btnRe);
-//
-//		add(pnl);
-//
-//		setSize(500, 500);
-//		setDefaultCloseOperation(EXIT_ON_CLOSE);
-//		setLocationRelativeTo(null); // 창을 중앙에 고정
-//		setVisible(true);
+
+//		JPanel pnl = new JPanel();
+//		pnl.setBounds(0, 0, 600, 800);
+//		setBackground(Color.WHITE);
+
+		// 섹션1 생성 : "추첨 결과" 텍스트
+		JLabel section1 = new JLabel(new ImageIcon(Result.class.getResource("/image/headerTest.png")));
+		section1.setBounds(0, 0, 600, 110);
+		add(section1);
+
+//		// 섹션2 생성: 당첨번호 출력
+//		JLabel section2 = new JLabel(new ImageIcon(Result.class.getResource("/image/testSection2.png")));
+//		section2.setBounds(0, 150, 600, 100);
+//		add(section2);
+
+		// 섹션3 생성: 당첨 최고 등수 + 당첨 총 금액 출력
+		JLabel section3 = new JLabel(new ImageIcon(Result.class.getResource("/image/reword.png")));
+		section3.setBounds(0, 235, 600, 70);
+		add(section3);
+
+		// 섹션4 생성: 유저 번호 출력 (A~E)
+		JLabel section4 = new JLabel(new ImageIcon(Result.class.getResource("/image/result.png")));
+		section4.setBounds(0, 320, 600, 350);
+		add(section4);
+
+		// 배경깔기
+		JPanel bgPnl = new JPanel();
+		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
+		bgPnl.add(bgLbl);
+		bgPnl.setBounds(0, 0, 600, 800);
+		add(bgPnl);
+
+		setBackground(Color.WHITE);
+		setTitle("추첨 결과");
+		setSize(600, 800);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setLayout(null);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 	}
 
 	/**
@@ -124,7 +179,8 @@ class Result extends JFrame {
 			// num = index+1
 
 			String str = String.valueOf(num);
-			lbls[i] = new JLabel(str);
+			lbls[i] = new JLabel(str + " ");
+			lbls[i].setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 
 //			int index = num - 1;
 //			lbls[i].setIcon(a.iconArr.get(index)); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
@@ -166,7 +222,7 @@ class Result extends JFrame {
 		JLabel lblLotteryNum4 = new JLabel("");
 		JLabel lblLotteryNum5 = new JLabel("");
 		JLabel lblLotteryNum6 = new JLabel("");
-		JLabel lblPlusSymbol = new JLabel("+");
+		JLabel lblPlusSymbol = new JLabel("+  ");
 		JLabel lblLotteryNum7 = new JLabel("");
 		JLabel[] lbls = { lblLotteryNum1, lblLotteryNum2, lblLotteryNum3, lblLotteryNum4, lblLotteryNum5,
 				lblLotteryNum6 };
@@ -174,36 +230,65 @@ class Result extends JFrame {
 		int i = 0;
 		for (Integer elem : lotteryNums) {
 			String strPlus = String.valueOf(elem);
-			lbls[i].setText(strPlus);
+			lbls[i].setText(strPlus + "  ");
+			lbls[i].setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 			pnl1.add(lbls[i]);
 			i++;
 		}
+		lblPlusSymbol.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 		lblLotteryNum7.setText(String.valueOf(bonusNum));
+		lblLotteryNum7.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 
 		pnl1.add(lblPlusSymbol);
 		pnl1.add(lblLotteryNum7);
+		pnl1.setBackground(new Color(255, 0, 0, 0));
+		pnl1.setBounds(20, 120, 550, 100);
+		pnl1.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 0), 3));
 		return pnl1;
 	}
 
 	// ---------------------------------------------------------------------------------
 	// 이 아래는 GUI 배치 관련이 아니라 굳이 안 건드려도 될 듯 합니다
 
-	/**
-	 * 다시하기 버튼 반환
-	 * 
-	 * @return JButton
-	 */
-	JButton reStartButton() {
-		JButton btn = new JButton("다시하기");
-		btn.addActionListener(new ActionListener() {
+	// 버튼2(종료) 생성
+	JButton exitBtn() {
+		ImageIcon img2 = new ImageIcon(Result.class.getResource("/image/exit.png"));
+		ImageIcon img4 = new ImageIcon(Result.class.getResource("/image/exitClick.png"));
+		JButton btn2 = new JButton(img2);
+		btn2.setRolloverIcon(img4);
+		btn2.setBorderPainted(false);
+		btn2.setContentAreaFilled(false);
+		btn2.setBounds(320, 680, 150, 70);
+
+		btn2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DataBase data = new DataBase();
-				new LottoCMR(data);
+				setVisible(false);
+				System.exit(0); // 완전히 종료
+			}
+		});
+		return btn2;
+	}
+
+	// 버튼1(다시하기) 생성
+	JButton againBtn() {
+		ImageIcon img1 = new ImageIcon(Result.class.getResource("/image/again.png"));
+		ImageIcon img3 = new ImageIcon(Result.class.getResource("/image/againClick.png"));
+		JButton btn1 = new JButton(img1);
+		btn1.setRolloverIcon(img3);
+		btn1.setBorderPainted(false);
+		btn1.setContentAreaFilled(false);
+		btn1.setBounds(120, 680, 150, 70);
+
+		btn1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DataBase dataBase = new DataBase();
+				new LottoCMR(dataBase);
 				setVisible(false);
 			}
 		});
-		return btn;
+		return btn1;
 	}
 
 	/**
