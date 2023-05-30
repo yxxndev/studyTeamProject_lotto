@@ -4,6 +4,8 @@ package num_1;
 
 
 
+
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -123,7 +125,7 @@ public class LottoCMR extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (purchaseRules(dataBase)) {
-					new LotteryConfirmation(dataBase);
+					new TestLottery(dataBase);
 					setVisible(false);
 				}
 			}
