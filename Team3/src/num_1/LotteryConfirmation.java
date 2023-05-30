@@ -132,7 +132,12 @@ class LotteryConfirmation extends JFrame {
 		PrintPanel p = new PrintPanel(dataBase); // PrintPanel 참조하려고 객체생성
 		pnlUserNum = p.userNumsArea;
 		add(pnlUserNum);
-
+		Result result = new Result(dataBase);
+		JPanel resultPnl = result.lotteryNums();
+		
+		add(resultPnl);
+		
+		
 		JButton btn1 = againBtn();
 		JButton btn2 = exitBtn();
 

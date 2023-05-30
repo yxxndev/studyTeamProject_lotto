@@ -34,6 +34,7 @@ public class PrintPanel extends JPanel {
 		this.list = list;
 		this.initComp();
 		this.setVisible(true); // setVisible을 이곳에서 실행
+		
 	}
 
 	public PrintPanel(DataBase data) { // CMR에서  data 받아옴
