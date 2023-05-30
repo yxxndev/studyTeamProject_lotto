@@ -28,7 +28,10 @@ public class TestLottery extends JFrame{
 		getContentPane().add(pnl);
 		pnl.setLayout(null);
 		
+		PrintPanel panel = new PrintPanel(dataBase);
+		
 		JPanel winNum = new JPanel();
+		winNum.add(panel);
 		winNum.add(result.lotteryNums());
 		winNum.setBounds(34, 32, 318, 30);
 		pnl.add(winNum);

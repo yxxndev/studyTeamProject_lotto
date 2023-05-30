@@ -84,25 +84,25 @@ public class LottoCMR extends JFrame {
 		lblNewLabel_1.setBounds(0, 0, 165, 522);
 		panelA.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperB.png")));
-		lblNewLabel_2.setBounds(0, 0, 165, 522);
-		panelB.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperC.png")));
-		lblNewLabel_3.setBounds(0, 0, 165, 522);
-		panelC.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperD.png")));
-		lblNewLabel_4.setBounds(0, 0, 165, 522);
-		panelD.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("");
-		lblNewLabel_5.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperE.png")));
-		lblNewLabel_5.setBounds(0, 0, 165, 522);
-		panelE.add(lblNewLabel_5);
+//		JLabel lblNewLabel_2 = new JLabel("");
+//		lblNewLabel_2.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperB.png")));
+//		lblNewLabel_2.setBounds(0, 0, 165, 522);
+//		panelB.add(lblNewLabel_2);
+//		
+//		JLabel lblNewLabel_3 = new JLabel("");
+//		lblNewLabel_3.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperC.png")));
+//		lblNewLabel_3.setBounds(0, 0, 165, 522);
+//		panelC.add(lblNewLabel_3);
+//		
+//		JLabel lblNewLabel_4 = new JLabel("");
+//		lblNewLabel_4.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperD.png")));
+//		lblNewLabel_4.setBounds(0, 0, 165, 522);
+//		panelD.add(lblNewLabel_4);
+//		
+//		JLabel lblNewLabel_5 = new JLabel("");
+//		lblNewLabel_5.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperE.png")));
+//		lblNewLabel_5.setBounds(0, 0, 165, 522);
+//		panelE.add(lblNewLabel_5);
 
 		JLabel paper = new JLabel("New label");
 		paper.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paper.png")));
