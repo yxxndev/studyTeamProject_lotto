@@ -43,8 +43,8 @@ public class Start extends JFrame {
 			}
 		});
 		
-		ImageIcon img2 = new ImageIcon(LotteryConfirmation.class.getResource("/image/exit.png"));
-		ImageIcon img4 = new ImageIcon(LotteryConfirmation.class.getResource("/image/exitClick.png"));
+		ImageIcon img2 = new ImageIcon(Start.class.getResource("/image/exit.png"));
+		ImageIcon img4 = new ImageIcon(Start.class.getResource("/image/exitClick.png"));
 		JButton btnNewButton_1 = new JButton(img2);
 		btnNewButton_1.setRolloverIcon(img4);
 		btnNewButton_1.setBorderPainted(false);
