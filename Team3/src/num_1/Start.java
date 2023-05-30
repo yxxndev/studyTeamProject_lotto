@@ -30,8 +30,8 @@ public class Start extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
 				new LottoCMR(dataBase);
+				setVisible(false);
 			}
 		});
 		
