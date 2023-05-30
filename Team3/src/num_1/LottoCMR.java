@@ -86,16 +86,6 @@ public class LottoCMR extends JFrame {
 		addLabel(panelD, keyD, dataBase);
 		addLabel(panelE, keyE, dataBase);
 
-//		JButton btnNewButton_1 = new JButton("");
-//		btnNewButton_1.setBounds(140, 485, 20, 28);
-//		panelA.add(btnNewButton_1);
-
-		// autoMarking(lbls, dataBase, key, autoBtnA);
-		// autoMarking(lbls, dataBase, key, autoBtnB);
-		// autoMarking(lbls, dataBase, key, autoBtnC);
-		// autoMarking(lbls, dataBase, key, autoBtnD);
-		// autoMarking(lbls, dataBase, key, autoBtnE);
-
 		lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperA.png")));
 		lblNewLabel_1.setBounds(0, 0, 165, 522);
@@ -143,14 +133,11 @@ public class LottoCMR extends JFrame {
 			}
 		});
 
-		// ----------------------------- 테스트용 임시 추가 버튼들
-
 		setVisible(true);
 	}
 
 	public void addLabel(JPanel panel, String key, DataBase dataBase) {
 		createLabels(panel, key, dataBase);
-
 	}
 
 	private void createLabels(JPanel panel, String key, DataBase dataBase) { // panel, key
@@ -222,11 +209,6 @@ public class LottoCMR extends JFrame {
 		}
 		lblNewLabel.setText(" 총 구매금액 " + getPrice(dataBase) + "원");
 
-		for (int i = 0; i < dataBase.map.get(key).size(); i++) { // 테스트용 UserSelectNum 객체 출력
-			System.out.println(key + ": " + dataBase.map.get(key).get(i).getLotteryNum());
-		}
-		System.out.println("-------------");
-		
 		if (!autoChecking(dataBase, key)) {
 			btn.setIcon(null);
 		}
@@ -279,10 +261,6 @@ public class LottoCMR extends JFrame {
 				}
 				lblNewLabel.setText(" 총 구매금액 " + getPrice(dataBase) + "원"); // 금액 변경
 
-				for (int i = 0; i < dataBase.map.get(key).size(); i++) { // 테스트용 UserSelectNum 객체 출력
-					System.out.println(key + ": " + dataBase.map.get(key).get(i).getLotteryNum());
-				}
-				System.out.println("-------------");
 				btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
 				
 			}
