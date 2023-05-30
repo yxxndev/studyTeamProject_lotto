@@ -127,7 +127,7 @@ public class LottoCMR extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (purchaseRules(dataBase)) {
-					new TestLottery(dataBase);
+					new Result(dataBase);
 					setVisible(false);
 				}
 			}
