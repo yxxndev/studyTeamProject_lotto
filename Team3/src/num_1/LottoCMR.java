@@ -1,6 +1,5 @@
 package num_1;
 
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -87,9 +86,9 @@ public class LottoCMR extends JFrame {
 		addLabel(panelD, keyD, dataBase);
 		addLabel(panelE, keyE, dataBase);
 
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setBounds(140, 485, 20, 28);
-		panelA.add(btnNewButton_1);
+//		JButton btnNewButton_1 = new JButton("");
+//		btnNewButton_1.setBounds(140, 485, 20, 28);
+//		panelA.add(btnNewButton_1);
 
 		// autoMarking(lbls, dataBase, key, autoBtnA);
 		// autoMarking(lbls, dataBase, key, autoBtnB);
@@ -182,25 +181,32 @@ public class LottoCMR extends JFrame {
 		cancelButton.setBounds(140, 485, 20, 28);
 		panel.add(cancelButton);
 
-		addMouseListener(lbls, key, dataBase);
-		cancleMarking(key, lbls, cancelButton, dataBase);
+		autoBtn.setBorderPainted(false);
+		autoBtn.setContentAreaFilled(false);
+
+		cancelButton.setBorderPainted(false);
+		cancelButton.setContentAreaFilled(false);
+
+		addMouseListener(lbls, key, dataBase, autoBtn);
+		cancleMarking(key, lbls, cancelButton, dataBase, autoBtn);
 		autoMarking(lbls, dataBase, key, autoBtn);
+
 	}
 
-	private void addMouseListener(JLabel[] lbls, String key, DataBase dataBase) {
+	private void addMouseListener(JLabel[] lbls, String key, DataBase dataBase, JButton btn) {
 		for (int i = 0; i < lbls.length; i++) {
 			int index = i;
 			lbls[i].addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
-					markingLabelClieked(lbls, index, key, dataBase);
+					markingLabelClieked(lbls, index, key, dataBase, btn);
 				}
 			});
 		}
 	}
 
-	public void markingLabelClieked(JLabel[] lbls, int index, String key, DataBase dataBase) {
+	public void markingLabelClieked(JLabel[] lbls, int index, String key, DataBase dataBase, JButton btn) {
 		int indexNum = index + 1;
 		if (dataBase.map.get(key).contains(new UserSelectNum(indexNum, false))) { // 같은게 있다면
 			int arrayListIndex = dataBase.map.get(key).indexOf(new UserSelectNum(indexNum, false)); // index
@@ -220,11 +226,14 @@ public class LottoCMR extends JFrame {
 			System.out.println(key + ": " + dataBase.map.get(key).get(i).getLotteryNum());
 		}
 		System.out.println("-------------");
-
+		
+		if (!autoChecking(dataBase, key)) {
+			btn.setIcon(null);
+		}
 	}
 
-	public void cancleMarking(String key, JLabel[] lbls, JButton btn, DataBase dataBase) {
-		btn.addActionListener(new ActionListener() {
+	public void cancleMarking(String key, JLabel[] lbls, JButton cancelBtn, DataBase dataBase, JButton autoBtn) {
+		cancelBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dataBase.map.get(key).clear(); // key값 받아서 전체 삭제
@@ -234,6 +243,9 @@ public class LottoCMR extends JFrame {
 				}
 
 				lblNewLabel.setText(" 총 구매금액 " + getPrice(dataBase) + "원"); // 금액 변경
+				if (!autoChecking(dataBase, key)) {
+					autoBtn.setIcon(null);
+				}
 			}
 		});
 	}
@@ -271,8 +283,19 @@ public class LottoCMR extends JFrame {
 					System.out.println(key + ": " + dataBase.map.get(key).get(i).getLotteryNum());
 				}
 				System.out.println("-------------");
+				btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
+				
 			}
 		});
+	}
+
+	public boolean autoChecking(DataBase dataBase, String key) {
+		for (int i = 0; i < dataBase.map.get(key).size(); i++) {
+			if (dataBase.map.get(key).get(i).isAuto()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// 구매 규칙(안내메시지)

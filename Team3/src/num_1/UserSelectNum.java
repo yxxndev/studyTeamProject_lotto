@@ -71,5 +71,7 @@ public class UserSelectNum {
 	public void setWin(boolean win) {
 		this.win = win;
 	}
+	
+	
 
 }
