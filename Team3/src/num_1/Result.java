@@ -74,12 +74,13 @@ class Result extends JFrame {
 			moneyPlus(score);
 
 			pnl1.setBackground(Color.WHITE);
-			pnl1.setBounds(20, 120, 550, 100);
+			pnl1.setBounds(20, 120, 550, 80);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(50, 320, 600, 110);
+			pnl2.setBounds(60, 335, 600, 110);
 			add(pnl2);
-			lbl3.setBounds(400, 500, 100, 50);
+			lbl3.setBounds(120, 335, 100, 50);
+			lbl3.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 			add(lbl3);
 		}
 
@@ -179,7 +180,7 @@ class Result extends JFrame {
 
 			String str = String.valueOf(num);
 			lbls[i] = new JLabel(str + " ");
-			lbls[i].setFont(new Font("Impact", Font.PLAIN, 40)); // 추가
+			lbls[i].setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 
 //			int index = num - 1;
 //			lbls[i].setIcon(a.iconArr.get(index)); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
@@ -230,13 +231,13 @@ class Result extends JFrame {
 		for (Integer elem : lotteryNums) {
 			String strPlus = String.valueOf(elem);
 			lbls[i].setText(strPlus + "  ");
-			lbls[i].setFont(new Font("Impact", Font.PLAIN, 40)); // 추가
+			lbls[i].setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 			pnl1.add(lbls[i]);
 			i++;
 		}
-		lblPlusSymbol.setFont(new Font("Impact", Font.PLAIN, 40)); // 추가
+		lblPlusSymbol.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 		lblLotteryNum7.setText(String.valueOf(bonusNum));
-		lblLotteryNum7.setFont(new Font("Impact", Font.PLAIN, 40)); // 추가
+		lblLotteryNum7.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 
 		pnl1.add(lblPlusSymbol);
 		pnl1.add(lblLotteryNum7);
