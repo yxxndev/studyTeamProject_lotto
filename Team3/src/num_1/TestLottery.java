@@ -1,3 +1,5 @@
+package num_1;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
