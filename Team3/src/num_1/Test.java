@@ -51,9 +51,10 @@ public class Test extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		x = 330;
+		
+		x = 0;
 		lbl = new JLabel();
-		lbl.setBounds(330, 143, 50, 50);
+		lbl.setBounds(0, 100, 50, 50);
 		RotateImage rotateImage = new RotateImage();
 		
 		Timer timer = new Timer(10, new ActionListener() {
@@ -61,7 +62,7 @@ public class Test extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				rotateImage.moveAngle();
-				Image i = Toolkit.getDefaultToolkit().createImage("tooltip2.png");
+				Image i = Toolkit.getDefaultToolkit().createImage("src/image/tooltip2.png");
 				ImageIcon icon = new ImageIcon(i);
 				System.out.println(icon.getImage().hashCode());
 				lbl.setIcon(icon);
@@ -69,17 +70,10 @@ public class Test extends JFrame {
 				
 				contentPane.add(lbl);
 				x += 1;
+				System.out.println(x);
 			}
 		});
 		timer.start();
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 }
 
@@ -99,21 +93,19 @@ class RotateImage {
         graphics2D.drawImage(imageToRotate, null, 0, 0);
         
         i += 5;
-        if (i == 375)
+        if (i == 365)
         	i = 0;
         
         return newImageFromBuffer;
     }
 
     public void moveAngle() {
-
         try {
-
-            BufferedImage originalImage = ImageIO.read(new File("tooltip.png"));
+        	BufferedImage originalImage = ImageIO.read(getClass().getResource("/image/tooltip.png"));
 
             BufferedImage subImage = rotateImage(originalImage);
 
-            File rotatedImageFile = new File("tooltip2.png");
+            File rotatedImageFile = new File("src/image/tooltip2.png");
 
             ImageIO.write(subImage, "png", rotatedImageFile);
 
