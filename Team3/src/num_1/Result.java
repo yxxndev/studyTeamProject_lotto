@@ -32,11 +32,6 @@ class Result extends JFrame {
 	ArrayList<UserSelectNum> bList;
 	ArrayList<UserSelectNum> cList;
 	ArrayList<UserSelectNum> dList;
-	
-	public ArrayList<Integer> getLotteryNums() {
-		return lotteryNums;
-	}
-
 	ArrayList<UserSelectNum> eList;
 	ArrayList<String> scores = new ArrayList<>();
 
@@ -82,17 +77,18 @@ class Result extends JFrame {
 		drawPnl.setBackground(new Color(255, 0, 0, 0));
 		drawPnl.setBounds(20, 120, 550, 80);
 		add(drawPnl);
-
+		
+		
+		// 추첨 버튼
 		JButton btnTest = new JButton("테스트용 버튼");
-
 		btnTest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (count < 7) {
-					test3();
+					printDrawNumber();
 					count++;
 				} else if (count == 7) {
-					test1();
+					drawBounsNumber();
 					count++;
 				}
 			}
@@ -276,19 +272,6 @@ class Result extends JFrame {
 		bgPnl2.setBounds(600, 0, 600, 800);
 		bgPnl2.add(bgLbl2);
 
-//		Test frame = new Test();
-//		bgPnl2.add(frame);
-
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-
 		add(bgPnl);
 		add(bgPnl2);
 
@@ -399,57 +382,53 @@ class Result extends JFrame {
 	 * 
 	 * 
 	 */
-
-	void addPanel() {
-
-	}
-
-	void test3() {
+	void printDrawNumber() {
 		switch (count) {
 		case 1:
 			JPanel pnl1 = new JPanel();
 			pnl1.setLayout(new OverlayLayout(pnl1)); // 각 숫자 Panel
-			test2(pnl1, lotteryNums.get(0));
+			addDrawNumber(pnl1, lotteryNums.get(0));
 			break;
 		case 2:
 			JPanel pnl2 = new JPanel();
 			pnl2.setLayout(new OverlayLayout(pnl2));
-			test2(pnl2, lotteryNums.get(1));
+			addDrawNumber(pnl2, lotteryNums.get(1));
 			break;
 		case 3:
 			JPanel pnl3 = new JPanel();
 			pnl3.setLayout(new OverlayLayout(pnl3));
-			test2(pnl3, lotteryNums.get(2));
+			addDrawNumber(pnl3, lotteryNums.get(2));
 			break;
 		case 4:
 			JPanel pnl4 = new JPanel();
 			pnl4.setLayout(new OverlayLayout(pnl4));
-			test2(pnl4, lotteryNums.get(3));
+			addDrawNumber(pnl4, lotteryNums.get(3));
 			break;
 		case 5:
 			JPanel pnl5 = new JPanel();
 			pnl5.setLayout(new OverlayLayout(pnl5));
-			test2(pnl5, lotteryNums.get(4));
+			addDrawNumber(pnl5, lotteryNums.get(4));
 			break;
 		case 6:
 			JPanel pnl6 = new JPanel();
 			pnl6.setLayout(new OverlayLayout(pnl6));
-			test2(pnl6, lotteryNums.get(5));
+			addDrawNumber(pnl6, lotteryNums.get(5));
 			break;
 		}
 
 		try {
-			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
+			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
+		// revalidate: repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 메서드.
 		drawPnl.revalidate();
-		// repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 키워드.
+		// repaint: drawPnl을 다시 그리도록 요청하는 메서드
 		drawPnl.repaint();
 	}
 
-	void test2(JPanel addPnl, int index) {
+	void addDrawNumber(JPanel addPnl, int index) {
 		// 숫자아이콘 라벨
 		JLabel lblNum = new JLabel(); // Label에 숫자 아이콘 입력
 		int elem = index + 1;
@@ -479,7 +458,7 @@ class Result extends JFrame {
 		drawPnl.add(addPnl);
 	}
 
-	void test1() {
+	void drawBounsNumber() {
 		JPanel pnlPlusNum = new JPanel(); // 보너스 숫자 Panel
 		pnlPlusNum.setLayout(new OverlayLayout(pnlPlusNum));
 		pnlPlusNum.setBackground(new Color(255, 0, 0, 0));
