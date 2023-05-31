@@ -27,53 +27,31 @@ public class Test extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Test frame = new Test();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public Test() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 617, 504);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		
+	public JLabel Test() {
 		x = 0;
 		lbl = new JLabel();
 		lbl.setBounds(0, 100, 50, 50);
 		RotateImage rotateImage = new RotateImage();
 		
 		Timer timer = new Timer(10, new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				rotateImage.moveAngle();
 				Image i = Toolkit.getDefaultToolkit().createImage("src/image/tooltip2.png");
 				ImageIcon icon = new ImageIcon(i);
-				System.out.println(icon.getImage().hashCode());
 				lbl.setIcon(icon);
 				lbl.setLocation(x, 143);
 				
 				contentPane.add(lbl);
 				x += 1;
-				System.out.println(x);
 			}
 		});
 		timer.start();
+		return lbl;
 	}
 }
 
@@ -108,8 +86,6 @@ class RotateImage {
             File rotatedImageFile = new File("src/image/tooltip2.png");
 
             ImageIO.write(subImage, "png", rotatedImageFile);
-
-            System.out.println("New Rotated Image File Path: "+rotatedImageFile.getPath());
 
         } catch (IOException e) {
             e.printStackTrace();

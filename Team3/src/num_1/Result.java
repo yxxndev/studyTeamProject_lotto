@@ -2,6 +2,7 @@ package num_1;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -241,12 +242,26 @@ class Result extends JFrame {
 		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
 		bgPnl.setBounds(0, 0, 600, 800);
 		bgPnl.add(bgLbl);
-		add(bgPnl);
 		
 		JPanel bgPnl2 = new JPanel();
 		JLabel bgLbl2 = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
 		bgPnl2.setBounds(600, 0, 600, 800);
 		bgPnl2.add(bgLbl2);
+		
+		Test frame = new Test();
+		bgPnl2.add(frame);
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		add(bgPnl);
 		add(bgPnl2);
 
 		setBackground(Color.WHITE);
@@ -257,7 +272,6 @@ class Result extends JFrame {
 		setLayout(null);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 	}
 
 	// ---------------------------------------------------------------------
@@ -673,7 +687,7 @@ class Result extends JFrame {
 			public void run() {
 				repaint();
 			}
-		}, 0, 100);
+		}, 0, 40);
 
 		JPanel panel = new JPanel() {
 			@Override
