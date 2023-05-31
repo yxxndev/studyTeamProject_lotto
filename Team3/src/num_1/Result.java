@@ -250,18 +250,18 @@ class Result extends JFrame {
 		bgPnl2.setBounds(600, 0, 600, 800);
 		bgPnl2.add(bgLbl2);
 		
-		Test frame = new Test();
-		bgPnl2.add(frame);
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+//		Test frame = new Test();
+//		bgPnl2.add(frame);
+//		
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
 		
 		add(bgPnl);
 		add(bgPnl2);
