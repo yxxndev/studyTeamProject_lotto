@@ -177,6 +177,7 @@ class Result extends JFrame {
 		lblInfo.setToolTipText("1등: 128,000,000원 \n 2등: 50,000,000원 \n 3등: 1,500,000원 \n 4등: 50,000원 \n 5등: 5,000원");
 		lblInfo.setBackground(new Color(255, 0, 0, 0));
 		lblInfo.setBounds(440, 210, 80, 80);
+		add(lblInfo);
 
 		// 총 등수 라벨
 		JLabel totalScore = new JLabel();
