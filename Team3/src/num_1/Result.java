@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 
+import num_1.AddSpinLottoBall.DrawPanel;
+
 // 당첨결과 관련 로직 
 
 class Result extends JFrame {
@@ -29,6 +31,8 @@ class Result extends JFrame {
 	ArrayList<UserSelectNum> dList;
 	ArrayList<UserSelectNum> eList;
 	ArrayList<String> scores = new ArrayList<>();
+	AddSpinLottoBall spinLottoBall = new AddSpinLottoBall();
+	DrawPanel drawPanel = spinLottoBall.new DrawPanel();
 
 	public Result(DataBase data) {
 		aList = data.map.get("A");
@@ -213,7 +217,18 @@ class Result extends JFrame {
 		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
 		bgPnl.add(bgLbl);
 		bgPnl.setBounds(0, 0, 600, 800);
-		add(bgPnl);
+		
+		// 추첨 이미지
+		JPanel imagePanel = new JPanel();
+		JLabel imageLbl = new JLabel();
+		imagePanel.add(imageLbl);
+		imagePanel.setBounds(0, 0, 0, 800);
+		imageLbl.add(drawPanel);
+		add(imageLbl);
+		add(imagePanel);
+
+
+		bgPnl.add(drawPanel);
 
 		setBackground(Color.WHITE);
 		setTitle("추첨 결과");
@@ -457,7 +472,7 @@ class Result extends JFrame {
 
 	// ----------------------------------------------------------------------
 	// 아래는 번호 판별, 등수, 금액 관련 메소드
-	
+
 	/**
 	 * 총 당첨금액 라벨 반환
 	 * 
