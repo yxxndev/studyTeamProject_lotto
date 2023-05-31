@@ -9,17 +9,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.OverlayLayout;
 
 // 당첨결과 관련 로직 
-// 여기 로직이 잘 이동되어 작동되는지 테스트하기 위해 여기서 패널 붙이는 문구를 주석처리함.
 
 class Result extends JFrame {
+	PrintBallNumber pBN = new PrintBallNumber();
 	ArrayList<Integer> lotteryNums = new ArrayList<Integer>();
 	int bonusNum;
 	int totalMoney;
@@ -30,16 +30,12 @@ class Result extends JFrame {
 	ArrayList<UserSelectNum> eList;
 	ArrayList<String> scores = new ArrayList<>();
 
-	// ------------------------------------------------------
-
 	public Result(DataBase data) {
 		aList = data.map.get("A");
 		bList = data.map.get("B");
 		cList = data.map.get("C");
 		dList = data.map.get("D");
 		eList = data.map.get("E");
-
-		// ---------------------------------------------------
 
 		// 당첨번호 숫자조정용
 		lotteryNumRan();
@@ -51,8 +47,6 @@ class Result extends JFrame {
 //		lotteryNums.add(7);
 //		bonusNum = 6;
 
-//		JPanel pnl = new JPanel();
-//
 		// 당첨번호 패널
 		JPanel pnl1 = lotteryNums();
 		pnl1.setBackground(new Color(255, 0, 0, 0));
@@ -65,11 +59,13 @@ class Result extends JFrame {
 		JButton btnAgain = againBtn();
 		add(btnAgain);
 
+		// pnl2 : 유저 선택 숫자 패널
+		// lbl3 : 각 등수 라벨
 		// A 항목 정보
 		if (aList.size() == 6) {
 			int correctCount = compareNum("A", aList);
-			JPanel pnl2 = printUserNumResult("A", aList);
 			String score = whatScore(correctCount, "A", aList);
+			JPanel pnl2 = printUserNumResult("A", aList, score);
 			JLabel lbl3 = printScoreLabel(score);
 			moneyPlus(score);
 
@@ -85,8 +81,8 @@ class Result extends JFrame {
 		// B 항목 정보
 		if (bList.size() == 6) {
 			int correctCount = compareNum("B", bList);
-			JPanel pnl2 = printUserNumResult("B", bList);
 			String score = whatScore(correctCount, "B", bList);
+			JPanel pnl2 = printUserNumResult("B", bList, score);
 			JLabel lbl3 = printScoreLabel(score);
 			moneyPlus(score);
 
@@ -99,10 +95,11 @@ class Result extends JFrame {
 			scores.add(lbl3.getText());
 		}
 
+		// C 항목 정보
 		if (cList.size() == 6) {
 			int correctCount = compareNum("C", cList);
-			JPanel pnl2 = printUserNumResult("C", cList);
 			String score = whatScore(correctCount, "C", cList);
+			JPanel pnl2 = printUserNumResult("C", cList, score);
 			JLabel lbl3 = printScoreLabel(score);
 			moneyPlus(score);
 
@@ -115,10 +112,11 @@ class Result extends JFrame {
 			scores.add(lbl3.getText());
 		}
 
+		// D 항목 정보
 		if (dList.size() == 6) {
 			int correctCount = compareNum("D", dList);
-			JPanel pnl2 = printUserNumResult("D", dList);
 			String score = whatScore(correctCount, "D", dList);
+			JPanel pnl2 = printUserNumResult("D", dList, score);
 			JLabel lbl3 = printScoreLabel(score);
 			moneyPlus(score);
 
@@ -131,10 +129,11 @@ class Result extends JFrame {
 			scores.add(lbl3.getText());
 		}
 
+		// E 항목 정보
 		if (eList.size() == 6) {
 			int correctCount = compareNum("E", eList);
-			JPanel pnl2 = printUserNumResult("E", eList);
 			String score = whatScore(correctCount, "E", eList);
+			JPanel pnl2 = printUserNumResult("E", eList, score);
 			JLabel lbl3 = printScoreLabel(score);
 			moneyPlus(score);
 
@@ -150,7 +149,6 @@ class Result extends JFrame {
 		// 총 당첨금액 라벨
 		JLabel lblMoney = totalMoneyLabel();
 		lblMoney.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-//		add(lblMoney);
 
 		// 등수 안내 라벨
 //		JLabel lblInfo = new JLabel("?");
@@ -172,9 +170,7 @@ class Result extends JFrame {
 		} else {
 			totalScore.setText("-");
 		}
-//		totalScore.setBounds(345, 185, 100, 50);
 		totalScore.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-//		add(totalScore);
 
 		// 총 등수 패널
 		JPanel pnlTotScore = new JPanel(new FlowLayout());
@@ -182,14 +178,13 @@ class Result extends JFrame {
 		pnlTotScore.setBackground(new Color(255, 0, 0, 0));
 		pnlTotScore.add(totalScore, "Left");
 		add(pnlTotScore);
-		
+
 		// 총 가격 패널
 		JPanel pnlTotMoney = new JPanel(new FlowLayout());
 		pnlTotMoney.setBounds(250, 225, 200, 80);
 		pnlTotMoney.setBackground(new Color(255, 0, 0, 0));
 		pnlTotMoney.add(lblMoney, "Left");
 		add(pnlTotMoney);
-		
 
 		// ---------------------------------------------------------------------------
 
@@ -222,7 +217,7 @@ class Result extends JFrame {
 
 		setBackground(Color.WHITE);
 		setTitle("추첨 결과");
-		setSize(600, 800);
+		setSize(1200, 800);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setLayout(null);
@@ -231,101 +226,193 @@ class Result extends JFrame {
 
 	}
 
+	// ---------------------------------------------------------------------
+	// 아래는 번호 패널, 라벨 관련 메소드
 	/**
-	 * (임시) 복권당 사용자가 선택한 번호 패널에 부착
+	 * 복권당 사용자가 선택한 번호 패널에 부착
 	 * 
-	 * @param key
+	 * @param key, arrList, score
 	 * @return JPanel
 	 */
-	JPanel printUserNumResult(String key, ArrayList<UserSelectNum> arrList) {
-		JPanel pnl = new JPanel();
-		JLabel lblUserNum1 = new JLabel("");
-		JLabel lblUserNum2 = new JLabel("");
-		JLabel lblUserNum3 = new JLabel("");
-		JLabel lblUserNum4 = new JLabel("");
-		JLabel lblUserNum5 = new JLabel("");
-		JLabel lblUserNum6 = new JLabel("");
-		JLabel[] lbls = { lblUserNum1, lblUserNum2, lblUserNum3, lblUserNum4, lblUserNum5, lblUserNum6 };
+	JPanel printUserNumResult(String key, ArrayList<UserSelectNum> arrList, String score) {
+		JPanel pnl = new JPanel(new FlowLayout());
+		JPanel pnl1 = new JPanel();
+		pnl1.setLayout(new OverlayLayout(pnl1));
+		JPanel pnl2 = new JPanel();
+		pnl2.setLayout(new OverlayLayout(pnl2));
+		JPanel pnl3 = new JPanel();
+		pnl3.setLayout(new OverlayLayout(pnl3));
+		JPanel pnl4 = new JPanel();
+		pnl4.setLayout(new OverlayLayout(pnl4));
+		JPanel pnl5 = new JPanel();
+		pnl5.setLayout(new OverlayLayout(pnl5));
+		JPanel pnl6 = new JPanel();
+		pnl6.setLayout(new OverlayLayout(pnl6));
+
+		JPanel[] pnls = { pnl1, pnl2, pnl3, pnl4, pnl5, pnl6 };
 
 		int i = 0;
 		for (UserSelectNum elem : arrList) {
 			int num = elem.getLotteryNum();
+			int index = num - 1;
 
-			// 이미지 1 ~ 45
-			// 1.png
-			// num = index+1
+			// 숫자 아이콘 라벨
+			JLabel lblNumIcon = new JLabel();
+			lblNumIcon.setIcon(pBN.numImg[index]);
+			lblNumIcon.setHorizontalTextPosition(JLabel.CENTER);
+			lblNumIcon.setBackground(new Color(255, 0, 0, 0));
+			pnls[i].add(lblNumIcon);
+			pnls[i].setBackground(new Color(255, 0, 0, 0));
 
-			String str = String.valueOf(num);
-			lbls[i] = new JLabel(str + " ");
-			lbls[i].setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-
-//			int index = num - 1;
-//			lbls[i].setIcon(a.iconArr.get(index)); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
-//			lbls[i].setHorizontalTextPosition(JLabel.CENTER);
-
-//			ImageIcon icon1 = new ImageIcon("testCircle.png");
-
-			// 당첨 번호인가? (임시)
-			if (elem.isWin()) {
-				lbls[i].setForeground(Color.YELLOW);
-//				lbls[i].setIcon(icon1); 
-
-			}
+			// auto 라벨
 			if (elem.isAuto()) {
-//					lbls[i].setForeground(Color.RED);
-				lbls[i].setIcon(new ImageIcon((Result.class.getResource("/image/auto.png"))));
-				lbls[i].setHorizontalTextPosition(JLabel.CENTER);
+				JLabel lblAuto = new JLabel();
+				lblAuto.setIcon(new ImageIcon(Result.class.getResource("/image/auto.png")));
+				lblAuto.setHorizontalTextPosition(JLabel.CENTER);
+				lblAuto.setBackground(new Color(255, 0, 0, 0));
+				pnls[i].add(lblAuto);
 			}
-//				else {
-//					lbls[i].setForeground(Color.BLUE);
-//				}
 
-			pnl.add(lbls[i]);
+			// 2등전용 보너스번호 공 라벨
+			if (score.equals("2등") && num == bonusNum) {
+				JLabel lblSecond = new JLabel();
+				if (num <= 10) {
+					lblSecond.setIcon(pBN.circle10);
+				} else if (num <= 20) {
+					lblSecond.setIcon(pBN.circle20);
+				} else if (num <= 30) {
+					lblSecond.setIcon(pBN.circle30);
+				} else if (num <= 40) {
+					lblSecond.setIcon(pBN.circle40);
+				} else if (num <= 50) {
+					lblSecond.setIcon(pBN.circle50);
+				}
+				lblSecond.setHorizontalTextPosition(JLabel.CENTER);
+				lblSecond.setBackground(new Color(255, 0, 0, 0));
+				pnls[i].add(lblSecond);
+			}
+
+			// 당첨 공 라벨
+			if (elem.isWin()) {
+				JLabel lblCorrect = new JLabel();
+				if (num <= 10) {
+					lblCorrect.setIcon(pBN.circle10);
+				} else if (num <= 20) {
+					lblCorrect.setIcon(pBN.circle20);
+				} else if (num <= 30) {
+					lblCorrect.setIcon(pBN.circle30);
+				} else if (num <= 40) {
+					lblCorrect.setIcon(pBN.circle40);
+				} else if (num <= 50) {
+					lblCorrect.setIcon(pBN.circle50);
+				}
+				lblCorrect.setHorizontalTextPosition(JLabel.CENTER);
+				lblCorrect.setBackground(new Color(255, 0, 0, 0));
+				pnls[i].add(lblCorrect);
+			}
+
+			pnl.add(pnls[i]);
 			i++;
 		}
+
 		return pnl;
 	}
 
 	/**
-	 * (임시)당첨번호와 보너스번호 라벨 생성해서 패널에 부착
+	 * 당첨번호와 보너스번호 라벨 생성해서 패널에 부착
 	 * 
 	 * @return JPanel
 	 */
 	JPanel lotteryNums() {
+		// 1~6 패널, 보너스번호 패널
+		JPanel pnl = new JPanel(new FlowLayout());
 		JPanel pnl1 = new JPanel();
-		JLabel lblLotteryNum1 = new JLabel("");
-		JLabel lblLotteryNum2 = new JLabel("");
-		JLabel lblLotteryNum3 = new JLabel("");
-		JLabel lblLotteryNum4 = new JLabel("");
-		JLabel lblLotteryNum5 = new JLabel("");
-		JLabel lblLotteryNum6 = new JLabel("");
-		JLabel lblPlusSymbol = new JLabel("+  ");
-		JLabel lblLotteryNum7 = new JLabel("");
-		JLabel[] lbls = { lblLotteryNum1, lblLotteryNum2, lblLotteryNum3, lblLotteryNum4, lblLotteryNum5,
-				lblLotteryNum6 };
+		pnl1.setLayout(new OverlayLayout(pnl1));
+		JPanel pnl2 = new JPanel();
+		pnl2.setLayout(new OverlayLayout(pnl2));
+		JPanel pnl3 = new JPanel();
+		pnl3.setLayout(new OverlayLayout(pnl3));
+		JPanel pnl4 = new JPanel();
+		pnl4.setLayout(new OverlayLayout(pnl4));
+		JPanel pnl5 = new JPanel();
+		pnl5.setLayout(new OverlayLayout(pnl5));
+		JPanel pnl6 = new JPanel();
+		pnl6.setLayout(new OverlayLayout(pnl6));
+		JPanel pnlPlusNum = new JPanel();
+		pnlPlusNum.setLayout(new OverlayLayout(pnlPlusNum));
+		pnlPlusNum.setBackground(new Color(255, 0, 0, 0));
+
+		JPanel[] pnls = { pnl1, pnl2, pnl3, pnl4, pnl5, pnl6 };
 
 		int i = 0;
 		for (Integer elem : lotteryNums) {
-			String strPlus = String.valueOf(elem);
-			lbls[i].setText(strPlus + "  ");
-			lbls[i].setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-			pnl1.add(lbls[i]);
+
+			// 숫자아이콘 라벨
+			JLabel lblNum = new JLabel();
+			int index = elem - 1;
+			lblNum.setIcon(pBN.numImg[index]); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
+			lblNum.setHorizontalTextPosition(JLabel.CENTER);
+			lblNum.setBackground(new Color(255, 0, 0, 0));
+			pnls[i].setBackground(new Color(255, 0, 0, 0));
+			pnls[i].add(lblNum);
+
+			// 공 아이콘
+			JLabel lblBall = new JLabel();
+			if (elem <= 10) {
+				lblBall.setIcon(pBN.circle10);
+			} else if (elem <= 20) {
+				lblBall.setIcon(pBN.circle20);
+			} else if (elem <= 30) {
+				lblBall.setIcon(pBN.circle30);
+			} else if (elem <= 40) {
+				lblBall.setIcon(pBN.circle40);
+			} else if (elem <= 50) {
+				lblBall.setIcon(pBN.circle50);
+			}
+			lblBall.setHorizontalTextPosition(JLabel.CENTER);
+			lblBall.setBackground(new Color(255, 0, 0, 0));
+			pnls[i].add(lblBall);
+
+			pnl.add(pnls[i]);
 			i++;
 		}
-		lblPlusSymbol.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-		lblLotteryNum7.setText(String.valueOf(bonusNum));
-		lblLotteryNum7.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 
-		pnl1.add(lblPlusSymbol);
-		pnl1.add(lblLotteryNum7);
-		pnl1.setBackground(new Color(255, 0, 0, 0));
-		pnl1.setBounds(20, 120, 550, 70);
-		pnl1.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 0), 3));
-		return pnl1;
+		// + 아이콘 라벨
+		JLabel lblPlus = new JLabel();
+		lblPlus.setIcon(new ImageIcon(Result.class.getResource("/image/plus.png")));
+		lblPlus.setBackground(new Color(255, 0, 0, 0));
+		pnl.add(lblPlus);
+
+		// bonusNum 숫자아이콘 라벨
+		JLabel lblPlusNum = new JLabel();
+		lblPlusNum.setIcon(pBN.numImg[bonusNum - 1]); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
+		lblPlusNum.setHorizontalTextPosition(JLabel.CENTER);
+		lblPlusNum.setBackground(new Color(255, 0, 0, 0));
+		pnlPlusNum.add(lblPlusNum);
+
+		// 공 아이콘 라벨
+		JLabel lblPlusBall = new JLabel();
+		int elem = bonusNum;
+		if (elem <= 10) {
+			lblPlusBall.setIcon(pBN.circle10);
+		} else if (elem <= 20) {
+			lblPlusBall.setIcon(pBN.circle20);
+		} else if (elem <= 30) {
+			lblPlusBall.setIcon(pBN.circle30);
+		} else if (elem <= 40) {
+			lblPlusBall.setIcon(pBN.circle40);
+		} else if (elem <= 50) {
+			lblPlusBall.setIcon(pBN.circle50);
+		}
+		lblPlusBall.setHorizontalTextPosition(JLabel.CENTER);
+		lblPlusBall.setBackground(new Color(255, 0, 0, 0));
+		pnlPlusNum.add(lblPlusBall);
+		pnl.add(pnlPlusNum);
+
+		return pnl;
 	}
 
 	// ---------------------------------------------------------------------------------
-	// 이 아래는 GUI 배치 관련이 아니라 굳이 안 건드려도 될 듯 합니다
 
 	// 버튼2(종료) 생성
 	JButton exitBtn() {
@@ -335,7 +422,7 @@ class Result extends JFrame {
 		btn2.setRolloverIcon(img4);
 		btn2.setBorderPainted(false);
 		btn2.setContentAreaFilled(false);
-		btn2.setBounds(320, 680, 150, 70);
+		btn2.setBounds(320, 670, 150, 70);
 
 		btn2.addActionListener(new ActionListener() {
 			@Override
@@ -355,7 +442,7 @@ class Result extends JFrame {
 		btn1.setRolloverIcon(img3);
 		btn1.setBorderPainted(false);
 		btn1.setContentAreaFilled(false);
-		btn1.setBounds(120, 680, 150, 70);
+		btn1.setBounds(120, 670, 150, 70);
 
 		btn1.addActionListener(new ActionListener() {
 			@Override
@@ -368,6 +455,9 @@ class Result extends JFrame {
 		return btn1;
 	}
 
+	// ----------------------------------------------------------------------
+	// 아래는 번호 판별, 등수, 금액 관련 메소드
+	
 	/**
 	 * 총 당첨금액 라벨 반환
 	 * 
@@ -508,8 +598,8 @@ class Result extends JFrame {
 		return false;
 	}
 
-	public static void main(String[] args) {
-		DataBase data = new DataBase();
-		new Result(data);
-	}
+//	public static void main(String[] args) {
+//		DataBase data = new DataBase();
+//		new Result(data);
+//	}
 }
