@@ -277,7 +277,7 @@ class Result extends JFrame {
 			// auto 라벨
 			if (elem.isAuto()) {
 				JLabel lblAuto = new JLabel();
-				lblAuto.setIcon(new ImageIcon(Result.class.getResource("/image/auto.png")));
+				lblAuto.setIcon(new ImageIcon(Result.class.getResource("/image/auto수정.png")));
 				lblAuto.setHorizontalTextPosition(JLabel.CENTER);
 				lblAuto.setBackground(new Color(255, 0, 0, 0));
 				pnls[i].add(lblAuto);
