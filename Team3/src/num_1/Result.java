@@ -1,16 +1,18 @@
 package num_1;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.stream.Collectors;
+import java.util.TimerTask;
+import java.util.Timer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,8 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
-
-import num_1.AddSpinLottoBall.DrawPanel;
 
 // 당첨결과 관련 로직 
 
@@ -34,8 +34,17 @@ class Result extends JFrame {
 	ArrayList<UserSelectNum> dList;
 	ArrayList<UserSelectNum> eList;
 	ArrayList<String> scores = new ArrayList<>();
-	AddSpinLottoBall spinLottoBall = new AddSpinLottoBall();
-	DrawPanel drawPanel = spinLottoBall.new DrawPanel();
+
+	private int x;
+	private int y;
+	private int R = 30;
+	private double alpha = 0;
+
+	private final int SPEED = 1;
+	private final int BALL_COUNT = 45; // 공 갯수
+	private final int BALL_DISTANCE = 30; // 원과의 거리
+	private final int VIRTUAL_CIRCLE_RADIUS = 80; // 가상의 원의 반지름
+	private final ImageIcon[] BALL_IMAGES = new ImageIcon[BALL_COUNT];
 
 	public Result(DataBase data) {
 		aList = data.map.get("A");
@@ -43,14 +52,13 @@ class Result extends JFrame {
 		cList = data.map.get("C");
 		dList = data.map.get("D");
 		eList = data.map.get("E");
-		
+
 		Collections.sort(aList);
 		Collections.sort(bList);
 		Collections.sort(cList);
 		Collections.sort(dList);
 		Collections.sort(eList);
-		
-		
+
 		// 당첨번호 숫자조정용
 		lotteryNumRan();
 //		lotteryNums.add(1);
@@ -222,23 +230,17 @@ class Result extends JFrame {
 		section4.setBounds(0, 300, 600, 350);
 		add(section4);
 
-		// 배경깔기
-		JPanel bgPnl = new JPanel();
-		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
-		bgPnl.add(bgLbl);
-		bgPnl.setBounds(0, 0, 600, 800);
-		
 		// 추첨 이미지
-		JPanel imagePanel = new JPanel();
-		JLabel imageLbl = new JLabel();
-		imagePanel.add(imageLbl);
-		imagePanel.setBounds(0, 0, 0, 800);
-		imageLbl.add(drawPanel);
-		add(imageLbl);
-		add(imagePanel);
+		JPanel pnlBallImage = loadBallImages();
+		pnlBallImage.setBounds(600, 120, 800, 600);
+		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
+		add(pnlBallImage);
 
-
-		bgPnl.add(drawPanel);
+		// 배경깔기
+//		JPanel bgPnl = new JPanel();
+//		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
+//		bgPnl.add(bgLbl);
+//		bgPnl.setBounds(0, 0, 1200, 800);
 
 		setBackground(Color.WHITE);
 		setTitle("추첨 결과");
@@ -631,4 +633,71 @@ class Result extends JFrame {
 //		DataBase data = new DataBase();
 //		new Result(data);
 //	}
+
+	public int[] randomShake() {
+		int[] numbers = new int[45];
+		for (int i = 0; i < numbers.length; i++) {
+			numbers[i] = i;
+		}
+		Random random = new Random();
+		for (int i = numbers.length - 1; i > 0; i--) {
+			int j = random.nextInt(i + 1);
+			int temp = numbers[i];
+			numbers[i] = numbers[j];
+			numbers[j] = temp;
+		}
+		return numbers;
+	}
+
+	private JPanel loadBallImages() {
+		int[] randomOrder = randomShake();
+
+		for (int i = 0; i < BALL_COUNT; i++) {
+			int ran = randomOrder[i];
+
+			String imagePath = "/image/ball_" + i + ".png";
+			BALL_IMAGES[ran] = new ImageIcon(getClass().getResource(imagePath));
+			setSize(600, 600);
+		}
+
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				repaint();
+			}
+		}, 0, 100);
+
+		JPanel panel = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				String imagePath = "/image/그림3.png";
+				ImageIcon backgroundImage = new ImageIcon(getClass().getResource(imagePath));
+				g.drawImage(backgroundImage.getImage(), -38, -55, getWidth(), getHeight(), null);
+
+				for (int i = 0; i < BALL_COUNT; i++) {
+					double angle = (2 * Math.PI * i) / BALL_COUNT;
+					double offsetX = VIRTUAL_CIRCLE_RADIUS * Math.sin(angle);
+					double offsetY = VIRTUAL_CIRCLE_RADIUS * Math.cos(angle);
+					double randomAngle = Math.random() * 2 * Math.PI;
+
+					x = (int) (getWidth() / 2
+							+ Math.round(offsetX + Math.min(BALL_DISTANCE, 35) * Math.sin(randomAngle)));
+					y = (int) (getHeight() / 2
+							+ Math.round(offsetY + Math.min(BALL_DISTANCE, 35) * Math.cos(randomAngle)));
+
+					ImageIcon ballImage = BALL_IMAGES[i];
+
+					g.drawImage(ballImage.getImage(), x - R / 2, y - R / 2, R, R, null);
+				}
+			}
+		};
+
+		panel.setBackground(Color.WHITE);
+		panel.setPreferredSize(new Dimension(600, 600));
+
+		return panel;
+	}
 }
+//
