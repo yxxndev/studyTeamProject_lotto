@@ -174,9 +174,11 @@ class Result extends JFrame {
 		lblMoney.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 
 		// 등수 안내 라벨
-//		JLabel lblInfo = new JLabel("?");
-//		lblInfo.setToolTipText("1등: 128,000,000원 \n 2등: 50,000,000원 \n 3등: 1,500,000원 \n 4등: 50,000원 \n 5등: 5,000원");
-//		add(lblInfo);
+		JLabel lblInfo = new JLabel(new ImageIcon(Result.class.getResource("/image/tooltip축소.png")));
+		lblInfo.setToolTipText("1등: 128,000,000원 \n 2등: 50,000,000원 \n 3등: 1,500,000원 \n 4등: 50,000원 \n 5등: 5,000원");
+		lblInfo.setBackground(new Color(255, 0, 0, 0));
+		lblInfo.setBounds(440, 210, 80, 80);
+		getContentPane().add(lblInfo);
 
 		// 총 등수 라벨
 		JLabel totalScore = new JLabel();
@@ -222,7 +224,7 @@ class Result extends JFrame {
 //		add(section2);
 
 		// 섹션3 생성: 당첨 최고 등수 + 당첨 총 금액 출력
-		JLabel section3 = new JLabel(new ImageIcon(Result.class.getResource("/image/reword.png")));
+		JLabel section3 = new JLabel(new ImageIcon(Result.class.getResource("/image/reword수정.png")));
 		section3.setBounds(0, 200, 600, 70);
 		add(section3);
 
