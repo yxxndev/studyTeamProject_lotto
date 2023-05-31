@@ -261,7 +261,7 @@ public class LottoCMR extends JFrame {
 				}
 				lblNewLabel.setText(" 총 구매금액 " + getPrice(dataBase) + "원"); // 금액 변경
 
-				btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
+				//btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
 				
 			}
 		});
