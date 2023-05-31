@@ -223,7 +223,7 @@ class Result extends JFrame {
 //		add(section2);
 
 		// 섹션3 생성: 당첨 최고 등수 + 당첨 총 금액 출력
-		JLabel section3 = new JLabel(new ImageIcon(Result.class.getResource("/image/reword.png")));
+		JLabel section3 = new JLabel(new ImageIcon(Result.class.getResource("/image/reword수정.png")));
 		section3.setBounds(0, 200, 600, 70);
 		add(section3);
 
