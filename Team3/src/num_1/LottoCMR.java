@@ -192,7 +192,7 @@ public class LottoCMR extends JFrame {
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
 					markingLabelClieked(lbls, index, key, dataBase, btn);
-					
+
 					// 마킹을 누를 때마다 따짐
 					// 해당 리스트의 숫자가 6이 아니면 체크 해제
 					if (dataBase.map.get(key).size() < 6) {
@@ -262,15 +262,17 @@ public class LottoCMR extends JFrame {
 				while (true) { // 자동 번호 배열
 					if (dataBase.map.get(key).size() == 6) { // 크기가 6이면 종료
 						break;
-					}
-					int ran = random.nextInt(45) + 1; // 1~45 번호 생성
-					if (!dataBase.map.get(key).contains(new UserSelectNum(ran, true))) { // 숫자가 같지 않으면 true
-						dataBase.map.get(key).add(new UserSelectNum(ran, true)); // 숫자저장
-						lbls[ran - 1].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png"))); // 마킹
+					} else {
+						int ran = random.nextInt(45) + 1; // 1~45 번호 생성
+						if (!dataBase.map.get(key).contains(new UserSelectNum(ran, true))) { // 숫자가 같지 않으면 true
+							dataBase.map.get(key).add(new UserSelectNum(ran, true)); // 숫자저장
+							lbls[ran - 1].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png"))); // 마킹
+							btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
+						}
 					}
 				}
 				lblNewLabel.setText(" 총 구매금액 " + getPrice(dataBase) + "원"); // 금액 변경
-				btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
+
 			}
 		});
 	}
