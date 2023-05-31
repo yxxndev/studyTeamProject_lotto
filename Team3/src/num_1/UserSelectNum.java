@@ -1,7 +1,7 @@
 package num_1;
 
 // 유저가 선택한 넘버 객체
-public class UserSelectNum {
+public class UserSelectNum implements Comparable<UserSelectNum> {
 	private int lotteryNum;
 	private boolean auto;
 	private boolean win;
@@ -11,14 +11,13 @@ public class UserSelectNum {
 		this.lotteryNum = lotteryNum;
 		this.auto = auto;
 	}
-	
+
 	public UserSelectNum(int lotteryNum, boolean auto, boolean win) {
 		this.lotteryNum = lotteryNum;
 		this.auto = auto;
 		this.win = win;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -71,7 +70,10 @@ public class UserSelectNum {
 	public void setWin(boolean win) {
 		this.win = win;
 	}
-	
-	
+
+	@Override
+	public int compareTo(UserSelectNum o) {
+		return this.lotteryNum - o.lotteryNum;
+	}
 
 }
