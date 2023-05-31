@@ -160,9 +160,11 @@ public class LottoCMR extends JFrame {
 				x += 1;
 		}
 
+		// --------------------------------------------------------
 		JButton autoBtn = new JButton("");
 		autoBtn.setBounds(140, 442, 20, 28);
 		panel.add(autoBtn);
+		// --------------------------------------------------------
 
 		JButton cancelButton = new JButton("");
 		cancelButton.setBounds(140, 485, 20, 28);
@@ -174,9 +176,11 @@ public class LottoCMR extends JFrame {
 		cancelButton.setBorderPainted(false);
 		cancelButton.setContentAreaFilled(false);
 
+		// ----------------------------------------------------------------
 		addMouseListener(lbls, key, dataBase, autoBtn);
 		cancleMarking(key, lbls, cancelButton, dataBase, autoBtn);
 		autoMarking(lbls, dataBase, key, autoBtn);
+		// ----------------------------------------------------------------
 
 	}
 
@@ -188,6 +192,12 @@ public class LottoCMR extends JFrame {
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
 					markingLabelClieked(lbls, index, key, dataBase, btn);
+					
+					// 마킹을 누를 때마다 따짐
+					// 해당 리스트의 숫자가 6이 아니면 체크 해제
+					if (dataBase.map.get(key).size() < 6) {
+						btn.setIcon(null);
+					}
 				}
 			});
 		}
@@ -260,9 +270,7 @@ public class LottoCMR extends JFrame {
 					}
 				}
 				lblNewLabel.setText(" 총 구매금액 " + getPrice(dataBase) + "원"); // 금액 변경
-
 				btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
-				
 			}
 		});
 	}
