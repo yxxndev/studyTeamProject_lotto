@@ -37,12 +37,12 @@ class Result extends JFrame {
 
 	private int x;
 	private int y;
-	private int R = 30;
+	private int R = 50;
 	private double alpha = 0;
 
 	private final int SPEED = 1;
 	private final int BALL_COUNT = 45; // 공 갯수
-	private final int BALL_DISTANCE = 30; // 원과의 거리
+	private final int BALL_DISTANCE = 35; // 원과의 거리
 	private final int VIRTUAL_CIRCLE_RADIUS = 80; // 가상의 원의 반지름
 	private final ImageIcon[] BALL_IMAGES = new ImageIcon[BALL_COUNT];
 
@@ -173,11 +173,9 @@ class Result extends JFrame {
 		lblMoney.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 
 		// 등수 안내 라벨
-		JLabel lblInfo = new JLabel(new ImageIcon(Result.class.getResource("/image/tooltip축소.png")));
-		lblInfo.setToolTipText("1등: 128,000,000원 \n 2등: 50,000,000원 \n 3등: 1,500,000원 \n 4등: 50,000원 \n 5등: 5,000원");
-		lblInfo.setBackground(new Color(255, 0, 0, 0));
-		lblInfo.setBounds(440, 210, 80, 80);
-		add(lblInfo);
+//		JLabel lblInfo = new JLabel("?");
+//		lblInfo.setToolTipText("1등: 128,000,000원 \n 2등: 50,000,000원 \n 3등: 1,500,000원 \n 4등: 50,000원 \n 5등: 5,000원");
+//		add(lblInfo);
 
 		// 총 등수 라벨
 		JLabel totalScore = new JLabel();
@@ -223,7 +221,7 @@ class Result extends JFrame {
 //		add(section2);
 
 		// 섹션3 생성: 당첨 최고 등수 + 당첨 총 금액 출력
-		JLabel section3 = new JLabel(new ImageIcon(Result.class.getResource("/image/reword수정.png")));
+		JLabel section3 = new JLabel(new ImageIcon(Result.class.getResource("/image/reword.png")));
 		section3.setBounds(0, 200, 600, 70);
 		add(section3);
 
@@ -234,15 +232,22 @@ class Result extends JFrame {
 
 		// 추첨 이미지
 		JPanel pnlBallImage = loadBallImages();
-		pnlBallImage.setBounds(600, 120, 800, 600);
+		pnlBallImage.setBounds(470, 100, 800, 600);
 		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
 		add(pnlBallImage);
 
 		// 배경깔기
-//		JPanel bgPnl = new JPanel();
-//		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
-//		bgPnl.add(bgLbl);
-//		bgPnl.setBounds(0, 0, 1200, 800);
+		JPanel bgPnl = new JPanel();
+		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
+		bgPnl.setBounds(0, 0, 600, 800);
+		bgPnl.add(bgLbl);
+		add(bgPnl);
+		
+		JPanel bgPnl2 = new JPanel();
+		JLabel bgLbl2 = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
+		bgPnl2.setBounds(600, 0, 600, 800);
+		bgPnl2.add(bgLbl2);
+		add(bgPnl2);
 
 		setBackground(Color.WHITE);
 		setTitle("추첨 결과");
