@@ -6,8 +6,11 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,7 +39,14 @@ class Result extends JFrame {
 		cList = data.map.get("C");
 		dList = data.map.get("D");
 		eList = data.map.get("E");
-
+		
+		Collections.sort(aList);
+		Collections.sort(bList);
+		Collections.sort(cList);
+		Collections.sort(dList);
+		Collections.sort(eList);
+		
+		
 		// 당첨번호 숫자조정용
 		lotteryNumRan();
 //		lotteryNums.add(1);
