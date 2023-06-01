@@ -55,6 +55,7 @@ public class Test extends JFrame {
 	}
 }
 
+
 class RotateImage {
 	int i = 0;
 	
@@ -70,8 +71,8 @@ class RotateImage {
         graphics2D.rotate(Math.toRadians(i), widthOfImage / 2, heightOfImage / 2);
         graphics2D.drawImage(imageToRotate, null, 0, 0);
         
-        i += 5;
-        if (i == 365)
+        i += 30;
+        if (i == 390)
         	i = 0;
         
         return newImageFromBuffer;

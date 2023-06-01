@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -46,8 +48,39 @@ class Result extends JFrame {
 	private final int BALL_DISTANCE = 35; // 원과의 거리
 	private final int VIRTUAL_CIRCLE_RADIUS = 80; // 가상의 원의 반지름
 	private final ImageIcon[] BALL_IMAGES = new ImageIcon[BALL_COUNT];
+	private JLabel circle;
+	private int xx;
 
 	public Result(DataBase data) {
+		
+		RotateImage rotateImage = new RotateImage();
+		xx = 0;
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+//				rotateImage.moveAngle();
+				circle = new JLabel();
+				circle.setIcon(new ImageIcon(Result.class.getResource("/image/tooltip.png")));
+				circle.setBounds(xx, 0, 54, 54);
+//				circle.setLocation(77, 124);
+//				circle.setLocation(77 + (55 * 2), 124);
+//				circle.setLocation(911, 124);
+//				circle.setLocation(911, 254);
+//				circle.setLocation(0, 0);
+//				circle.setLocation(xx, 0);
+				add(circle);
+//				Image i = Toolkit.getDefaultToolkit().createImage(Result.class.getResource("/image/tooltip2.png"));
+//				ImageIcon icon = new ImageIcon(i);
+//				circle.setIcon(icon);
+//				circle.setIcon(new ImageIcon(Result.class.getResource("/image/tooltip.png")));
+//				add(circle);
+				xx += 1;
+				System.out.println("됨?");
+			}
+		}, 0, 40);
+		
+		
 		aList = data.map.get("A");
 		bList = data.map.get("B");
 		cList = data.map.get("C");
