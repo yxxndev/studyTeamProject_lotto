@@ -46,12 +46,33 @@ public class LottoCMR extends JFrame {
 		panel_3.setLayout(null);
 		
 		JButton btnAllAuto = new JButton("");
-		btnAllAuto.setBounds(630, 602, 246, 39);
+		btnAllAuto.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/allAuto.png")));
+		btnAllAuto.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allAutoClick.png")));
+		btnAllAuto.setBorderPainted(false);
+		btnAllAuto.setContentAreaFilled(false);
+		btnAllAuto.setBounds(630, 603, 246, 45);
 		panel_3.add(btnAllAuto);
+//		전체 자동 작동 메소드 삽입
+		btnAllAuto.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		
 		JButton btnAllCancle = new JButton("");
-		btnAllCancle.setBounds(888, 602, 139, 39);
+		btnAllCancle.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/allCancle.png")));
+		btnAllCancle.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allCancleClick.png")));
+		btnAllCancle.setBorderPainted(false);
+		btnAllCancle.setContentAreaFilled(false);
+		btnAllCancle.setBounds(888, 603, 138, 45);
 		panel_3.add(btnAllCancle);
+//		전체취소 작동메소드 삽입
+		btnAllCancle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 
 		paylbl = new JLabel("0");
 		paylbl.setBounds(1062, 563, 82, 30);
@@ -120,8 +141,12 @@ public class LottoCMR extends JFrame {
 		lblNewLabel_5.setBounds(0, 0, 165, 522);
 		panelE.add(lblNewLabel_5);
 
-		JButton btnBuy = new JButton("구매");
-		btnBuy.setBounds(1039, 602, 126, 39);
+		JButton btnBuy = new JButton("");
+		btnBuy.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/purchase.png")));
+		btnBuy.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/purchaseClick.png")));
+		btnBuy.setBorderPainted(false);
+		btnBuy.setContentAreaFilled(false);
+		btnBuy.setBounds(1039, 603, 126, 45);
 		panel_3.add(btnBuy);
 		btnBuy.addActionListener(new ActionListener() {
 			@Override
