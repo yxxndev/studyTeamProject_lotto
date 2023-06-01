@@ -16,7 +16,29 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.OverlayLayout;
+import javax.swing.Timer;
+
+// 당첨결과 관련 로직 
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Random;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 import javax.swing.Timer;
@@ -48,13 +70,9 @@ class Result extends JFrame {
 	private final int VIRTUAL_CIRCLE_RADIUS = 80; // 가상의 원의 반지름
 	private final ImageIcon[] BALL_IMAGES = new ImageIcon[BALL_COUNT];
 	private JPanel drawPnl = new JPanel();
-	private int timerX;
-	private int timerY;
-	private Timer timer;
-	private int timerI;
+	private JPanel bigPnl;
 
 	public Result(DataBase data) {
-		
 		aList = data.map.get("A");
 		bList = data.map.get("B");
 		cList = data.map.get("C");
@@ -68,98 +86,22 @@ class Result extends JFrame {
 		Collections.sort(eList);
 
 		// 당첨번호 숫자조정용
-		lotteryNumRan();
-//		lotteryNums.add(1);
-//		lotteryNums.add(2);
-//		lotteryNums.add(3);
-//		lotteryNums.add(4);
-//		lotteryNums.add(5);
-//		lotteryNums.add(7);
-//		bonusNum = 6;
-		
-		JPanel bigPnl = new JPanel();
-		bigPnl.setBounds(0, 0, 2000, 2000);
-		bigPnl.setBackground(new Color(255, 0, 0, 0));
-		add(bigPnl);
-		JLayeredPane layeredPane = new JLayeredPane();
-		
-		// 추첨 이미지
-		JPanel pnlBallImage = loadBallImages();
-		pnlBallImage.setLayout(null);
-		pnlBallImage.setBounds(470, 100, 800, 600);
-		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
-		add(pnlBallImage);
-		
-		RotateImage rotateImage = new RotateImage();
-		JLabel lbl = new JLabel();
-		lbl.setBounds(911, 254, 54, 54);
-		layeredPane.setComponentZOrder(lbl, 0);
-		bigPnl.add(lbl);
-		ImageIcon[] moveCircles = rotateImage.moveAngle();
-		timerX = 911;
-		timerY = 254;
-		timerI = 0;
-		timer = new Timer(10, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				ImageIcon icon = moveCircles[timerI];
-				timerI++;
-				if (timerI == 34)
-					timerI = 0;
-				lbl.setIcon(icon);
-				lbl.setBounds(timerX, timerY, 54, 54);
-				System.out.println(lbl.getBounds());
-				if (timerY >= 125)
-					timerY -= 10;
-				if (timerY ==124)
-					timerX -= 10;
-				if (timerX < 77) {
-					if (count < 7) {
-						printDrawNumber();
-						count++;
-					} else if (count == 7) {
-						drawBounsNumber();
-						count++;
-					}
-//					try {
-//						Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
-//						} 
-//					catch (InterruptedException e) {
-//							e.printStackTrace();
-//						}
-					timer.stop();
-				}
-			}
-		});
-		
-//		무한클릭 안되게
-		
-		
-		// 당첨번호 패널
-		drawPnl.setLayout(new FlowLayout(FlowLayout.LEFT));
-		drawPnl.setBackground(new Color(255, 0, 0, 0));
-		drawPnl.setBounds(20, 120, 550, 80);
-		add(drawPnl);
-		
-		
-		// 추첨 버튼
-		JButton btnTest = new JButton("테스트용 버튼");
-		btnTest.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (count != 8) {
-					timerX = 911;
-					timerY = 254;
-					lbl.setVisible(true);
-					timer.start();
-				}
-			}
-		});
-		btnTest.setBounds(500, 500, 100, 100);
-		pnlBallImage.add(btnTest);
+	//	lotteryNumRan();
+		lotteryNums.add(1);
+		lotteryNums.add(2);
+		lotteryNums.add(3);
+		lotteryNums.add(4);
+		lotteryNums.add(5);
+		lotteryNums.add(7);
+		bonusNum = 6;
 
 		// ---------------------------------------------
+
+		bigPnl = new JPanel();
+		bigPnl.setBounds(0, 0, 800, 800);
+		bigPnl.setBackground(new Color(255, 0, 0, 0));
+		bigPnl.setLayout(null);
+		add(bigPnl);
 
 		JButton btnExit = exitBtn();
 		add(btnExit);
@@ -174,16 +116,12 @@ class Result extends JFrame {
 			int correctCount = compareNum("A", aList);
 			String score = whatScore(correctCount, "A", aList);
 			JPanel pnl2 = printUserNumResult("A", aList, score);
-			JLabel lbl3 = printScoreLabel(score);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(60, 315, 600, 80);
+			pnl2.setBounds(-40, 308, 800, 80);
+
 			add(pnl2);
-			lbl3.setBounds(110, 315, 100, 50);
-			lbl3.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-			add(lbl3);
-			scores.add(lbl3.getText());
 		}
 
 		// B 항목 정보
@@ -191,16 +129,12 @@ class Result extends JFrame {
 			int correctCount = compareNum("B", bList);
 			String score = whatScore(correctCount, "B", bList);
 			JPanel pnl2 = printUserNumResult("B", bList, score);
-			JLabel lbl3 = printScoreLabel(score);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
 			pnl2.setBounds(60, 380, 600, 110);
+
 			add(pnl2);
-			lbl3.setBounds(110, 380, 100, 50);
-			lbl3.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-			add(lbl3);
-			scores.add(lbl3.getText());
 		}
 
 		// C 항목 정보
@@ -208,16 +142,12 @@ class Result extends JFrame {
 			int correctCount = compareNum("C", cList);
 			String score = whatScore(correctCount, "C", cList);
 			JPanel pnl2 = printUserNumResult("C", cList, score);
-			JLabel lbl3 = printScoreLabel(score);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
 			pnl2.setBounds(60, 445, 600, 110);
+
 			add(pnl2);
-			lbl3.setBounds(110, 445, 100, 50);
-			lbl3.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-			add(lbl3);
-			scores.add(lbl3.getText());
 		}
 
 		// D 항목 정보
@@ -225,16 +155,12 @@ class Result extends JFrame {
 			int correctCount = compareNum("D", dList);
 			String score = whatScore(correctCount, "D", dList);
 			JPanel pnl2 = printUserNumResult("D", dList, score);
-			JLabel lbl3 = printScoreLabel(score);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
 			pnl2.setBounds(60, 510, 600, 110);
+
 			add(pnl2);
-			lbl3.setBounds(110, 510, 100, 50);
-			lbl3.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-			add(lbl3);
-			scores.add(lbl3.getText());
 		}
 
 		// E 항목 정보
@@ -242,16 +168,12 @@ class Result extends JFrame {
 			int correctCount = compareNum("E", eList);
 			String score = whatScore(correctCount, "E", eList);
 			JPanel pnl2 = printUserNumResult("E", eList, score);
-			JLabel lbl3 = printScoreLabel(score);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
 			pnl2.setBounds(60, 580, 600, 110);
+
 			add(pnl2);
-			lbl3.setBounds(110, 580, 100, 50);
-			lbl3.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-			add(lbl3);
-			scores.add(lbl3.getText());
 		}
 
 		// 총 당첨금액 라벨
@@ -265,36 +187,51 @@ class Result extends JFrame {
 		lblInfo.setBounds(440, 210, 80, 80);
 		getContentPane().add(lblInfo);
 
-		// 총 등수 라벨
-		JLabel totalScore = new JLabel();
-		if (scores.contains("1등")) {
-			totalScore.setText("1");
-		} else if (scores.contains("2등")) {
-			totalScore.setText("2");
-		} else if (scores.contains("3등")) {
-			totalScore.setText("3");
-		} else if (scores.contains("4등")) {
-			totalScore.setText("4");
-		} else if (scores.contains("5등")) {
-			totalScore.setText("5");
-		} else {
-			totalScore.setText("-");
-		}
-		totalScore.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
-
 		// 총 등수 패널
 		JPanel pnlTotScore = new JPanel(new FlowLayout());
 		pnlTotScore.setBounds(250, 185, 200, 50);
 		pnlTotScore.setBackground(new Color(255, 0, 0, 0));
-		pnlTotScore.add(totalScore, "Left");
-		add(pnlTotScore);
+		
 
 		// 총 가격 패널
 		JPanel pnlTotMoney = new JPanel(new FlowLayout());
 		pnlTotMoney.setBounds(250, 225, 200, 80);
 		pnlTotMoney.setBackground(new Color(255, 0, 0, 0));
 		pnlTotMoney.add(lblMoney, "Left");
-		add(pnlTotMoney);
+
+		// 당첨번호 패널
+		drawPnl.setLayout(new FlowLayout(FlowLayout.LEFT));
+		drawPnl.setBackground(new Color(255, 0, 0, 0));
+		drawPnl.setBounds(55, 120, 550, 80);
+		add(drawPnl);
+
+		// 추첨 버튼
+		JButton btnTest = new JButton("테스트용 버튼");
+		btnTest.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (count < 7) {
+					printDrawNumber();
+					count++;
+				} else if (count == 7) {
+					drawBounsNumber();
+					printScore("A", aList);
+					printScore("B", bList);
+					printScore("C", cList);
+					printScore("D", dList);
+					printScore("E", eList);
+					
+					pnlTotScore.add(getTotalScore(), "Left");
+
+					bigPnl.add(pnlTotScore);
+					bigPnl.add(pnlTotMoney);
+					count++;
+				}
+			}
+		});
+
+		btnTest.setBounds(0, 0, 100, 100);
+		add(btnTest);
 
 		// ---------------------------------------------------------------------------
 
@@ -318,8 +255,11 @@ class Result extends JFrame {
 		section4.setBounds(0, 300, 600, 350);
 		add(section4);
 
-		
-
+		// 추첨 이미지
+		JPanel pnlBallImage = loadBallImages();
+		pnlBallImage.setBounds(470, 100, 800, 600);
+		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
+		add(pnlBallImage);
 
 		// 배경깔기
 		JPanel bgPnl = new JPanel();
@@ -433,7 +373,6 @@ class Result extends JFrame {
 			pnl.add(pnls[i]);
 			i++;
 		}
-
 		return pnl;
 	}
 
@@ -442,6 +381,62 @@ class Result extends JFrame {
 	 * 
 	 * 
 	 */
+	JLabel getTotalScore() {
+		// 총 등수 라벨
+		JLabel totalScore = new JLabel();
+		if (scores.contains("1등")) {
+			totalScore.setText("1");
+		} else if (scores.contains("2등")) {
+			totalScore.setText("2");
+		} else if (scores.contains("3등")) {
+			totalScore.setText("3");
+		} else if (scores.contains("4등")) {
+			totalScore.setText("4");
+		} else if (scores.contains("5등")) {
+			totalScore.setText("5");
+		} else {
+			totalScore.setText("-");
+		}
+		totalScore.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
+		return totalScore;
+	}
+
+	void printScore(String key, ArrayList list) {
+		if (list.size() == 6) {
+			JPanel test = new JPanel();
+			y = 318;
+
+			if (key.equals("B")) {
+				y += 65;
+			}
+
+			if (key.equals("C")) {
+				y += 130;
+			}
+
+			if (key.equals("D")) {
+				y += 195;
+			}
+
+			if (key.equals("E")) {
+				y += 260;
+			}
+
+			int correctCount = compareNum(key, list);
+			String score = whatScore(correctCount, key, list);
+			JLabel lbl3 = printScoreLabel(score);
+			lbl3.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
+
+			test.add(lbl3);
+			test.setBounds(101, y, 80, 80);
+
+			test.setBackground(new Color(255, 0, 0, 0));
+
+			bigPnl.add(test);
+			scores.add(lbl3.getText());
+		}
+	}
+
 	void printDrawNumber() {
 		switch (count) {
 		case 1:
@@ -476,11 +471,11 @@ class Result extends JFrame {
 			break;
 		}
 
-//		try {
-//			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		// revalidate: repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 메서드.
 		drawPnl.revalidate();
@@ -491,8 +486,8 @@ class Result extends JFrame {
 	void addDrawNumber(JPanel addPnl, int index) {
 		// 숫자아이콘 라벨
 		JLabel lblNum = new JLabel(); // Label에 숫자 아이콘 입력
-		int elem = index + 1;
-		lblNum.setIcon(pBN.numImg[index]); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
+		int elem = index - 1;
+		lblNum.setIcon(pBN.numImg[elem]); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
 		lblNum.setHorizontalTextPosition(JLabel.CENTER);
 		lblNum.setBackground(new Color(255, 0, 0, 0));
 		addPnl.setBackground(new Color(255, 0, 0, 0));
@@ -553,7 +548,7 @@ class Result extends JFrame {
 		lblPlusBall.setBackground(new Color(255, 0, 0, 0));
 		pnlPlusNum.add(lblPlusBall);
 		drawPnl.add(pnlPlusNum);
-		
+
 		try {
 			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
 		} catch (InterruptedException e) {
@@ -787,10 +782,10 @@ class Result extends JFrame {
 		}
 
 		Timer timer = new Timer(40, new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        repaint();
-		    }
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				repaint();
+			}
 		});
 		timer.start();
 
@@ -826,4 +821,3 @@ class Result extends JFrame {
 		return panel;
 	}
 }
-//
