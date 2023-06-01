@@ -18,7 +18,7 @@ public class Start extends JFrame {
 
 	public Start(DataBase dataBase) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 950, 700);
+		setBounds(100, 100, 1280, 700);
 		setLocationRelativeTo(null); // 중앙 위치
 		setResizable(false);  // 크기 변경 불가능하게
 		contentPane = new JPanel();
@@ -27,38 +27,46 @@ public class Start extends JFrame {
 		contentPane.setLayout(null);
 		contentPane.setBackground(Color.WHITE);
 		
-		JLabel LotPicture = new JLabel(new ImageIcon(Start.class.getResource("/image/임시로또배경.jpg")));
-		LotPicture.setBounds(100, 100, 760, 400);
-		contentPane.add(LotPicture);
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 1274, 671);
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
-		JButton btnNewButton = new JButton("시작");
-		btnNewButton.setBounds(250, 550, 150, 50);
-		
-		contentPane.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			@Override
+		JButton btnStart = new JButton();
+		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new LottoCMR(dataBase);
 				setVisible(false);
 			}
 		});
+		btnStart.setIcon(new ImageIcon(Start.class.getResource("/image/start.png")));
+		btnStart.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/startClick.png")));
+		btnStart.setBorderPainted(false);
+		btnStart.setContentAreaFilled(false);
+		btnStart.setBounds(386, 339, 190, 69);
+		panel.add(btnStart);
+		
+		JButton btnExit = new JButton();
+		btnExit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnExit.setIcon(new ImageIcon(Start.class.getResource("/image/exit.png")));
+		btnExit.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/exitClick.png")));
+		btnExit.setBorderPainted(false);
+		btnExit.setContentAreaFilled(false);
+		btnExit.setBounds(702, 339, 190, 69);
+		panel.add(btnExit);
+		
+		JLabel background = new JLabel("");
+		background.setIcon(new ImageIcon(Start.class.getResource("/image/bgStart.png")));
+		background.setBounds(0, 0, 1280, 671);
+		panel.add(background);
 		
 		ImageIcon img2 = new ImageIcon(Start.class.getResource("/image/exit.png"));
 		ImageIcon img4 = new ImageIcon(Start.class.getResource("/image/exitClick.png"));
-		JButton btnNewButton_1 = new JButton(img2);
-		btnNewButton_1.setRolloverIcon(img4);
-		btnNewButton_1.setBorderPainted(false);
-		btnNewButton_1.setContentAreaFilled(false);
-		btnNewButton_1.setBounds(550, 550, 150, 70);
-		btnNewButton_1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-				System.exit(0);
-			}
-		});
-		
-		contentPane.add(btnNewButton_1);
 		
 //		JLabel lblNewLabel = new JLabel("로또게임");
 //		lblNewLabel.setBounds(181, 57, 57, 15);

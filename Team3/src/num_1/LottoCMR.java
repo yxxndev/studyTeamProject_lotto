@@ -115,7 +115,7 @@ public class LottoCMR extends JFrame {
 		addLabel(panelC, keyC, dataBase);
 		addLabel(panelD, keyD, dataBase);
 		addLabel(panelE, keyE, dataBase);
-
+				
 		lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperA.png")));
 		lblNewLabel_1.setBounds(0, 0, 165, 522);
@@ -189,7 +189,16 @@ public class LottoCMR extends JFrame {
 			if ((i + 1) % 7 == 4)
 				x += 1;
 		}
-
+		
+		
+		JButton copyBtn = new JButton();
+		copyBtn.setBounds(140, 356, 20, 28);
+		panel.add(copyBtn);
+		
+		JButton pasteBtn = new JButton();
+		pasteBtn.setBounds(140, 399, 20, 28);
+		panel.add(pasteBtn);
+		
 		// --------------------------------------------------------
 		JButton autoBtn = new JButton("");
 		autoBtn.setBounds(140, 442, 20, 28);
@@ -199,12 +208,30 @@ public class LottoCMR extends JFrame {
 		JButton cancelButton = new JButton("");
 		cancelButton.setBounds(140, 485, 20, 28);
 		panel.add(cancelButton);
+		
+		copyBtn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+		copyBtn.setBorderPainted(false);
+		copyBtn.setContentAreaFilled(false);
+		
+		pasteBtn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+		pasteBtn.setBorderPainted(false);
+		pasteBtn.setContentAreaFilled(false);
 
 		autoBtn.setBorderPainted(false);
 		autoBtn.setContentAreaFilled(false);
 
 		cancelButton.setBorderPainted(false);
 		cancelButton.setContentAreaFilled(false);
+		
+		JLabel copyedlbl = new JLabel();
+		copyedlbl.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/copyed.png")));
+		copyedlbl.setBounds(107, 352, 32, 37);
+		panelA.add(copyedlbl);
+		
+		JLabel pastedlbl = new JLabel();
+		pastedlbl.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/pasted.png")));
+		pastedlbl.setBounds(77, 392, 61, 44);
+		panelA.add(pastedlbl);
 
 		// ----------------------------------------------------------------
 		addMouseListener(lbls, key, dataBase, autoBtn);
