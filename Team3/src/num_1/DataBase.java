@@ -2,11 +2,13 @@ package num_1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
+
+import javax.swing.JLabel;
 
 public class DataBase {
 	Map<String, ArrayList<UserSelectNum>> map = new HashMap();
+	Map<String, JLabel[]> mapCMR = new HashMap();
 
 	public DataBase() {
 		map.put("A", new ArrayList<UserSelectNum>());
@@ -15,6 +17,12 @@ public class DataBase {
 		map.put("D", new ArrayList<UserSelectNum>());
 		map.put("E", new ArrayList<UserSelectNum>());
 
+		mapCMR.put("A", new JLabel[45]);
+		mapCMR.put("B", new JLabel[45]);
+		mapCMR.put("C", new JLabel[45]);
+		mapCMR.put("D", new JLabel[45]);
+		mapCMR.put("E", new JLabel[45]);
+		
 //		add();
 
 //		resultTest();
