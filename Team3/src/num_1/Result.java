@@ -6,16 +6,12 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.TimerTask;
-import java.util.Timer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
+import javax.swing.Timer;
 
 // 당첨결과 관련 로직 
 
@@ -38,6 +35,8 @@ class Result extends JFrame {
 	ArrayList<UserSelectNum> eList;
 	ArrayList<String> scores = new ArrayList<>();
 
+	int count = 1;
+
 	private int x;
 	private int y;
 	private int R = 50;
@@ -48,39 +47,9 @@ class Result extends JFrame {
 	private final int BALL_DISTANCE = 35; // 원과의 거리
 	private final int VIRTUAL_CIRCLE_RADIUS = 80; // 가상의 원의 반지름
 	private final ImageIcon[] BALL_IMAGES = new ImageIcon[BALL_COUNT];
-	private JLabel circle;
-	private int xx;
+	private JPanel drawPnl = new JPanel();
 
 	public Result(DataBase data) {
-		
-		RotateImage rotateImage = new RotateImage();
-		xx = 0;
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-//				rotateImage.moveAngle();
-				circle = new JLabel();
-				circle.setIcon(new ImageIcon(Result.class.getResource("/image/tooltip.png")));
-				circle.setBounds(xx, 0, 54, 54);
-//				circle.setLocation(77, 124);
-//				circle.setLocation(77 + (55 * 2), 124);
-//				circle.setLocation(911, 124);
-//				circle.setLocation(911, 254);
-//				circle.setLocation(0, 0);
-//				circle.setLocation(xx, 0);
-				add(circle);
-//				Image i = Toolkit.getDefaultToolkit().createImage(Result.class.getResource("/image/tooltip2.png"));
-//				ImageIcon icon = new ImageIcon(i);
-//				circle.setIcon(icon);
-//				circle.setIcon(new ImageIcon(Result.class.getResource("/image/tooltip.png")));
-//				add(circle);
-				xx += 1;
-				System.out.println("됨?");
-			}
-		}, 0, 40);
-		
-		
 		aList = data.map.get("A");
 		bList = data.map.get("B");
 		cList = data.map.get("C");
@@ -104,10 +73,30 @@ class Result extends JFrame {
 //		bonusNum = 6;
 
 		// 당첨번호 패널
-		JPanel pnl1 = lotteryNums();
-		pnl1.setBackground(new Color(255, 0, 0, 0));
-		pnl1.setBounds(20, 120, 550, 80);
-		add(pnl1);
+		drawPnl.setLayout(new FlowLayout(FlowLayout.LEFT));
+		drawPnl.setBackground(new Color(255, 0, 0, 0));
+		drawPnl.setBounds(20, 120, 550, 80);
+		add(drawPnl);
+		
+		
+		// 추첨 버튼
+		JButton btnTest = new JButton("테스트용 버튼");
+		btnTest.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (count < 7) {
+					printDrawNumber();
+					count++;
+				} else if (count == 7) {
+					drawBounsNumber();
+					count++;
+				}
+			}
+		});
+		btnTest.setBounds(0, 0, 100, 100);
+		add(btnTest);
+
+		// ---------------------------------------------
 
 		JButton btnExit = exitBtn();
 		add(btnExit);
@@ -277,25 +266,12 @@ class Result extends JFrame {
 		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
 		bgPnl.setBounds(0, 0, 600, 800);
 		bgPnl.add(bgLbl);
-		
+
 		JPanel bgPnl2 = new JPanel();
 		JLabel bgLbl2 = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
 		bgPnl2.setBounds(600, 0, 600, 800);
 		bgPnl2.add(bgLbl2);
-		
-//		Test frame = new Test();
-//		bgPnl2.add(frame);
-//		
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-		
+
 		add(bgPnl);
 		add(bgPnl2);
 
@@ -404,67 +380,93 @@ class Result extends JFrame {
 	/**
 	 * 당첨번호와 보너스번호 라벨 생성해서 패널에 부착
 	 * 
-	 * @return JPanel
+	 * 
 	 */
-	JPanel lotteryNums() {
-		// 1~6 패널, 보너스번호 패널
-		JPanel pnl = new JPanel(new FlowLayout());
-		JPanel pnl1 = new JPanel();
-		pnl1.setLayout(new OverlayLayout(pnl1));
-		JPanel pnl2 = new JPanel();
-		pnl2.setLayout(new OverlayLayout(pnl2));
-		JPanel pnl3 = new JPanel();
-		pnl3.setLayout(new OverlayLayout(pnl3));
-		JPanel pnl4 = new JPanel();
-		pnl4.setLayout(new OverlayLayout(pnl4));
-		JPanel pnl5 = new JPanel();
-		pnl5.setLayout(new OverlayLayout(pnl5));
-		JPanel pnl6 = new JPanel();
-		pnl6.setLayout(new OverlayLayout(pnl6));
-		JPanel pnlPlusNum = new JPanel();
+	void printDrawNumber() {
+		switch (count) {
+		case 1:
+			JPanel pnl1 = new JPanel();
+			pnl1.setLayout(new OverlayLayout(pnl1)); // 각 숫자 Panel
+			addDrawNumber(pnl1, lotteryNums.get(0));
+			break;
+		case 2:
+			JPanel pnl2 = new JPanel();
+			pnl2.setLayout(new OverlayLayout(pnl2));
+			addDrawNumber(pnl2, lotteryNums.get(1));
+			break;
+		case 3:
+			JPanel pnl3 = new JPanel();
+			pnl3.setLayout(new OverlayLayout(pnl3));
+			addDrawNumber(pnl3, lotteryNums.get(2));
+			break;
+		case 4:
+			JPanel pnl4 = new JPanel();
+			pnl4.setLayout(new OverlayLayout(pnl4));
+			addDrawNumber(pnl4, lotteryNums.get(3));
+			break;
+		case 5:
+			JPanel pnl5 = new JPanel();
+			pnl5.setLayout(new OverlayLayout(pnl5));
+			addDrawNumber(pnl5, lotteryNums.get(4));
+			break;
+		case 6:
+			JPanel pnl6 = new JPanel();
+			pnl6.setLayout(new OverlayLayout(pnl6));
+			addDrawNumber(pnl6, lotteryNums.get(5));
+			break;
+		}
+
+		try {
+			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		// revalidate: repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 메서드.
+		drawPnl.revalidate();
+		// repaint: drawPnl을 다시 그리도록 요청하는 메서드
+		drawPnl.repaint();
+	}
+
+	void addDrawNumber(JPanel addPnl, int index) {
+		// 숫자아이콘 라벨
+		JLabel lblNum = new JLabel(); // Label에 숫자 아이콘 입력
+		int elem = index + 1;
+		lblNum.setIcon(pBN.numImg[index]); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
+		lblNum.setHorizontalTextPosition(JLabel.CENTER);
+		lblNum.setBackground(new Color(255, 0, 0, 0));
+		addPnl.setBackground(new Color(255, 0, 0, 0));
+		addPnl.add(lblNum);
+
+		// 공 아이콘
+		JLabel lblBall = new JLabel(); // Label
+		if (elem <= 10) {
+			lblBall.setIcon(pBN.circle10);
+		} else if (elem <= 20) {
+			lblBall.setIcon(pBN.circle20);
+		} else if (elem <= 30) {
+			lblBall.setIcon(pBN.circle30);
+		} else if (elem <= 40) {
+			lblBall.setIcon(pBN.circle40);
+		} else if (elem <= 50) {
+			lblBall.setIcon(pBN.circle50);
+		}
+		lblBall.setHorizontalTextPosition(JLabel.CENTER);
+		lblBall.setBackground(new Color(255, 0, 0, 0));
+		addPnl.add(lblBall);
+
+		drawPnl.add(addPnl);
+	}
+
+	void drawBounsNumber() {
+		JPanel pnlPlusNum = new JPanel(); // 보너스 숫자 Panel
 		pnlPlusNum.setLayout(new OverlayLayout(pnlPlusNum));
 		pnlPlusNum.setBackground(new Color(255, 0, 0, 0));
 
-		JPanel[] pnls = { pnl1, pnl2, pnl3, pnl4, pnl5, pnl6 };
-
-		int i = 0;
-		for (Integer elem : lotteryNums) {
-
-			// 숫자아이콘 라벨
-			JLabel lblNum = new JLabel();
-			int index = elem - 1;
-			lblNum.setIcon(pBN.numImg[index]); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
-			lblNum.setHorizontalTextPosition(JLabel.CENTER);
-			lblNum.setBackground(new Color(255, 0, 0, 0));
-			pnls[i].setBackground(new Color(255, 0, 0, 0));
-			pnls[i].add(lblNum);
-
-			// 공 아이콘
-			JLabel lblBall = new JLabel();
-			if (elem <= 10) {
-				lblBall.setIcon(pBN.circle10);
-			} else if (elem <= 20) {
-				lblBall.setIcon(pBN.circle20);
-			} else if (elem <= 30) {
-				lblBall.setIcon(pBN.circle30);
-			} else if (elem <= 40) {
-				lblBall.setIcon(pBN.circle40);
-			} else if (elem <= 50) {
-				lblBall.setIcon(pBN.circle50);
-			}
-			lblBall.setHorizontalTextPosition(JLabel.CENTER);
-			lblBall.setBackground(new Color(255, 0, 0, 0));
-			pnls[i].add(lblBall);
-
-			pnl.add(pnls[i]);
-			i++;
-		}
-
-		// + 아이콘 라벨
-		JLabel lblPlus = new JLabel();
+		JLabel lblPlus = new JLabel(); // + 아이콘 Label
 		lblPlus.setIcon(new ImageIcon(Result.class.getResource("/image/plus.png")));
 		lblPlus.setBackground(new Color(255, 0, 0, 0));
-		pnl.add(lblPlus);
+		drawPnl.add(lblPlus);
 
 		// bonusNum 숫자아이콘 라벨
 		JLabel lblPlusNum = new JLabel();
@@ -473,7 +475,7 @@ class Result extends JFrame {
 		lblPlusNum.setBackground(new Color(255, 0, 0, 0));
 		pnlPlusNum.add(lblPlusNum);
 
-		// 공 아이콘 라벨
+		// plus 공 아이콘 라벨
 		JLabel lblPlusBall = new JLabel();
 		int elem = bonusNum;
 		if (elem <= 10) {
@@ -490,9 +492,17 @@ class Result extends JFrame {
 		lblPlusBall.setHorizontalTextPosition(JLabel.CENTER);
 		lblPlusBall.setBackground(new Color(255, 0, 0, 0));
 		pnlPlusNum.add(lblPlusBall);
-		pnl.add(pnlPlusNum);
+		drawPnl.add(pnlPlusNum);
+		
+		try {
+			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
-		return pnl;
+		drawPnl.revalidate();
+		// repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 키워드.
+		drawPnl.repaint();
 	}
 
 	// ---------------------------------------------------------------------------------
@@ -716,13 +726,13 @@ class Result extends JFrame {
 			setSize(600, 600);
 		}
 
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				repaint();
-			}
-		}, 0, 40);
+		Timer timer = new Timer(40, new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        repaint();
+		    }
+		});
+		timer.start();
 
 		JPanel panel = new JPanel() {
 			@Override

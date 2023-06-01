@@ -272,7 +272,6 @@ public class LottoCMR extends JFrame {
 					}
 				}
 				lblNewLabel.setText(" 총 구매금액 " + getPrice(dataBase) + "원"); // 금액 변경
-
 			}
 		});
 	}
