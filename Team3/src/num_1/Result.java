@@ -99,7 +99,7 @@ class Result extends JFrame {
 		timerX = 911;
 		timerY = 254;
 		timerI = 0;
-		timer = new Timer(10, new ActionListener() {
+		timer = new Timer(40, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
@@ -476,11 +476,11 @@ class Result extends JFrame {
 			break;
 		}
 
-//		try {
-//			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		// revalidate: repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 메서드.
 		drawPnl.revalidate();
