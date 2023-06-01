@@ -75,7 +75,7 @@ class Result extends JFrame {
 		// 당첨번호 패널
 		drawPnl.setLayout(new FlowLayout(FlowLayout.LEFT));
 		drawPnl.setBackground(new Color(255, 0, 0, 0));
-		drawPnl.setBounds(20, 120, 550, 80);
+		drawPnl.setBounds(55, 120, 550, 80);
 		add(drawPnl);
 		
 		
