@@ -160,7 +160,7 @@ public class LottoCMR extends JFrame {
 
 		JLabel paper = new JLabel("New label");
 		paper.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paper.png")));
-		paper.setBounds(0, 10, 1254, 641);
+		paper.setBounds(0, 0, 1254, 651);
 		panel_3.add(paper);
 
 		setVisible(true);
@@ -226,12 +226,12 @@ public class LottoCMR extends JFrame {
 		JLabel copyedlbl = new JLabel();
 		copyedlbl.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/copyed.png")));
 		copyedlbl.setBounds(107, 352, 32, 37);
-		panelA.add(copyedlbl);
+		panel.add(copyedlbl);
 		
 		JLabel pastedlbl = new JLabel();
 		pastedlbl.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/pasted.png")));
 		pastedlbl.setBounds(77, 392, 61, 44);
-		panelA.add(pastedlbl);
+		panel.add(pastedlbl);
 
 		// ----------------------------------------------------------------
 		addMouseListener(lbls, key, dataBase, autoBtn);
