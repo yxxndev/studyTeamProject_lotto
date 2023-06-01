@@ -1,7 +1,5 @@
 package num_1;
 
-import java.awt.Image;
-
 import javax.swing.ImageIcon;
 
 class PrintBallNumber {
