@@ -55,6 +55,7 @@ public class Test extends JFrame {
 	}
 }
 
+
 class RotateImage {
 	int i = 0;
 	
@@ -70,25 +71,27 @@ class RotateImage {
         graphics2D.rotate(Math.toRadians(i), widthOfImage / 2, heightOfImage / 2);
         graphics2D.drawImage(imageToRotate, null, 0, 0);
         
-        i += 5;
-        if (i == 365)
+        i -= 5;
+        if (i == -365)
         	i = 0;
         
         return newImageFromBuffer;
     }
 
-    public void moveAngle() {
+    public ImageIcon[] moveAngle() {
+    	ImageIcon[] images = new ImageIcon[35];
         try {
         	BufferedImage originalImage = ImageIO.read(getClass().getResource("/image/tooltip.png"));
 
-            BufferedImage subImage = rotateImage(originalImage);
-
-            File rotatedImageFile = new File("src/image/tooltip2.png");
-
-            ImageIO.write(subImage, "png", rotatedImageFile);
+        	for (int i = 0; i < images.length; i++) {
+        		BufferedImage subImage = rotateImage(originalImage);
+        		Image image = subImage;
+        		images[i] = new ImageIcon(image);
+			}
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return images;
     }
 }
