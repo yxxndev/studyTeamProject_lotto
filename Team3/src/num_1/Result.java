@@ -95,12 +95,7 @@ class Result extends JFrame {
 		lotteryNums.add(7);
 		bonusNum = 6;
 		
-		JPanel bgPnl = new JPanel();
-		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/result1280.png"))));
-		bgPnl.setBounds(-35, -35, 1280, 800);
-		bgPnl.add(bgLbl);
-		add(bgPnl);
-
+		
 		// ---------------------------------------------
 //		JPanel panel = new JPanel();
 //		panel.setLayout(null);
@@ -208,6 +203,16 @@ class Result extends JFrame {
 		drawPnl.setBackground(new Color(255, 0, 0, 0));
 		drawPnl.setBounds(55, 120, 550, 80);
 		add(drawPnl);
+		
+		// 공굴러가는거
+		JPanel pnlBallImage = loadBallImages();
+		pnlBallImage.setBounds(470, 100, 800, 600);
+		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
+		add(pnlBallImage);
+		
+		JPanel bgPnl = new JPanel();
+		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/result1280.png"))));
+		
 
 		// 추첨 버튼
 		JButton btnTest = new JButton("테스트용 버튼");
@@ -227,15 +232,23 @@ class Result extends JFrame {
 
 					pnlTotScore.add(getTotalScore(), "Left");
 
-					add(pnlTotScore);
-					add(pnlTotMoney);
+					bgPnl.add(pnlTotScore);
+					bgPnl.add(pnlTotMoney);
 					count++;
 				}
 			}
 		});
+		
 
 		btnTest.setBounds(0, 0, 100, 100);
 		add(btnTest);
+		
+		
+		
+		bgPnl.setBounds(-35, -35, 1280, 800);
+		bgPnl.add(bgLbl);
+		add(bgPnl);
+		
 		
 		// ---------------------------------------------------------------------------
 		setBackground(Color.WHITE);
