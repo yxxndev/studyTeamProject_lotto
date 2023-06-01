@@ -68,9 +68,6 @@ public class Start extends JFrame {
 		ImageIcon img2 = new ImageIcon(Start.class.getResource("/image/exit.png"));
 		ImageIcon img4 = new ImageIcon(Start.class.getResource("/image/exitClick.png"));
 		
-//		JLabel lblNewLabel = new JLabel("로또게임");
-//		lblNewLabel.setBounds(181, 57, 57, 15);
-//		contentPane.add(lblNewLabel);
 		setVisible(true);
 	}
 }

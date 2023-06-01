@@ -97,11 +97,6 @@ class Result extends JFrame {
 
 		// ---------------------------------------------
 
-		bigPnl = new JPanel();
-		bigPnl.setBounds(0, 0, 800, 800);
-		bigPnl.setBackground(new Color(255, 0, 0, 0));
-		bigPnl.setLayout(null);
-		add(bigPnl);
 
 		JButton btnExit = exitBtn();
 		add(btnExit);
@@ -235,45 +230,8 @@ class Result extends JFrame {
 
 		// ---------------------------------------------------------------------------
 
-		// 섹션1 생성 : "추첨 결과" 텍스트
-		JLabel section1 = new JLabel(new ImageIcon(Result.class.getResource("/image/headerTest.png")));
-		section1.setBounds(0, 0, 600, 110);
-		add(section1);
 
-//		// 섹션2 생성: 당첨번호 출력
-//		JLabel section2 = new JLabel(new ImageIcon(Result.class.getResource("/image/testSection2.png")));
-//		section2.setBounds(0, 150, 600, 100);
-//		add(section2);
 
-		// 섹션3 생성: 당첨 최고 등수 + 당첨 총 금액 출력
-		JLabel section3 = new JLabel(new ImageIcon(Result.class.getResource("/image/reword수정.png")));
-		section3.setBounds(0, 200, 600, 70);
-		add(section3);
-
-		// 섹션4 생성: 유저 번호 출력 (A~E)
-		JLabel section4 = new JLabel(new ImageIcon(Result.class.getResource("/image/result.png")));
-		section4.setBounds(0, 300, 600, 350);
-		add(section4);
-
-		// 추첨 이미지
-		JPanel pnlBallImage = loadBallImages();
-		pnlBallImage.setBounds(470, 100, 800, 600);
-		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
-		add(pnlBallImage);
-
-		// 배경깔기
-		JPanel bgPnl = new JPanel();
-		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
-		bgPnl.setBounds(0, 0, 600, 800);
-		bgPnl.add(bgLbl);
-
-		JPanel bgPnl2 = new JPanel();
-		JLabel bgLbl2 = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
-		bgPnl2.setBounds(600, 0, 600, 800);
-		bgPnl2.add(bgLbl2);
-
-		add(bgPnl);
-		add(bgPnl2);
 
 		setBackground(Color.WHITE);
 		setTitle("추첨 결과");
