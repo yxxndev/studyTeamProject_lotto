@@ -2,7 +2,6 @@ package num_1;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -17,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 import javax.swing.Timer;
@@ -48,8 +48,13 @@ class Result extends JFrame {
 	private final int VIRTUAL_CIRCLE_RADIUS = 80; // 가상의 원의 반지름
 	private final ImageIcon[] BALL_IMAGES = new ImageIcon[BALL_COUNT];
 	private JPanel drawPnl = new JPanel();
+	private int timerX;
+	private int timerY;
+	private Timer timer;
+	private int timerI;
 
 	public Result(DataBase data) {
+		
 		aList = data.map.get("A");
 		bList = data.map.get("B");
 		cList = data.map.get("C");
@@ -71,7 +76,66 @@ class Result extends JFrame {
 //		lotteryNums.add(5);
 //		lotteryNums.add(7);
 //		bonusNum = 6;
-
+		
+		JPanel bigPnl = new JPanel();
+		bigPnl.setBounds(0, 0, 2000, 2000);
+		bigPnl.setBackground(new Color(255, 0, 0, 0));
+		add(bigPnl);
+		JLayeredPane layeredPane = new JLayeredPane();
+		
+		// 추첨 이미지
+		JPanel pnlBallImage = loadBallImages();
+		pnlBallImage.setLayout(null);
+		pnlBallImage.setBounds(470, 100, 800, 600);
+		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
+		add(pnlBallImage);
+		
+		RotateImage rotateImage = new RotateImage();
+		JLabel lbl = new JLabel();
+		lbl.setBounds(911, 254, 54, 54);
+		layeredPane.setComponentZOrder(lbl, 0);
+		bigPnl.add(lbl);
+		ImageIcon[] moveCircles = rotateImage.moveAngle();
+		timerX = 911;
+		timerY = 254;
+		timerI = 0;
+		timer = new Timer(10, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				ImageIcon icon = moveCircles[timerI];
+				timerI++;
+				if (timerI == 34)
+					timerI = 0;
+				lbl.setIcon(icon);
+				lbl.setBounds(timerX, timerY, 54, 54);
+				System.out.println(lbl.getBounds());
+				if (timerY >= 125)
+					timerY -= 10;
+				if (timerY ==124)
+					timerX -= 10;
+				if (timerX < 77) {
+					if (count < 7) {
+						printDrawNumber();
+						count++;
+					} else if (count == 7) {
+						drawBounsNumber();
+						count++;
+					}
+//					try {
+//						Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
+//						} 
+//					catch (InterruptedException e) {
+//							e.printStackTrace();
+//						}
+					timer.stop();
+				}
+			}
+		});
+		
+//		무한클릭 안되게
+		
+		
 		// 당첨번호 패널
 		drawPnl.setLayout(new FlowLayout(FlowLayout.LEFT));
 		drawPnl.setBackground(new Color(255, 0, 0, 0));
@@ -84,17 +148,16 @@ class Result extends JFrame {
 		btnTest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (count < 7) {
-					printDrawNumber();
-					count++;
-				} else if (count == 7) {
-					drawBounsNumber();
-					count++;
+				if (count != 8) {
+					timerX = 911;
+					timerY = 254;
+					lbl.setVisible(true);
+					timer.start();
 				}
 			}
 		});
-		btnTest.setBounds(0, 0, 100, 100);
-		add(btnTest);
+		btnTest.setBounds(500, 500, 100, 100);
+		pnlBallImage.add(btnTest);
 
 		// ---------------------------------------------
 
@@ -255,11 +318,8 @@ class Result extends JFrame {
 		section4.setBounds(0, 300, 600, 350);
 		add(section4);
 
-		// 추첨 이미지
-		JPanel pnlBallImage = loadBallImages();
-		pnlBallImage.setBounds(470, 100, 800, 600);
-		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
-		add(pnlBallImage);
+		
+
 
 		// 배경깔기
 		JPanel bgPnl = new JPanel();
@@ -416,11 +476,11 @@ class Result extends JFrame {
 			break;
 		}
 
-		try {
-			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 
 		// revalidate: repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 메서드.
 		drawPnl.revalidate();
