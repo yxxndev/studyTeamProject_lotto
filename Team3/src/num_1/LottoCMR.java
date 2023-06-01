@@ -351,13 +351,16 @@ public class LottoCMR extends JFrame {
 		int finishMarking = 0;
 		String[] key = new String[] { "A", "B", "C", "D", "E" };
 		String message = "";
+		int markedNum;
 
+		
 		for (String keys : key) {
-			int markedNum = dataBase.map.get(keys).size();
+			markedNum = dataBase.map.get(keys).size();
 
 			if (markedNum == 6) {
 				finishMarking += 1;
 			}
+			
 
 			if (markedNum > 0 && markedNum < 6) { // 조건 마다 메시지 한 줄 씩 추가
 				if (message.equals("")) {
@@ -366,14 +369,10 @@ public class LottoCMR extends JFrame {
 					message +=  "[" + keys + "] ";
 				}
 			}
-
 		}
-		if (finishMarking == 0) {
-			if (message.equals("")) {
-				message += "[!] 최소 한 개 이상의 게임이 선택되어야 합니다.";
-			} else {
-				message += "\n[!] 최소 한 개 이상의 게임이 선택되어야 합니다.";
-			}
+		
+		if (message.equals("") && finishMarking == 0) {
+			message += "\n[!] 최소 한 개 이상의 게임이 선택되어야 합니다.";
 		}
 
 		if (!message.equals("")) { // 메시지가 있으면 출력
