@@ -272,228 +272,247 @@ public class LottoCMR extends JFrame {
 	}
 
 	// 복사버튼 액션 추가
-	private void copyMarking(JLabel[] lbls, DataBase dataBase, String key, JButton btn) {
-		btn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				copyList.clear();
-				copyList.addAll(dataBase.map.get(key));
-				btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
-
-				dataBase.mapCopy.put(key, btn); // 추가
-
-				String[] keys = { "A", "B", "C", "D", "E" };
-				ArrayList<String> keysList = new ArrayList<>();
-				Collections.addAll(keysList, keys);
-				keysList.remove(key);
-
-				for (int i = 0; i < keysList.size(); i++) {
-					if (dataBase.mapCopy.get(keysList.get(i)) != null) {
-						dataBase.mapCopy.get(keysList.get(i))
-								.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
-					}
-				}
-			}
-		});
-	}
-
-	// 붙여넣기 버튼 액션 추가
-	private void pasteMarking(JLabel[] lbls, DataBase dataBase, String key, JButton btn) {
-		btn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ArrayList<UserSelectNum> list = new ArrayList<>();
-				for (UserSelectNum elem : copyList) {
-					list.add(elem);
-				}
-				dataBase.map.put(key, list);
-
-				for (int i = 0; i < lbls.length; i++) {
-					lbls[i].setIcon(null);
-				}
-
-				for (UserSelectNum elem : dataBase.map.get(key)) {
-					int num = elem.getLotteryNum();
-					int index = num - 1;
-					lbls[index].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
-				}
-				paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
-			}
-
-		});
-	}
-
-	private void addMouseListener(JLabel[] lbls, String key, DataBase dataBase, JButton btn) {
-		for (int i = 0; i < lbls.length; i++) {
-			int index = i;
-			lbls[i].addMouseListener(new MouseAdapter() {
+		private void copyMarking(JLabel[] lbls, DataBase dataBase, String key, JButton btn) {
+			btn.addActionListener(new ActionListener() {
 				@Override
-				public void mouseClicked(MouseEvent e) {
-					super.mouseClicked(e);
-					markingLabelClieked(lbls, index, key, dataBase, btn);
+				public void actionPerformed(ActionEvent e) {
+					copyList.clear();
+					copyList.addAll(dataBase.map.get(key));
+					btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
 
-					if (dataBase.map.get(key).size() < 6) {
-						btn.setIcon(null);
+					dataBase.mapCopy.put(key, btn); // 추가
+
+					String[] keys = { "A", "B", "C", "D", "E" };
+					ArrayList<String> keysList = new ArrayList<>();
+					Collections.addAll(keysList, keys);
+					keysList.remove(key);
+
+					for (int i = 0; i < keysList.size(); i++) {
+						if (dataBase.mapCopy.get(keysList.get(i)) != null) {
+							dataBase.mapCopy.get(keysList.get(i))
+									.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+						}
 					}
 				}
 			});
 		}
-	}
 
-	public void markingLabelClieked(JLabel[] lbls, int index, String key, DataBase dataBase, JButton btn) {
-		int indexNum = index + 1;
-		if (dataBase.map.get(key).contains(new UserSelectNum(indexNum, false))) { // 같은게 있다면
-			int arrayListIndex = dataBase.map.get(key).indexOf(new UserSelectNum(indexNum, false)); // index
-																									// 번호 호출
-			dataBase.map.get(key).remove(arrayListIndex); // 제거
-			lbls[index].setIcon(null); // 마킹 제거
+		// 붙여넣기 버튼 액션 추가
+		private void pasteMarking(JLabel[] lbls, DataBase dataBase, String key, JButton btn) {
+			btn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ArrayList<UserSelectNum> list = new ArrayList<>();
+					for (UserSelectNum elem : copyList) {
+						list.add(elem);
+					}
+					dataBase.map.put(key, list);
 
-		} else { // 같은게 없을때
-			if (dataBase.map.get(key).size() < 6) { // 크기가 6이하면
-				dataBase.map.get(key).add(new UserSelectNum(indexNum, false)); // 추가
-				lbls[index].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png"))); // 마킹
-			}
-		}
-		paylbl.setText(getPrice(dataBase) + "");
+					for (int i = 0; i < lbls.length; i++) {
+						lbls[i].setIcon(null);
+					}
 
-		if (!autoChecking(dataBase, key)) {
-			btn.setIcon(null);
-		}
-	}
-
-	public void cancleMarking(String key, JLabel[] lbls, JButton cancelBtn, DataBase dataBase, JButton autoBtn) {
-		cancelBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dataBase.map.get(key).clear(); // key값 받아서 전체 삭제
-
-				// 추가
-				dataBase.mapCopy.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
-
-				for (JLabel lbl : lbls) {
-					lbl.setIcon(null); // 아이콘 제거
-				}
-
-				paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
-				if (!autoChecking(dataBase, key)) {
-					autoBtn.setIcon(null);
-				}
-			}
-		});
-	}
-
-	public int getPrice(DataBase dataBase) { // 총 구매 금액 출력
-		int price = 0;
-		Set<String> keys = dataBase.map.keySet();
-
-		for (String key : keys) {
-			if (dataBase.map.get(key).size() == 6) { // key값 전체 돌려서
-				price += 1000;
-			}
-		}
-		return price;
-	}
-
-	public void autoMarking(JLabel[] lbls, DataBase dataBase, String key, JButton btn) {
-		Random random = new Random(); // 랜덤생성
-		btn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				while (true) { // 자동 번호 배열
-					if (dataBase.map.get(key).size() == 6) { // 크기가 6이면 종료
-						break;
-					} else {
-						int ran = random.nextInt(45) + 1; // 1~45 번호 생성
-						if (!dataBase.map.get(key).contains(new UserSelectNum(ran, true))) { // 숫자가 같지 않으면 true
-							dataBase.map.get(key).add(new UserSelectNum(ran, true)); // 숫자저장
-							lbls[ran - 1].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png"))); // 마킹
-							btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
+					for (UserSelectNum elem : dataBase.map.get(key)) {
+						int num = elem.getLotteryNum();
+						int index = num - 1;
+						lbls[index].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
+					}
+					paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
+					
+					if (copyList.size() == 0) { 
+						dataBase.mapAuto.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+					}
+					
+					// 수동을 복사하고 붙여넣었을 때, 기존 자동 반자동이 안사라짐
+					
+					int autoCount = 0;
+					for (UserSelectNum elem : copyList) {
+						if (elem.isAuto()) {
+							autoCount++;
 						}
 					}
+					if (autoCount == 0) {
+						dataBase.mapAuto.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+					} else {
+						dataBase.mapAuto.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
+					}
+					
+					
 				}
-				paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
-			}
-		});
-	}
-
-	public boolean autoChecking(DataBase dataBase, String key) {
-		for (int i = 0; i < dataBase.map.get(key).size(); i++) {
-			if (dataBase.map.get(key).get(i).isAuto()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private void allAuto(JLabel[] lbls, DataBase dataBase, String key, JButton btn) {
-		Random random = new Random(); // 랜덤생성
-
-		while (true) { // 자동 번호 배열
-			if (dataBase.map.get(key).size() == 6) { // 크기가 6이면 종료
-				break;
-			} else {
-				int ran = random.nextInt(45) + 1; // 1~45 번호 생성
-				if (!dataBase.map.get(key).contains(new UserSelectNum(ran, true))) { // 숫자가 같지 않으면 true
-					dataBase.map.get(key).add(new UserSelectNum(ran, true)); // 숫자저장
-					lbls[ran - 1].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png"))); // 마킹
-					btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
-				}
-			}
-		}
-		paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
-	}
-	
-	private void allCancel(String key, JLabel[] lbls, DataBase dataBase, JButton autoBtn) {
-		dataBase.map.get(key).clear(); // key값 받아서 전체 삭제
-
-		// 추가
-		dataBase.mapCopy.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
-
-		for (JLabel lbl : lbls) {
-			lbl.setIcon(null); // 아이콘 제거
+			});
 		}
 
-		paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
-		if (!autoChecking(dataBase, key)) {
-			autoBtn.setIcon(null);
-		}
-	}
+		private void addMouseListener(JLabel[] lbls, String key, DataBase dataBase, JButton btn) {
+			for (int i = 0; i < lbls.length; i++) {
+				int index = i;
+				lbls[i].addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						super.mouseClicked(e);
+						markingLabelClieked(lbls, index, key, dataBase, btn);
 
-	// 구매 규칙(안내메시지)
-	// 6개가 SELECTED된 게 하나도 없을 때 "최소 1개 이상의 게임이 선택되어야 합니다."
-	// SELECTED가 완료된 복권이 있고, 1 ~ 5 SELECTED 된 복권이 있을 때 "[B] 복권의 번호 입력이 3개 부족합니다."
-	// 테스트를 위해 배열 하나 더 생성 필요
-	public boolean purchaseRules(DataBase dataBase) {
-		int fullNum = 6;
-		int finishMarking = 0;
-		String[] key = new String[] { "A", "B", "C", "D", "E" };
-		String message = "";
-		int markedNum;
-
-		for (String keys : key) {
-			markedNum = dataBase.map.get(keys).size();
-
-			if (markedNum == 6) {
-				finishMarking += 1;
+						if (dataBase.map.get(key).size() < 6) {
+							btn.setIcon(null);
+						}
+					}
+				});
 			}
+		}
 
-			if (markedNum > 0 && markedNum < 6) { // 조건 마다 메시지 한 줄 씩 추가
-				if (message.equals("")) {
-					message += "[!] 복권의 번호는 [총 6개]가 되어야 합니다.\n번호가 부족한 게임: " + "[" + keys + "] ";
-				} else {
-					message += "[" + keys + "] ";
+		public void markingLabelClieked(JLabel[] lbls, int index, String key, DataBase dataBase, JButton btn) {
+			int indexNum = index + 1;
+			if (dataBase.map.get(key).contains(new UserSelectNum(indexNum, false))) { // 같은게 있다면
+				int arrayListIndex = dataBase.map.get(key).indexOf(new UserSelectNum(indexNum, false)); // index
+																										// 번호 호출
+				dataBase.map.get(key).remove(arrayListIndex); // 제거
+				lbls[index].setIcon(null); // 마킹 제거
+
+			} else { // 같은게 없을때
+				if (dataBase.map.get(key).size() < 6) { // 크기가 6이하면
+					dataBase.map.get(key).add(new UserSelectNum(indexNum, false)); // 추가
+					lbls[index].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png"))); // 마킹
 				}
 			}
+			paylbl.setText(getPrice(dataBase) + "");
+
+			if (!autoChecking(dataBase, key)) {
+				btn.setIcon(null);
+			}
 		}
 
-		if (message.equals("") && finishMarking == 0) {
-			message += "\n[!] 최소 한 개 이상의 게임이 선택되어야 합니다.";
+		public void cancleMarking(String key, JLabel[] lbls, JButton cancelBtn, DataBase dataBase, JButton autoBtn) {
+			cancelBtn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dataBase.map.get(key).clear(); // key값 받아서 전체 삭제
+
+					// 추가
+					dataBase.mapCopy.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+
+					for (JLabel lbl : lbls) {
+						lbl.setIcon(null); // 아이콘 제거
+					}
+
+					paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
+					if (!autoChecking(dataBase, key)) {
+						autoBtn.setIcon(null);
+					}
+				}
+			});
 		}
 
-		if (!message.equals("")) { // 메시지가 있으면 출력
-			JOptionPane.showMessageDialog(null, message, "테스트용 경고 창", JOptionPane.WARNING_MESSAGE);
+		public int getPrice(DataBase dataBase) { // 총 구매 금액 출력
+			int price = 0;
+			Set<String> keys = dataBase.map.keySet();
+
+			for (String key : keys) {
+				if (dataBase.map.get(key).size() == 6) { // key값 전체 돌려서
+					price += 1000;
+				}
+			}
+			return price;
+		}
+
+		public void autoMarking(JLabel[] lbls, DataBase dataBase, String key, JButton btn) {
+			Random random = new Random(); // 랜덤생성
+			btn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					while (true) { // 자동 번호 배열
+						if (dataBase.map.get(key).size() == 6) { // 크기가 6이면 종료
+							break;
+						} else {
+							int ran = random.nextInt(45) + 1; // 1~45 번호 생성
+							if (!dataBase.map.get(key).contains(new UserSelectNum(ran, true))) { // 숫자가 같지 않으면 true
+								dataBase.map.get(key).add(new UserSelectNum(ran, true)); // 숫자저장
+								lbls[ran - 1].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png"))); // 마킹
+								btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
+							}
+						}
+					}
+					paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
+				}
+			});
+		}
+
+		public boolean autoChecking(DataBase dataBase, String key) {
+			for (int i = 0; i < dataBase.map.get(key).size(); i++) {
+				if (dataBase.map.get(key).get(i).isAuto()) {
+					return true;
+				}
+			}
 			return false;
 		}
-		return true;
+
+		private void allAuto(JLabel[] lbls, DataBase dataBase, String key, JButton btn) {
+			Random random = new Random(); // 랜덤생성
+
+			while (true) { // 자동 번호 배열
+				if (dataBase.map.get(key).size() == 6) { // 크기가 6이면 종료
+					break;
+				} else {
+					int ran = random.nextInt(45) + 1; // 1~45 번호 생성
+					if (!dataBase.map.get(key).contains(new UserSelectNum(ran, true))) { // 숫자가 같지 않으면 true
+						dataBase.map.get(key).add(new UserSelectNum(ran, true)); // 숫자저장
+						lbls[ran - 1].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png"))); // 마킹
+						btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
+					}
+				}
+			}
+			paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
+		}
+		
+		private void allCancel(String key, JLabel[] lbls, DataBase dataBase, JButton autoBtn) {
+			dataBase.map.get(key).clear(); // key값 받아서 전체 삭제
+
+			// 추가
+			dataBase.mapCopy.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+
+			for (JLabel lbl : lbls) {
+				lbl.setIcon(null); // 아이콘 제거
+			}
+
+			paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
+			if (!autoChecking(dataBase, key)) {
+				autoBtn.setIcon(null);
+			}
+		}
+
+		// 구매 규칙(안내메시지)
+		// 6개가 SELECTED된 게 하나도 없을 때 "최소 1개 이상의 게임이 선택되어야 합니다."
+		// SELECTED가 완료된 복권이 있고, 1 ~ 5 SELECTED 된 복권이 있을 때 "[B] 복권의 번호 입력이 3개 부족합니다."
+		// 테스트를 위해 배열 하나 더 생성 필요
+		public boolean purchaseRules(DataBase dataBase) {
+			int fullNum = 6;
+			int finishMarking = 0;
+			String[] key = new String[] { "A", "B", "C", "D", "E" };
+			String message = "";
+			int markedNum;
+
+			for (String keys : key) {
+				markedNum = dataBase.map.get(keys).size();
+
+				if (markedNum == 6) {
+					finishMarking += 1;
+				}
+
+				if (markedNum > 0 && markedNum < 6) { // 조건 마다 메시지 한 줄 씩 추가
+					if (message.equals("")) {
+						message += "[!] 복권의 번호는 [총 6개]가 되어야 합니다.\n번호가 부족한 게임: " + "[" + keys + "] ";
+					} else {
+						message += "[" + keys + "] ";
+					}
+				}
+			}
+
+			if (message.equals("") && finishMarking == 0) {
+				message += "\n[!] 최소 한 개 이상의 게임이 선택되어야 합니다.";
+			}
+
+			if (!message.equals("")) { // 메시지가 있으면 출력
+				JOptionPane.showMessageDialog(null, message, "테스트용 경고 창", JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+			return true;
+		}
 	}
-}
