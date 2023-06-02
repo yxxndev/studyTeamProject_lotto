@@ -297,7 +297,7 @@ class Result extends JFrame {
 		});
 
 		bgPnl = new JPanel();
-		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/resultFinal.png"))));
+		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/resultAddBox.png"))));
 
 		bgPnl.setBounds(-35, -35, 1280, 800);
 		bgPnl.add(bgLbl);
