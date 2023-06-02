@@ -310,6 +310,18 @@ public class LottoCMR extends JFrame {
 				if (copyList.size() == 0) { 
 					dataBase.mapAuto.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
 				}
+				
+				// 수동을 복사하고 붙여넣었을 때, 기존 자동 반자동이 안사라짐
+				
+				int autoCount = 0;
+				for (UserSelectNum elem : copyList) {
+					if (elem.isAuto()) {
+						autoCount++;
+					}
+				}
+				if (autoCount == 0) {
+					dataBase.mapAuto.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+				}
 			}
 		});
 	}
