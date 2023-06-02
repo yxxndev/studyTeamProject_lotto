@@ -157,13 +157,13 @@ class Result extends JFrame {
 
 		// 총 당첨금액 라벨
 		JLabel lblMoney = totalMoneyLabel();
-		lblMoney.setFont(new Font("Malgun Gothic", Font.BOLD, 28));
+		lblMoney.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 
 		// 등수 안내 라벨
-		JLabel lblInfo = new JLabel(new ImageIcon(Result.class.getResource("/image/tooltip.png")));
+		JLabel lblInfo = new JLabel(new ImageIcon(Result.class.getResource("/image/tooltip축소.png")));
 		lblInfo.setToolTipText("1등: 128,000,000원 \n 2등: 50,000,000원 \n 3등: 1,500,000원 \n 4등: 50,000원 \n 5등: 5,000원");
 		lblInfo.setBackground(new Color(255, 0, 0, 0));
-		lblInfo.setBounds(495, 620, 80, 80);
+		lblInfo.setBounds(470, 585, 80, 80);
 		getContentPane().add(lblInfo);
 
 		// 총 등수 패널
@@ -174,7 +174,7 @@ class Result extends JFrame {
 
 		// 총 가격 패널
 		JPanel pnlTotMoney = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		pnlTotMoney.setBounds(225, 600, 300, 80);
+		pnlTotMoney.setBounds(100, 600, 300, 80);
 		pnlTotMoney.setBackground(new Color(255, 0, 0, 0));
 		add(pnlTotMoney);
 
@@ -191,29 +191,20 @@ class Result extends JFrame {
 
 		// 공굴러가는거
 		JPanel pnlBallImage = loadBallImages();
-		pnlBallImage.setBounds(490, 65, 800, 600);
+		pnlBallImage.setBounds(510, 70, 800, 600);
 		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
 		add(pnlBallImage);
 
 		// 추첨 버튼
-		ImageIcon lotteryBtnImg = new ImageIcon(Result.class.getResource("/image/lotteryBtn.png"));
-		ImageIcon lotteryBtnImgBtnClickImg = new ImageIcon(Result.class.getResource("/image/lotteryBtnClick.png"));
-		JButton lotteryBtn = new JButton(lotteryBtnImg);
-		lotteryBtn.setRolloverIcon(lotteryBtnImgBtnClickImg);
-		lotteryBtn.setBorderPainted(false);
-		lotteryBtn.setContentAreaFilled(false);
-		lotteryBtn.setFocusPainted(false);
-		lotteryBtn.setBounds(800, 30, 200, 50);
-		
-		add(lotteryBtn);
-		
-		lotteryBtn.addActionListener(new ActionListener() {
+		JButton btnTest = new JButton("추첨 버튼");
+		btnTest.setBounds(800, 30, 200, 50);
+		add(btnTest);
+		btnTest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (count < 7) {
 					printDrawNumber();
 					count++;
-					System.out.println(count);
 				} else if (count == 7) {
 					drawBounsNumber();
 					printScore("A", aList);
@@ -228,13 +219,12 @@ class Result extends JFrame {
 					pnlTotScore.add(getTotalScore(), "Left");
 
 					count++;
-					System.out.println(count);
 				}
 			}
 		});
 
 		bgPnl = new JPanel();
-		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/resultFinal.png"))));
+		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/result1280.png"))));
 
 		bgPnl.setBounds(-35, -35, 1280, 800);
 		bgPnl.add(bgLbl);
