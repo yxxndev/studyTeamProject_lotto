@@ -196,10 +196,18 @@ class Result extends JFrame {
 		add(pnlBallImage);
 		
 		// 추첨 버튼
-		JButton btnTest = new JButton("추첨 버튼");
-		btnTest.setBounds(800, 30, 200, 50);
-		add(btnTest);
-		btnTest.addActionListener(new ActionListener() {
+		ImageIcon lotteryBtnImg = new ImageIcon(Result.class.getResource("/image/lotteryBtn.png"));
+		ImageIcon lotteryBtnImgBtnClickImg = new ImageIcon(Result.class.getResource("/image/lotteryBtnClick.png"));
+		JButton lotteryBtn = new JButton(lotteryBtnImg);
+		lotteryBtn.setRolloverIcon(lotteryBtnImgBtnClickImg);
+		lotteryBtn.setBorderPainted(false);
+		lotteryBtn.setContentAreaFilled(false);
+		lotteryBtn.setFocusPainted(false);
+		lotteryBtn.setBounds(800, 30, 200, 50);
+		
+		add(lotteryBtn);
+		
+		lotteryBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (count < 7) {

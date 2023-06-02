@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 public class DataBase {
 	Map<String, ArrayList<UserSelectNum>> map = new HashMap();
 	Map<String, JLabel[]> mapLbls = new HashMap();
-	Map<String, JButton> mapAuto = new HashMap();
 	Map<String, JButton> mapCopy = new HashMap();
 
 	public DataBase() {
@@ -25,12 +24,6 @@ public class DataBase {
 		mapLbls.put("C", new JLabel[45]);
 		mapLbls.put("D", new JLabel[45]);
 		mapLbls.put("E", new JLabel[45]);
-
-		mapAuto.put("A", new JButton());
-		mapAuto.put("B", new JButton());
-		mapAuto.put("C", new JButton());
-		mapAuto.put("D", new JButton());
-		mapAuto.put("E", new JButton());
 
 		mapCopy.put("A", new JButton());
 		mapCopy.put("B", new JButton());
