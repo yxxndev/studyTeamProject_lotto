@@ -306,7 +306,7 @@ class Result extends JFrame {
 		// ---------------------------------------------------------------------------
 		setBackground(Color.WHITE);
 		setTitle("추첨 결과");
-		setSize(1200, 800);
+		setSize(1200, 792);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setLayout(null);
