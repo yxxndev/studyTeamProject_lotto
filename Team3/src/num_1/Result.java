@@ -504,7 +504,7 @@ class Result extends JFrame {
 		}
 
 		try {
-			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
+			Thread.sleep(50); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
