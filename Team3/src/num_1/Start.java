@@ -40,7 +40,7 @@ public class Start extends JFrame {
 			}
 		});
 		btnStart.setIcon(new ImageIcon(Start.class.getResource("/image/start.png")));
-		btnStart.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/startClick.png")));
+		btnStart.setRolloverIcon(new ImageIcon(Start.class.getResource("/image/startClick.png")));
 		btnStart.setBorderPainted(false);
 		btnStart.setContentAreaFilled(false);
 		btnStart.setFocusPainted(false);
@@ -56,7 +56,7 @@ public class Start extends JFrame {
 			}
 		});
 		btnExit.setIcon(new ImageIcon(Start.class.getResource("/image/exit.png")));
-		btnExit.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/exitClick.png")));
+		btnExit.setRolloverIcon(new ImageIcon(Start.class.getResource("/image/exitClick.png")));
 		btnExit.setBorderPainted(false);
 		btnExit.setContentAreaFilled(false);
 		btnExit.setBounds(702, 339, 190, 69);

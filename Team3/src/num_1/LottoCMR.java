@@ -213,37 +213,45 @@ public class LottoCMR extends JFrame {
 		panel.add(pasteBtn);
 
 		// 게임당 자동 및 반자동 선택 버튼 + 이미지(자동 및 반자동 선택, 취소)------
-		JButton autoBtn = new JButton("");
+		JButton autoBtn = new JButton();
+		autoBtn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+		autoBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/emptyClick.png")));
 		JLabel autoBtnImg = new JLabel((new ImageIcon(LottoCMR.class.getResource("/image/isAuto.png"))));
-		JLabel cancleBtnImg = new JLabel((new ImageIcon(LottoCMR.class.getResource("/image/isCancle.png"))));
+		
 		autoBtn.setBounds(140, 442, 20, 28);
 		autoBtnImg.setBounds(-42, 444, 250, 26);
-		cancleBtnImg.setBounds(8, 487, 250, 26);
 		
 		
 		panel.add(autoBtn);
 		panel.add(autoBtnImg);
-		panel.add(cancleBtnImg);
 
 		// --------------------------------------------------------
 
-		JButton cancelButton = new JButton("");
+		JButton cancelButton = new JButton();
+		cancelButton.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+		cancelButton.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/emptyClick.png")));
 		cancelButton.setBounds(140, 485, 20, 28);
 		panel.add(cancelButton);
 
 		copyBtn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+		copyBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/emptyClick.png")));
 		copyBtn.setBorderPainted(false);
 		copyBtn.setContentAreaFilled(false);
+		copyBtn.setFocusPainted(false);
 
 		pasteBtn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+		pasteBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/emptyClick.png")));
 		pasteBtn.setBorderPainted(false);
 		pasteBtn.setContentAreaFilled(false);
+		pasteBtn.setFocusPainted(false);
 
 		autoBtn.setBorderPainted(false);
 		autoBtn.setContentAreaFilled(false);
+		autoBtn.setFocusPainted(false);
 
 		cancelButton.setBorderPainted(false);
 		cancelButton.setContentAreaFilled(false);
+		cancelButton.setFocusPainted(false);
 
 		JLabel copyedlbl = new JLabel();
 		copyedlbl.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/copyed.png")));
@@ -255,6 +263,9 @@ public class LottoCMR extends JFrame {
 		pastedlbl.setBounds(77, 392, 61, 44);
 		panel.add(pastedlbl);
 
+		JLabel cancleBtnImg = new JLabel((new ImageIcon(LottoCMR.class.getResource("/image/isCancle.png"))));
+		cancleBtnImg.setBounds(8, 487, 250, 26);
+		panel.add(cancleBtnImg);
 		// ----------------------------------------------------------------
 		addMouseListener(lbls, key, dataBase, autoBtn);
 		cancleMarking(key, lbls, cancelButton, dataBase, autoBtn);
