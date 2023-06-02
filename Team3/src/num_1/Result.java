@@ -171,7 +171,7 @@ class Result extends JFrame {
 
 		// 등수 안내 라벨
 		JLabel lblInfo = new JLabel(new ImageIcon(Result.class.getResource("/image/tooltip축소.png")));
-		lblInfo.setToolTipText("1등: 128,000,000원 \n 2등: 50,000,000원 \n 3등: 1,500,000원 \n 4등: 50,000원 \n 5등: 5,000원");
+		lblInfo.setToolTipText("1등: 1,863,217,554원 \n 2등: 55,031,743원 \n 3등: 1,446,277원 \n 4등: 50,000원 \n 5등: 5,000원");
 		lblInfo.setBackground(new Color(255, 0, 0, 0));
 		lblInfo.setBounds(495, 620, 80, 80);
 		getContentPane().add(lblInfo);
@@ -768,11 +768,11 @@ class Result extends JFrame {
 	 */
 	int whatPrice(String score) {
 		if (score.equals(" 1등"))
-			return 128000000;
+			return 1863217554;
 		if (score.equals(" 2등"))
-			return 50000000;
+			return 55031743;
 		if (score.equals(" 3등"))
-			return 1500000;
+			return 1446277;
 		if (score.equals(" 4등"))
 			return 50000;
 		if (score.equals(" 5등"))
