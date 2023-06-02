@@ -200,7 +200,7 @@ class Result extends JFrame {
 
 		// 공굴러가는거
 		JPanel pnlBallImage = loadBallImages();
-		pnlBallImage.setBounds(510, 70, 800, 600);
+		pnlBallImage.setBounds(490, 65, 800, 600);
 		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
 		add(pnlBallImage);
 
