@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
+import javax.swing.RepaintManager;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
@@ -208,7 +208,7 @@ class Result extends JFrame {
 		// 추첨 버튼
 		JButton lotteryBtn = new JButton();
 		JButton lotteryAllBtn = new JButton();
-		
+
 		lotteryBtn.setIcon(new ImageIcon(Start.class.getResource("/image/allLotteryBtn.png")));
 		lotteryBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allLotteryBtnClick.png")));
 		lotteryBtn.setBorderPainted(false);
@@ -240,7 +240,7 @@ class Result extends JFrame {
 					addColor(dList, pnlListD);
 					addColor(eList, pnlListE);
 					count++;
-					
+
 					btnAgain.setEnabled(true);
 					lotteryBtn.setEnabled(false);
 					lotteryAllBtn.setEnabled(false);
@@ -299,7 +299,7 @@ class Result extends JFrame {
 					addColor(dList, pnlListD);
 					addColor(eList, pnlListE);
 					count = 8;
-					
+
 					btnAgain.setEnabled(true);
 					lotteryBtn.setEnabled(false);
 					lotteryAllBtn.setEnabled(false);
@@ -335,6 +335,7 @@ class Result extends JFrame {
 	 */
 	// pnltest가 laylayout
 	// 지금 큰 패널이 laylayout이라서 문제가 생기는 거임
+
 	void addColor(ArrayList<UserSelectNum> selectNum, ArrayList<JPanel> panel) {
 		int i = 0;
 
@@ -418,7 +419,6 @@ class Result extends JFrame {
 			pnlList.add(pnl);
 			i++;
 		}
-
 		return mainPnl;
 	}
 
@@ -513,16 +513,14 @@ class Result extends JFrame {
 			addDrawNumber(pnl6, lotteryNums.get(5));
 			break;
 		}
+		
+		try {
+			Thread.sleep(30); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
-//		try {
-//			Thread.sleep(30); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-
-		// revalidate: repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 메서드.
 		drawPnl.revalidate();
-		// repaint: drawPnl을 다시 그리도록 요청하는 메서드
 		drawPnl.repaint();
 	}
 
@@ -593,7 +591,7 @@ class Result extends JFrame {
 		drawPnl.add(pnlPlusNum);
 
 		try {
-			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
+			Thread.sleep(50); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
