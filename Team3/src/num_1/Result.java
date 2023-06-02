@@ -60,7 +60,6 @@ class Result extends JFrame {
 	ArrayList<JPanel> pnlListD = new ArrayList<>();
 	ArrayList<JPanel> pnlListE = new ArrayList<>();
 
-
 	public Result(DataBase data) {
 		aList = data.map.get("A");
 		bList = data.map.get("B");
@@ -210,7 +209,7 @@ class Result extends JFrame {
 		lotteryBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/lotteryBtnClick.png")));
 		lotteryBtn.setBorderPainted(false);
 		lotteryBtn.setContentAreaFilled(false);
-		lotteryBtn.setBounds(830, 50, 126, 45);
+		lotteryBtn.setBounds(720, 650, 126, 45);
 		add(lotteryBtn);
 		lotteryBtn.addActionListener(new ActionListener() {
 			@Override
@@ -230,7 +229,7 @@ class Result extends JFrame {
 					pnlTotMoney.add(lblMoney);
 
 					pnlTotScore.add(getTotalScore(), "Left");
-					
+
 					addColor(aList, pnlListA);
 					addColor(bList, pnlListB);
 					addColor(cList, pnlListC);
@@ -255,6 +254,44 @@ class Result extends JFrame {
 //							lblSecond.setBackground(new Color(255, 0, 0, 0));
 //							pnls[i].add(lblSecond);
 //						}
+				}
+			}
+		});
+
+		// 전체 추첨 버튼
+		JButton lotteryAllBtn = new JButton();
+		lotteryAllBtn.setIcon(new ImageIcon(Start.class.getResource("/image/lotteryBtn.png")));
+		lotteryAllBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/lotteryBtnClick.png")));
+		lotteryAllBtn.setBorderPainted(false);
+		lotteryAllBtn.setContentAreaFilled(false);
+		lotteryAllBtn.setBounds(1000, 650, 126, 45);
+		add(lotteryAllBtn);
+		lotteryAllBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (count < 8) {
+					for (int i = count; i < 7; i++) {
+						count = i;
+						printDrawNumber();
+					}
+					drawBounsNumber();
+					printScore("A", aList);
+					printScore("B", bList);
+					printScore("C", cList);
+					printScore("D", dList);
+					printScore("E", eList);
+
+					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
+					pnlTotMoney.add(lblMoney);
+
+					pnlTotScore.add(getTotalScore(), "Left");
+
+					addColor(aList, pnlListA);
+					addColor(bList, pnlListB);
+					addColor(cList, pnlListC);
+					addColor(dList, pnlListD);
+					addColor(eList, pnlListE);
+					count = 8;
 				}
 			}
 		});
@@ -594,7 +631,7 @@ class Result extends JFrame {
 					DataBase dataBase = new DataBase();
 					new LottoCMR(dataBase);
 					setVisible(false);
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(null, "결과를 확인하고 다시 해 주십시오", "경고", JOptionPane.WARNING_MESSAGE);
 				}
 			}
@@ -638,10 +675,10 @@ class Result extends JFrame {
 				continue;
 			}
 			lotteryNums = setToArr(genNums);
-			
+
 			bonusNum = lotteryNums.get(3);
 			lotteryNums.remove(3);
-			
+
 			Collections.sort(lotteryNums);
 			return;
 		}
