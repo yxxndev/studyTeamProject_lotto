@@ -634,14 +634,12 @@ class Result extends JFrame {
 				genNums.add(r.nextInt(45) + 1);
 				continue;
 			}
-//			int num7 = genNums.stream().findLast().orElse(null);
-//			int num7 = genNums.stream().
-//			bonusNum = num7;
-//			genNums.remove(num7);
 			lotteryNums = setToArr(genNums);
+			
+			bonusNum = lotteryNums.get(3);
+			lotteryNums.remove(3);
+			
 			Collections.sort(lotteryNums);
-			bonusNum = lotteryNums.get(6);
-			lotteryNums.remove(6);
 			return;
 		}
 	}
