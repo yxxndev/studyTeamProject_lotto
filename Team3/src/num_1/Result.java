@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 import javax.swing.SwingConstants;
@@ -591,9 +592,13 @@ class Result extends JFrame {
 		btn1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DataBase dataBase = new DataBase();
-				new LottoCMR(dataBase);
-				setVisible(false);
+				if (count == 8) {
+					DataBase dataBase = new DataBase();
+					new LottoCMR(dataBase);
+					setVisible(false);
+				}else {
+					JOptionPane.showMessageDialog(null, "결과를 확인하고 다시 해 주십시오", "경고", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		return btn1;

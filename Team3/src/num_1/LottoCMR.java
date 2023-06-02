@@ -498,7 +498,7 @@ public class LottoCMR extends JFrame {
 			}
 
 			if (!message.equals("")) { // 메시지가 있으면 출력
-				JOptionPane.showMessageDialog(null, message, "테스트용 경고 창", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, message, "경고", JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
 			return true;
