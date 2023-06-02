@@ -335,11 +335,6 @@ class Result extends JFrame {
 	 */
 	// pnltest가 laylayout
 	// 지금 큰 패널이 laylayout이라서 문제가 생기는 거임
-	JPanel drawPnlInPnl(JPanel pnl) {
-		drawPnl.add(pnl);
-
-		return drawPnl;
-	}
 
 	void addColor(ArrayList<UserSelectNum> selectNum, ArrayList<JPanel> panel) {
 		int i = 0;
