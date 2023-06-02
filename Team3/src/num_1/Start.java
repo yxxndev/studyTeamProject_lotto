@@ -55,8 +55,8 @@ public class Start extends JFrame {
 				dispose();
 			}
 		});
-		btnExit.setIcon(new ImageIcon(Start.class.getResource("/image/exit.png")));
-		btnExit.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/exitClick.png")));
+		btnExit.setIcon(new ImageIcon(Start.class.getResource("/image/cancleBtn2.png")));
+		btnExit.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/cancleBtn2Click.png")));
 		btnExit.setBorderPainted(false);
 		btnExit.setContentAreaFilled(false);
 		btnExit.setBounds(702, 339, 190, 69);
