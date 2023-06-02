@@ -157,13 +157,13 @@ class Result extends JFrame {
 
 		// 총 당첨금액 라벨
 		JLabel lblMoney = totalMoneyLabel();
-		lblMoney.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
+		lblMoney.setFont(new Font("Malgun Gothic", Font.BOLD, 28));
 
 		// 등수 안내 라벨
-		JLabel lblInfo = new JLabel(new ImageIcon(Result.class.getResource("/image/tooltip축소.png")));
+		JLabel lblInfo = new JLabel(new ImageIcon(Result.class.getResource("/image/tooltip.png")));
 		lblInfo.setToolTipText("1등: 128,000,000원 \n 2등: 50,000,000원 \n 3등: 1,500,000원 \n 4등: 50,000원 \n 5등: 5,000원");
 		lblInfo.setBackground(new Color(255, 0, 0, 0));
-		lblInfo.setBounds(470, 585, 80, 80);
+		lblInfo.setBounds(495, 620, 80, 80);
 		getContentPane().add(lblInfo);
 
 		// 총 등수 패널
@@ -174,7 +174,7 @@ class Result extends JFrame {
 
 		// 총 가격 패널
 		JPanel pnlTotMoney = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		pnlTotMoney.setBounds(100, 600, 300, 80);
+		pnlTotMoney.setBounds(225, 600, 300, 80);
 		pnlTotMoney.setBackground(new Color(255, 0, 0, 0));
 		add(pnlTotMoney);
 
@@ -191,7 +191,7 @@ class Result extends JFrame {
 
 		// 공굴러가는거
 		JPanel pnlBallImage = loadBallImages();
-		pnlBallImage.setBounds(510, 70, 800, 600);
+		pnlBallImage.setBounds(490, 65, 800, 600);
 		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
 		add(pnlBallImage);
 		
@@ -296,7 +296,7 @@ class Result extends JFrame {
 		});
 
 		bgPnl = new JPanel();
-		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/result1280.png"))));
+		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/resultFinal.png"))));
 
 		bgPnl.setBounds(-35, -35, 1280, 800);
 		bgPnl.add(bgLbl);
@@ -643,7 +643,7 @@ class Result extends JFrame {
 		btn2.setRolloverIcon(img4);
 		btn2.setBorderPainted(false);
 		btn2.setContentAreaFilled(false);
-		btn2.setBounds(320, 670, 150, 70);
+		btn2.setBounds(320, 660, 126, 45);
 
 		btn2.addActionListener(new ActionListener() {
 			@Override
@@ -666,7 +666,7 @@ class Result extends JFrame {
 		btn1.setRolloverIcon(img3);
 		btn1.setBorderPainted(false);
 		btn1.setContentAreaFilled(false);
-		btn1.setBounds(120, 670, 150, 70);
+		btn1.setBounds(130, 660, 126, 45);
 
 		btn1.addActionListener(new ActionListener() {
 			@Override

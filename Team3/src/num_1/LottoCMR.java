@@ -418,6 +418,7 @@ public class LottoCMR extends JFrame {
 							if (!dataBase.map.get(key).contains(new UserSelectNum(ran, true))) { // 숫자가 같지 않으면 true
 								dataBase.map.get(key).add(new UserSelectNum(ran, true)); // 숫자저장
 								lbls[ran - 1].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png"))); // 마킹
+								dataBase.mapCopy.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
 							}
 						}
 					}
