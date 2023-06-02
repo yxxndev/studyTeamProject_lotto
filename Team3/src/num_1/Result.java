@@ -91,69 +91,69 @@ class Result extends JFrame {
 		// pnl2 : 유저 선택 숫자 패널
 		// lbl3 : 각 등수 라벨
 		// A 항목 정보
-		if (aList.size() == 6) {
-			int correctCount = compareNum("A", aList);
-			String score = whatScore(correctCount, "A", aList);
-			JPanel pnl2 = printUserNumResult("A", aList, score);
-			moneyPlus(score);
-
-			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(-40, 253, 800, 80);
-
-			add(pnl2);
-		}
-
-		// B 항목 정보
-		if (bList.size() == 6) {
-			int correctCount = compareNum("B", bList);
-			String score = whatScore(correctCount, "B", bList);
-			JPanel pnl2 = printUserNumResult("B", bList, score);
-			moneyPlus(score);
-
-			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(60, 320, 600, 110);
-
-			add(pnl2);
-		}
-
-		// C 항목 정보
-		if (cList.size() == 6) {
-			int correctCount = compareNum("C", cList);
-			String score = whatScore(correctCount, "C", cList);
-			JPanel pnl2 = printUserNumResult("C", cList, score);
-			moneyPlus(score);
-
-			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(60, 385, 600, 110);
-
-			add(pnl2);
-		}
-
-		// D 항목 정보
-		if (dList.size() == 6) {
-			int correctCount = compareNum("D", dList);
-			String score = whatScore(correctCount, "D", dList);
-			JPanel pnl2 = printUserNumResult("D", dList, score);
-			moneyPlus(score);
-
-			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(60, 450, 600, 110);
-
-			add(pnl2);
-		}
-
-		// E 항목 정보
-		if (eList.size() == 6) {
-			int correctCount = compareNum("E", eList);
-			String score = whatScore(correctCount, "E", eList);
-			JPanel pnl2 = printUserNumResult("E", eList, score);
-			moneyPlus(score);
-
-			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(60, 515, 600, 110);
-
-			add(pnl2);
-		}
+//		if (aList.size() == 6) {
+//			int correctCount = compareNum("A", aList);
+//			String score = whatScore(correctCount, "A", aList);
+//			JPanel pnl2 = printUserNumResult("A", aList, score);
+//			moneyPlus(score);
+//
+//			pnl2.setBackground(new Color(255, 0, 0, 0));
+//			pnl2.setBounds(-40, 253, 800, 80);
+//
+//			add(pnl2);
+//		}
+//
+//		// B 항목 정보
+//		if (bList.size() == 6) {
+//			int correctCount = compareNum("B", bList);
+//			String score = whatScore(correctCount, "B", bList);
+//			JPanel pnl2 = printUserNumResult("B", bList, score);
+//			moneyPlus(score);
+//
+//			pnl2.setBackground(new Color(255, 0, 0, 0));
+//			pnl2.setBounds(60, 320, 600, 110);
+//
+//			add(pnl2);
+//		}
+//
+//		// C 항목 정보
+//		if (cList.size() == 6) {
+//			int correctCount = compareNum("C", cList);
+//			String score = whatScore(correctCount, "C", cList);
+//			JPanel pnl2 = printUserNumResult("C", cList, score);
+//			moneyPlus(score);
+//
+//			pnl2.setBackground(new Color(255, 0, 0, 0));
+//			pnl2.setBounds(60, 385, 600, 110);
+//
+//			add(pnl2);
+//		}
+//
+//		// D 항목 정보
+//		if (dList.size() == 6) {
+//			int correctCount = compareNum("D", dList);
+//			String score = whatScore(correctCount, "D", dList);
+//			JPanel pnl2 = printUserNumResult("D", dList, score);
+//			moneyPlus(score);
+//
+//			pnl2.setBackground(new Color(255, 0, 0, 0));
+//			pnl2.setBounds(60, 450, 600, 110);
+//
+//			add(pnl2);
+//		}
+//
+//		// E 항목 정보
+//		if (eList.size() == 6) {
+//			int correctCount = compareNum("E", eList);
+//			String score = whatScore(correctCount, "E", eList);
+//			JPanel pnl2 = printUserNumResult("E", eList, score);
+//			moneyPlus(score);
+//
+//			pnl2.setBackground(new Color(255, 0, 0, 0));
+//			pnl2.setBounds(60, 515, 600, 110);
+//
+//			add(pnl2);
+//		}
 
 		// 총 당첨금액 라벨
 		JLabel lblMoney = totalMoneyLabel();
@@ -194,7 +194,7 @@ class Result extends JFrame {
 		pnlBallImage.setBounds(510, 70, 800, 600);
 		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
 		add(pnlBallImage);
-
+		
 		// 추첨 버튼
 		JButton btnTest = new JButton("추첨 버튼");
 		btnTest.setBounds(800, 30, 200, 50);
@@ -205,7 +205,6 @@ class Result extends JFrame {
 				if (count < 7) {
 					printDrawNumber();
 					count++;
-					System.out.println(count);
 				} else if (count == 7) {
 					drawBounsNumber();
 					printScore("A", aList);
@@ -220,7 +219,70 @@ class Result extends JFrame {
 					pnlTotScore.add(getTotalScore(), "Left");
 
 					count++;
-					System.out.println(count);
+					
+					if (aList.size() == 6) {
+						int correctCount = compareNum("A", aList);
+						String score = whatScore(correctCount, "A", aList);
+						JPanel pnl2 = printWinNum("A", aList, score);
+						moneyPlus(score);
+
+						pnl2.setBackground(new Color(255, 0, 0));
+						pnl2.setBounds(-40, 253, 800, 80);
+						System.out.println("a생성");
+						add(pnl2);
+					}
+
+					// B 항목 정보
+					if (bList.size() == 6) {
+						int correctCount = compareNum("B", bList);
+						String score = whatScore(correctCount, "B", bList);
+						JPanel pnl2 = printWinNum("B", bList, score);
+						moneyPlus(score);
+
+						pnl2.setBackground(new Color(255, 0, 0, 0));
+						pnl2.setBounds(60, 320, 600, 110);
+
+						add(pnl2);
+					}
+
+					// C 항목 정보
+					if (cList.size() == 6) {
+						int correctCount = compareNum("C", cList);
+						String score = whatScore(correctCount, "C", cList);
+						JPanel pnl2 = printWinNum("C", cList, score);
+						moneyPlus(score);
+
+						pnl2.setBackground(new Color(255, 0, 0, 0));
+						pnl2.setBounds(60, 385, 600, 110);
+
+						add(pnl2);
+					}
+
+					// D 항목 정보
+					if (dList.size() == 6) {
+						int correctCount = compareNum("D", dList);
+						String score = whatScore(correctCount, "D", dList);
+						JPanel pnl2 = printWinNum("D", dList, score);
+						moneyPlus(score);
+
+						pnl2.setBackground(new Color(255, 0, 0, 0));
+						pnl2.setBounds(60, 450, 600, 110);
+
+						add(pnl2);
+					}
+
+					// E 항목 정보
+					if (eList.size() == 6) {
+						int correctCount = compareNum("E", eList);
+						String score = whatScore(correctCount, "E", eList);
+						JPanel pnl2 = printWinNum("E", eList, score);
+						moneyPlus(score);
+
+						pnl2.setBackground(new Color(255, 0, 0, 0));
+						pnl2.setBounds(60, 515, 600, 110);
+
+						add(pnl2);
+					}
 				}
 			}
 		});
@@ -310,6 +372,51 @@ class Result extends JFrame {
 			}
 
 			// 당첨 공 라벨
+//			if (elem.isWin()) {
+//				JLabel lblCorrect = new JLabel();
+//				if (num <= 10) {
+//					lblCorrect.setIcon(pBN.circle10);
+//				} else if (num <= 20) {
+//					lblCorrect.setIcon(pBN.circle20);
+//				} else if (num <= 30) {
+//					lblCorrect.setIcon(pBN.circle30);
+//				} else if (num <= 40) {
+//					lblCorrect.setIcon(pBN.circle40);
+//				} else if (num <= 50) {
+//					lblCorrect.setIcon(pBN.circle50);
+//				}
+//				lblCorrect.setHorizontalTextPosition(JLabel.CENTER);
+//				lblCorrect.setBackground(new Color(255, 0, 0, 0));
+//				pnls[i].add(lblCorrect);
+//			}
+
+			pnl.add(pnls[i]);
+			i++;
+		}
+		return pnl;
+	}
+
+	JPanel printWinNum(String key, ArrayList<UserSelectNum> arrList, String score) {
+		JPanel pnl = new JPanel(new FlowLayout());
+		JPanel pnl1 = new JPanel();
+		pnl1.setLayout(new OverlayLayout(pnl1));
+		JPanel pnl2 = new JPanel();
+		pnl2.setLayout(new OverlayLayout(pnl2));
+		JPanel pnl3 = new JPanel();
+		pnl3.setLayout(new OverlayLayout(pnl3));
+		JPanel pnl4 = new JPanel();
+		pnl4.setLayout(new OverlayLayout(pnl4));
+		JPanel pnl5 = new JPanel();
+		pnl5.setLayout(new OverlayLayout(pnl5));
+		JPanel pnl6 = new JPanel();
+		pnl6.setLayout(new OverlayLayout(pnl6));
+
+		JPanel[] pnls = { pnl1, pnl2, pnl3, pnl4, pnl5, pnl6 };
+
+		int i = 0;
+		for (UserSelectNum elem : arrList) {
+			int num = elem.getLotteryNum();
+			int index = num - 1;
 			if (elem.isWin()) {
 				JLabel lblCorrect = new JLabel();
 				if (num <= 10) {
@@ -327,13 +434,12 @@ class Result extends JFrame {
 				lblCorrect.setBackground(new Color(255, 0, 0, 0));
 				pnls[i].add(lblCorrect);
 			}
-
 			pnl.add(pnls[i]);
 			i++;
 		}
-		return pnl;
+	return pnl;
 	}
-
+	
 	/**
 	 * 당첨번호와 보너스번호 라벨 생성해서 패널에 부착
 	 * 
