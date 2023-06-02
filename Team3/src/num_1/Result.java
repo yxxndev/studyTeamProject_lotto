@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,29 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
-import javax.swing.Timer;
-
-// 당첨결과 관련 로직 
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Random;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.OverlayLayout;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 // 당첨결과 관련 로직 
@@ -68,9 +45,11 @@ class Result extends JFrame {
 	private final int SPEED = 1;
 	private final int BALL_COUNT = 45; // 공 갯수
 	private final int BALL_DISTANCE = 35; // 원과의 거리
-	private final int VIRTUAL_CIRCLE_RADIUS = 80; // 가상의 원의 반지름
+	private final int VIRTUAL_CIRCLE_RADIUS = 130; // 가상의 원의 반지름
 	private final ImageIcon[] BALL_IMAGES = new ImageIcon[BALL_COUNT];
 	private JPanel drawPnl = new JPanel();
+	private JPanel bgPnl;
+	private JPanel setScore = new JPanel(null);
 
 	public Result(DataBase data) {
 		aList = data.map.get("A");
@@ -94,8 +73,7 @@ class Result extends JFrame {
 		lotteryNums.add(5);
 		lotteryNums.add(7);
 		bonusNum = 6;
-		
-		
+
 		// ---------------------------------------------
 //		JPanel panel = new JPanel();
 //		panel.setLayout(null);
@@ -119,7 +97,7 @@ class Result extends JFrame {
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(-40, 308, 800, 80);
+			pnl2.setBounds(-40, 253, 800, 80);
 
 			add(pnl2);
 		}
@@ -132,7 +110,7 @@ class Result extends JFrame {
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(60, 380, 600, 110);
+			pnl2.setBounds(60, 320, 600, 110);
 
 			add(pnl2);
 		}
@@ -145,7 +123,7 @@ class Result extends JFrame {
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(60, 445, 600, 110);
+			pnl2.setBounds(60, 385, 600, 110);
 
 			add(pnl2);
 		}
@@ -158,7 +136,7 @@ class Result extends JFrame {
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(60, 510, 600, 110);
+			pnl2.setBounds(60, 450, 600, 110);
 
 			add(pnl2);
 		}
@@ -171,7 +149,7 @@ class Result extends JFrame {
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
-			pnl2.setBounds(60, 580, 600, 110);
+			pnl2.setBounds(60, 515, 600, 110);
 
 			add(pnl2);
 		}
@@ -184,38 +162,42 @@ class Result extends JFrame {
 		JLabel lblInfo = new JLabel(new ImageIcon(Result.class.getResource("/image/tooltip축소.png")));
 		lblInfo.setToolTipText("1등: 128,000,000원 \n 2등: 50,000,000원 \n 3등: 1,500,000원 \n 4등: 50,000원 \n 5등: 5,000원");
 		lblInfo.setBackground(new Color(255, 0, 0, 0));
-		lblInfo.setBounds(440, 210, 80, 80);
+		lblInfo.setBounds(470, 585, 80, 80);
 		getContentPane().add(lblInfo);
 
 		// 총 등수 패널
 		JPanel pnlTotScore = new JPanel(new FlowLayout());
-		pnlTotScore.setBounds(250, 185, 200, 50);
+		pnlTotScore.setBounds(0, 80, 200, 50);
 		pnlTotScore.setBackground(new Color(255, 0, 0, 0));
+		add(pnlTotScore);
 
 		// 총 가격 패널
-		JPanel pnlTotMoney = new JPanel(new FlowLayout());
-		pnlTotMoney.setBounds(250, 225, 200, 80);
+		JPanel pnlTotMoney = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		pnlTotMoney.setBounds(100, 600, 300, 80);
 		pnlTotMoney.setBackground(new Color(255, 0, 0, 0));
-		pnlTotMoney.add(lblMoney, "Left");
+		add(pnlTotMoney);
 
 		// 당첨번호 패널
 		drawPnl.setLayout(new FlowLayout(FlowLayout.LEFT));
 		drawPnl.setBackground(new Color(255, 0, 0, 0));
-		drawPnl.setBounds(55, 120, 550, 80);
+		drawPnl.setBounds(75, 155, 550, 80);
 		add(drawPnl);
-		
+
+		// 각 등수 패널
+		setScore.setBounds(90, 265, 100, 1000);
+		setScore.setBackground(new Color(255, 0, 0, 0));
+		add(setScore);
+
 		// 공굴러가는거
 		JPanel pnlBallImage = loadBallImages();
-		pnlBallImage.setBounds(470, 100, 800, 600);
+		pnlBallImage.setBounds(510, 70, 800, 600);
 		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
 		add(pnlBallImage);
-		
-		JPanel bgPnl = new JPanel();
-		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/result1280.png"))));
-		
 
 		// 추첨 버튼
-		JButton btnTest = new JButton("테스트용 버튼");
+		JButton btnTest = new JButton("추첨 버튼");
+		btnTest.setBounds(800, 30, 200, 50);
+		add(btnTest);
 		btnTest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -230,26 +212,23 @@ class Result extends JFrame {
 					printScore("D", dList);
 					printScore("E", eList);
 
+					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
+					pnlTotMoney.add(lblMoney);
+					
 					pnlTotScore.add(getTotalScore(), "Left");
 
-					bgPnl.add(pnlTotScore);
-					bgPnl.add(pnlTotMoney);
 					count++;
 				}
 			}
 		});
-		
 
-		btnTest.setBounds(0, 0, 100, 100);
-		add(btnTest);
-		
-		
-		
+		bgPnl = new JPanel();
+		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/result1280.png"))));
+
 		bgPnl.setBounds(-35, -35, 1280, 800);
 		bgPnl.add(bgLbl);
 		add(bgPnl);
-		
-		
+
 		// ---------------------------------------------------------------------------
 		setBackground(Color.WHITE);
 		setTitle("추첨 결과");
@@ -360,16 +339,16 @@ class Result extends JFrame {
 	JLabel getTotalScore() {
 		// 총 등수 라벨
 		JLabel totalScore = new JLabel();
-		if (scores.contains("1등")) {
-			totalScore.setText("1");
-		} else if (scores.contains("2등")) {
-			totalScore.setText("2");
-		} else if (scores.contains("3등")) {
-			totalScore.setText("3");
-		} else if (scores.contains("4등")) {
-			totalScore.setText("4");
-		} else if (scores.contains("5등")) {
-			totalScore.setText("5");
+		if (scores.contains(" 1등")) {
+			totalScore.setText("1등");
+		} else if (scores.contains(" 2등")) {
+			totalScore.setText("2등");
+		} else if (scores.contains(" 3등")) {
+			totalScore.setText("3등");
+		} else if (scores.contains(" 4등")) {
+			totalScore.setText("4등");
+		} else if (scores.contains(" 5등")) {
+			totalScore.setText("5등");
 		} else {
 			totalScore.setText("-");
 		}
@@ -379,8 +358,8 @@ class Result extends JFrame {
 
 	void printScore(String key, ArrayList list) {
 		if (list.size() == 6) {
-			JPanel test = new JPanel();
-			y = 318;
+
+			y = -17;
 
 			if (key.equals("B")) {
 				y += 65;
@@ -403,12 +382,9 @@ class Result extends JFrame {
 			JLabel lbl3 = printScoreLabel(score);
 			lbl3.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 
-			test.add(lbl3);
-			test.setBounds(101, y, 80, 80);
+			lbl3.setBounds(19, y, 80, 80);
+			setScore.add(lbl3);
 
-			test.setBackground(new Color(255, 0, 0, 0));
-
-			add(test);
 			scores.add(lbl3.getText());
 		}
 	}
@@ -665,17 +641,17 @@ class Result extends JFrame {
 	 */
 	String whatScore(int correctCount, String key, ArrayList<UserSelectNum> arrList) {
 		if (correctCount == 6)
-			return "1등";
+			return " 1등";
 		if (correctCount == 5) {
 			if (compareBonus(key, arrList)) {
-				return "2등";
+				return " 2등";
 			}
-			return "3등";
+			return " 3등";
 		}
 		if (correctCount == 4)
-			return "4등";
+			return " 4등";
 		if (correctCount == 3)
-			return "5등";
+			return " 5등";
 		return "낙첨";
 	}
 
@@ -697,15 +673,15 @@ class Result extends JFrame {
 	 * @return money
 	 */
 	int whatPrice(String score) {
-		if (score.equals("1등"))
+		if (score.equals(" 1등"))
 			return 128000000;
-		if (score.equals("2등"))
+		if (score.equals(" 2등"))
 			return 50000000;
-		if (score.equals("3등"))
+		if (score.equals(" 3등"))
 			return 1500000;
-		if (score.equals("4등"))
+		if (score.equals(" 4등"))
 			return 50000;
-		if (score.equals("5등"))
+		if (score.equals(" 5등"))
 			return 5000;
 		return 0;
 	}
@@ -769,9 +745,6 @@ class Result extends JFrame {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				String imagePath = "/image/그림3.png";
-				ImageIcon backgroundImage = new ImageIcon(getClass().getResource(imagePath));
-				g.drawImage(backgroundImage.getImage(), -38, -55, getWidth(), getHeight(), null);
 
 				for (int i = 0; i < BALL_COUNT; i++) {
 					double angle = (2 * Math.PI * i) / BALL_COUNT;
@@ -790,8 +763,7 @@ class Result extends JFrame {
 				}
 			}
 		};
-
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(new Color(255, 0, 0, 0));
 		panel.setPreferredSize(new Dimension(600, 600));
 
 		return panel;
