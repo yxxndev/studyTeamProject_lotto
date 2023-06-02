@@ -306,8 +306,11 @@ public class LottoCMR extends JFrame {
 					lbls[index].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
 				}
 				paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
+				
+				if (copyList.size() == 0) { 
+					dataBase.mapAuto.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+				}
 			}
-
 		});
 	}
 
