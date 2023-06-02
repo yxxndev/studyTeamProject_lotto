@@ -80,14 +80,14 @@ class Result extends JFrame {
 		Collections.sort(eList);
 
 		// 당첨번호 숫자조정용
-//		lotteryNumRan();
-		lotteryNums.add(11);
-		lotteryNums.add(2);
-		lotteryNums.add(3);
-		lotteryNums.add(4);
-		lotteryNums.add(5);
-		lotteryNums.add(7);
-		bonusNum = 6;
+		lotteryNumRan();
+//		lotteryNums.add(11);
+//		lotteryNums.add(2);
+//		lotteryNums.add(3);
+//		lotteryNums.add(4);
+//		lotteryNums.add(5);
+//		lotteryNums.add(7);
+//		bonusNum = 6;
 
 		// ---------------------------------------------
 //		JPanel panel = new JPanel();
