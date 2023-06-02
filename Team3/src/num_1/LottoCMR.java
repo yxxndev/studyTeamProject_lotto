@@ -189,11 +189,12 @@ public class LottoCMR extends JFrame {
 			if ((i + 1) % 7 == 4)
 				x += 1;
 		}
-		
+		dataBase.mapLbls.put(key, lbls);
 		
 		JButton copyBtn = new JButton();
 		copyBtn.setBounds(140, 356, 20, 28);
 		panel.add(copyBtn);
+		dataBase.mapCopy.put(key, copyBtn);
 		
 		JButton pasteBtn = new JButton();
 		pasteBtn.setBounds(140, 399, 20, 28);
@@ -203,6 +204,7 @@ public class LottoCMR extends JFrame {
 		JButton autoBtn = new JButton("");
 		autoBtn.setBounds(140, 442, 20, 28);
 		panel.add(autoBtn);
+		dataBase.mapAuto.put(key, autoBtn);
 		// --------------------------------------------------------
 
 		JButton cancelButton = new JButton("");
@@ -297,6 +299,10 @@ public class LottoCMR extends JFrame {
 				}
 			}
 		});
+	}
+	
+	public void cancleAll(String key, DataBase dataBase) {
+		
 	}
 
 	public int getPrice(DataBase dataBase) { // 총 구매 금액 출력
