@@ -56,11 +56,16 @@ public class LottoCMR extends JFrame {
 		btnAllAuto.setContentAreaFilled(false);
 		btnAllAuto.setBounds(630, 603, 246, 45);
 		panel_3.add(btnAllAuto);
-//		전체 자동 작동 메소드 삽입
+		
+//		전체 자동 작동 메소드 삽입 // 2차추가
 		btnAllAuto.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String[] keys = { "A", "B", "C", "D", "E" };
 
+				for (int i = 0; i < keys.length; i++) {
+					allAuto(dataBase.mapLbls.get(keys[i]), dataBase, keys[i], dataBase.mapAuto.get(keys[i]));
+				}
 			}
 		});
 
@@ -74,7 +79,11 @@ public class LottoCMR extends JFrame {
 //		전체취소 작동메소드 삽입
 		btnAllCancle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				String[] keys = { "A", "B", "C", "D", "E" };
+				for (int i = 0; i < keys.length; i++) {
+					allCancel(keys[i], dataBase.mapLbls.get(keys[i]), dataBase, dataBase.mapAuto.get(keys[i]));
+					
+				}
 			}
 		});
 
@@ -198,7 +207,6 @@ public class LottoCMR extends JFrame {
 		JButton copyBtn = new JButton();
 		copyBtn.setBounds(140, 356, 20, 28);
 		panel.add(copyBtn);
-		
 
 		JButton pasteBtn = new JButton();
 		pasteBtn.setBounds(140, 399, 20, 28);
@@ -208,7 +216,7 @@ public class LottoCMR extends JFrame {
 		JButton autoBtn = new JButton("");
 		autoBtn.setBounds(140, 442, 20, 28);
 		panel.add(autoBtn);
-		
+
 		// --------------------------------------------------------
 
 		JButton cancelButton = new JButton("");
@@ -246,7 +254,7 @@ public class LottoCMR extends JFrame {
 		copyMarking(lbls, dataBase, key, copyBtn); // 임시추가
 		pasteMarking(lbls, dataBase, key, pasteBtn); // 임시추가
 		// ----------------------------------------------------------------
-		
+
 		dataBase.mapAuto.put(key, autoBtn); // 추가
 
 	}
@@ -257,19 +265,20 @@ public class LottoCMR extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				copyList.clear();
-				copyList.addAll(dataBase.map.get(key)); 
+				copyList.addAll(dataBase.map.get(key));
 				btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
-				
+
 				dataBase.mapCopy.put(key, btn); // 추가
 
-				String[] keys = {"A", "B", "C", "D", "E"};
-				ArrayList<String> keysList = new ArrayList<>() ;
+				String[] keys = { "A", "B", "C", "D", "E" };
+				ArrayList<String> keysList = new ArrayList<>();
 				Collections.addAll(keysList, keys);
 				keysList.remove(key);
 
 				for (int i = 0; i < keysList.size(); i++) {
 					if (dataBase.mapCopy.get(keysList.get(i)) != null) {
-						dataBase.mapCopy.get(keysList.get(i)).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+						dataBase.mapCopy.get(keysList.get(i))
+								.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
 					}
 				}
 			}
@@ -345,7 +354,7 @@ public class LottoCMR extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dataBase.map.get(key).clear(); // key값 받아서 전체 삭제
-				
+
 				// 추가
 				dataBase.mapCopy.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
 
@@ -402,6 +411,40 @@ public class LottoCMR extends JFrame {
 			}
 		}
 		return false;
+	}
+
+	private void allAuto(JLabel[] lbls, DataBase dataBase, String key, JButton btn) {
+		Random random = new Random(); // 랜덤생성
+
+		while (true) { // 자동 번호 배열
+			if (dataBase.map.get(key).size() == 6) { // 크기가 6이면 종료
+				break;
+			} else {
+				int ran = random.nextInt(45) + 1; // 1~45 번호 생성
+				if (!dataBase.map.get(key).contains(new UserSelectNum(ran, true))) { // 숫자가 같지 않으면 true
+					dataBase.map.get(key).add(new UserSelectNum(ran, true)); // 숫자저장
+					lbls[ran - 1].setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png"))); // 마킹
+					btn.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
+				}
+			}
+		}
+		paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
+	}
+	
+	private void allCancel(String key, JLabel[] lbls, DataBase dataBase, JButton autoBtn) {
+		dataBase.map.get(key).clear(); // key값 받아서 전체 삭제
+
+		// 추가
+		dataBase.mapCopy.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+
+		for (JLabel lbl : lbls) {
+			lbl.setIcon(null); // 아이콘 제거
+		}
+
+		paylbl.setText(getPrice(dataBase) + ""); // 금액 변경
+		if (!autoChecking(dataBase, key)) {
+			autoBtn.setIcon(null);
+		}
 	}
 
 	// 구매 규칙(안내메시지)
