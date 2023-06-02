@@ -321,7 +321,11 @@ public class LottoCMR extends JFrame {
 				}
 				if (autoCount == 0) {
 					dataBase.mapAuto.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/empty.png")));
+				} else {
+					dataBase.mapAuto.get(key).setIcon(new ImageIcon(LottoCMR.class.getResource("/image/marking.png")));
 				}
+				
+				
 			}
 		});
 	}
