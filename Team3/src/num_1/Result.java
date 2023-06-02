@@ -19,8 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
+import javax.swing.RepaintManager;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 // 당첨결과 관련 로직 
@@ -208,7 +208,7 @@ class Result extends JFrame {
 		// 추첨 버튼
 		JButton lotteryBtn = new JButton();
 		JButton lotteryAllBtn = new JButton();
-		
+
 		lotteryBtn.setIcon(new ImageIcon(Start.class.getResource("/image/allLotteryBtn.png")));
 		lotteryBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allLotteryBtnClick.png")));
 		lotteryBtn.setBorderPainted(false);
@@ -240,7 +240,7 @@ class Result extends JFrame {
 					addColor(dList, pnlListD);
 					addColor(eList, pnlListE);
 					count++;
-					
+
 					btnAgain.setEnabled(true);
 					lotteryBtn.setEnabled(false);
 					lotteryAllBtn.setEnabled(false);
@@ -277,78 +277,32 @@ class Result extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (count < 8) {
-		            Timer timer = new Timer(40, new ActionListener() {
-		                @Override
-		                public void actionPerformed(ActionEvent e) {
-		                    // Timer 작업 내용
-		                    // ...
-		                }
-		            });
-		            timer.setRepeats(false); // 한 번만 실행하도록 설정
-		            timer.start();
-		            
-		            SwingUtilities.invokeLater(new Runnable() {
-		                @Override
-		                public void run() {
-		                    if (count < 8) {
-		                        for (int i = count; i < 7; i++) {
-		                            count = i;
-		                            printDrawNumber();
-		                        }
-		                        drawBounsNumber();
-		                        printScore("A", aList);
-		                        printScore("B", bList);
-		                        printScore("C", cList);
-		                        printScore("D", dList);
-		                        printScore("E", eList);
+					for (int i = count; i < 7; i++) {
+						count = i;
+						printDrawNumber();
+					}
+					drawBounsNumber();
+					printScore("A", aList);
+					printScore("B", bList);
+					printScore("C", cList);
+					printScore("D", dList);
+					printScore("E", eList);
 
-		                        lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
-		                        pnlTotMoney.add(lblMoney);
+					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
+					pnlTotMoney.add(lblMoney);
 
-		                        pnlTotScore.add(getTotalScore(), "Left");
+					pnlTotScore.add(getTotalScore(), "Left");
 
-		                        addColor(aList, pnlListA);
-		                        addColor(bList, pnlListB);
-		                        addColor(cList, pnlListC);
-		                        addColor(dList, pnlListD);
-		                        addColor(eList, pnlListE);
-		                        count = 8;
+					addColor(aList, pnlListA);
+					addColor(bList, pnlListB);
+					addColor(cList, pnlListC);
+					addColor(dList, pnlListD);
+					addColor(eList, pnlListE);
+					count = 8;
 
-		                        btnAgain.setEnabled(true);
-		                        lotteryBtn.setEnabled(false);
-		                        lotteryAllBtn.setEnabled(false);
-		                    }
-		                }
-		            });
-		            
-//				if (count < 8) {
-//					
-//					for (int i = count; i < 7; i++) {
-//						count = i;
-//						printDrawNumber();
-//					}
-//					drawBounsNumber();
-//					printScore("A", aList);
-//					printScore("B", bList);
-//					printScore("C", cList);
-//					printScore("D", dList);
-//					printScore("E", eList);
-//
-//					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
-//					pnlTotMoney.add(lblMoney);
-//
-//					pnlTotScore.add(getTotalScore(), "Left");
-//
-//					addColor(aList, pnlListA);
-//					addColor(bList, pnlListB);
-//					addColor(cList, pnlListC);
-//					addColor(dList, pnlListD);
-//					addColor(eList, pnlListE);
-//					count = 8;
-//					
-//					btnAgain.setEnabled(true);
-//					lotteryBtn.setEnabled(false);
-//					lotteryAllBtn.setEnabled(false);
+					btnAgain.setEnabled(true);
+					lotteryBtn.setEnabled(false);
+					lotteryAllBtn.setEnabled(false);
 				}
 			}
 		});
@@ -381,6 +335,12 @@ class Result extends JFrame {
 	 */
 	// pnltest가 laylayout
 	// 지금 큰 패널이 laylayout이라서 문제가 생기는 거임
+	JPanel drawPnlInPnl(JPanel pnl) {
+		drawPnl.add(pnl);
+
+		return drawPnl;
+	}
+
 	void addColor(ArrayList<UserSelectNum> selectNum, ArrayList<JPanel> panel) {
 		int i = 0;
 
@@ -464,7 +424,6 @@ class Result extends JFrame {
 			pnlList.add(pnl);
 			i++;
 		}
-
 		return mainPnl;
 	}
 
@@ -559,16 +518,14 @@ class Result extends JFrame {
 			addDrawNumber(pnl6, lotteryNums.get(5));
 			break;
 		}
-
+		
 		try {
-			Thread.sleep(30); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
+			Thread.sleep(30); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
-		// revalidate: repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 메서드.
 		drawPnl.revalidate();
-		// repaint: drawPnl을 다시 그리도록 요청하는 메서드
 		drawPnl.repaint();
 	}
 
@@ -638,11 +595,11 @@ class Result extends JFrame {
 		pnlPlusNum.add(lblPlusBall);
 		drawPnl.add(pnlPlusNum);
 
-		try {
-			Thread.sleep(30); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(30); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 
 		drawPnl.revalidate();
 		// repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 키워드.
