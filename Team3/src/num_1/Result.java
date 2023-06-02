@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 // 당첨결과 관련 로직 
@@ -277,32 +277,78 @@ class Result extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (count < 8) {
-					for (int i = count; i < 7; i++) {
-						count = i;
-						printDrawNumber();
-					}
-					drawBounsNumber();
-					printScore("A", aList);
-					printScore("B", bList);
-					printScore("C", cList);
-					printScore("D", dList);
-					printScore("E", eList);
+		            Timer timer = new Timer(40, new ActionListener() {
+		                @Override
+		                public void actionPerformed(ActionEvent e) {
+		                    // Timer 작업 내용
+		                    // ...
+		                }
+		            });
+		            timer.setRepeats(false); // 한 번만 실행하도록 설정
+		            timer.start();
+		            
+		            SwingUtilities.invokeLater(new Runnable() {
+		                @Override
+		                public void run() {
+		                    if (count < 8) {
+		                        for (int i = count; i < 7; i++) {
+		                            count = i;
+		                            printDrawNumber();
+		                        }
+		                        drawBounsNumber();
+		                        printScore("A", aList);
+		                        printScore("B", bList);
+		                        printScore("C", cList);
+		                        printScore("D", dList);
+		                        printScore("E", eList);
 
-					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
-					pnlTotMoney.add(lblMoney);
+		                        lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
+		                        pnlTotMoney.add(lblMoney);
 
-					pnlTotScore.add(getTotalScore(), "Left");
+		                        pnlTotScore.add(getTotalScore(), "Left");
 
-					addColor(aList, pnlListA);
-					addColor(bList, pnlListB);
-					addColor(cList, pnlListC);
-					addColor(dList, pnlListD);
-					addColor(eList, pnlListE);
-					count = 8;
-					
-					btnAgain.setEnabled(true);
-					lotteryBtn.setEnabled(false);
-					lotteryAllBtn.setEnabled(false);
+		                        addColor(aList, pnlListA);
+		                        addColor(bList, pnlListB);
+		                        addColor(cList, pnlListC);
+		                        addColor(dList, pnlListD);
+		                        addColor(eList, pnlListE);
+		                        count = 8;
+
+		                        btnAgain.setEnabled(true);
+		                        lotteryBtn.setEnabled(false);
+		                        lotteryAllBtn.setEnabled(false);
+		                    }
+		                }
+		            });
+		            
+//				if (count < 8) {
+//					
+//					for (int i = count; i < 7; i++) {
+//						count = i;
+//						printDrawNumber();
+//					}
+//					drawBounsNumber();
+//					printScore("A", aList);
+//					printScore("B", bList);
+//					printScore("C", cList);
+//					printScore("D", dList);
+//					printScore("E", eList);
+//
+//					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
+//					pnlTotMoney.add(lblMoney);
+//
+//					pnlTotScore.add(getTotalScore(), "Left");
+//
+//					addColor(aList, pnlListA);
+//					addColor(bList, pnlListB);
+//					addColor(cList, pnlListC);
+//					addColor(dList, pnlListD);
+//					addColor(eList, pnlListE);
+//					count = 8;
+//					
+//					btnAgain.setEnabled(true);
+//					lotteryBtn.setEnabled(false);
+//					lotteryAllBtn.setEnabled(false);
 				}
 			}
 		});
@@ -593,7 +639,7 @@ class Result extends JFrame {
 		drawPnl.add(pnlPlusNum);
 
 		try {
-			Thread.sleep(100); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
+			Thread.sleep(30); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
