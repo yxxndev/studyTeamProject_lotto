@@ -43,7 +43,9 @@ public class Start extends JFrame {
 		btnStart.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/startClick.png")));
 		btnStart.setBorderPainted(false);
 		btnStart.setContentAreaFilled(false);
-		btnStart.setBounds(386, 339, 190, 69);
+		btnStart.setFocusPainted(false);
+		
+		btnStart.setBounds(387, 339, 190, 69);
 		panel.add(btnStart);
 		
 		JButton btnExit = new JButton();

@@ -53,7 +53,7 @@ public class LottoCMR extends JFrame {
 		btnAllAuto.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allAutoClick.png")));
 		btnAllAuto.setBorderPainted(false);
 		btnAllAuto.setContentAreaFilled(false);
-		btnAllAuto.setBounds(630, 625, 246, 45);
+		btnAllAuto.setBounds(630, 625, 247, 45);
 		panel_3.add(btnAllAuto);
 		
 //		전체 자동 작동 메소드 삽입 // 2차추가
