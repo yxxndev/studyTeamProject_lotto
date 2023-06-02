@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -94,6 +95,7 @@ class Result extends JFrame {
 		add(btnExit);
 
 		JButton btnAgain = againBtn();
+		btnAgain.setEnabled(false);
 		add(btnAgain);
 
 		// pnl2 : 유저 선택 숫자 패널
@@ -205,6 +207,8 @@ class Result extends JFrame {
 
 		// 추첨 버튼
 		JButton lotteryBtn = new JButton();
+		JButton lotteryAllBtn = new JButton();
+		
 		lotteryBtn.setIcon(new ImageIcon(Start.class.getResource("/image/allLotteryBtn.png")));
 		lotteryBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allLotteryBtnClick.png")));
 		lotteryBtn.setBorderPainted(false);
@@ -236,6 +240,10 @@ class Result extends JFrame {
 					addColor(dList, pnlListD);
 					addColor(eList, pnlListE);
 					count++;
+					
+					btnAgain.setEnabled(true);
+					lotteryBtn.setEnabled(false);
+					lotteryAllBtn.setEnabled(false);
 //						// 2등전용 보너스번호 공 라벨
 //						if (score.equals("2등") && num == bonusNum) {
 //							JLabel lblSecond = new JLabel();
@@ -259,7 +267,6 @@ class Result extends JFrame {
 		});
 
 		// 전체 추첨 버튼
-		JButton lotteryAllBtn = new JButton();
 		lotteryAllBtn.setIcon(new ImageIcon(Start.class.getResource("/image/allLotteryBtn.png")));
 		lotteryAllBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allLotteryBtnClick.png")));
 		lotteryAllBtn.setBorderPainted(false);
@@ -292,6 +299,10 @@ class Result extends JFrame {
 					addColor(dList, pnlListD);
 					addColor(eList, pnlListE);
 					count = 8;
+					
+					btnAgain.setEnabled(true);
+					lotteryBtn.setEnabled(false);
+					lotteryAllBtn.setEnabled(false);
 				}
 			}
 		});
@@ -504,7 +515,7 @@ class Result extends JFrame {
 		}
 
 		try {
-			Thread.sleep(50); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
+			Thread.sleep(30); // drawPnl.revalidate();를 돕기 위한 딜레이를 줌. 안주면 그림에 잔상이 남아서 이상하게 출력되는 거 처럼 보인다.
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
