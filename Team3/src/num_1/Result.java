@@ -51,6 +51,21 @@ class Result extends JFrame {
 	private JPanel bgPnl;
 	private JPanel setScore = new JPanel(null);
 
+	private JPanel pnl11;
+	private JPanel pnl22;
+	private JPanel pnl33;
+	private JPanel pnl44;
+	private JPanel pnl55;
+	private JPanel pnl66;
+
+	ArrayList<JPanel> testPanelA = new ArrayList<>();
+	ArrayList<JPanel> testPanelB = new ArrayList<>();
+	ArrayList<JPanel> testPanelC = new ArrayList<>();
+	ArrayList<JPanel> testPanelD = new ArrayList<>();
+	ArrayList<JPanel> testPanelE = new ArrayList<>();
+
+	JPanel[] pnls = { pnl11, pnl22, pnl33, pnl44, pnl55, pnl66 };
+
 	public Result(DataBase data) {
 		aList = data.map.get("A");
 		bList = data.map.get("B");
@@ -65,8 +80,8 @@ class Result extends JFrame {
 		Collections.sort(eList);
 
 		// 당첨번호 숫자조정용
-		// lotteryNumRan();
-		lotteryNums.add(1);
+//		lotteryNumRan();
+		lotteryNums.add(11);
 		lotteryNums.add(2);
 		lotteryNums.add(3);
 		lotteryNums.add(4);
@@ -93,7 +108,7 @@ class Result extends JFrame {
 		if (aList.size() == 6) {
 			int correctCount = compareNum("A", aList);
 			String score = whatScore(correctCount, "A", aList);
-			JPanel pnl2 = printUserNumResult("A", aList, score);
+			JPanel pnl2 = printUserNumResult("A", aList, score, pnl11, testPanelA);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
@@ -106,7 +121,7 @@ class Result extends JFrame {
 		if (bList.size() == 6) {
 			int correctCount = compareNum("B", bList);
 			String score = whatScore(correctCount, "B", bList);
-			JPanel pnl2 = printUserNumResult("B", bList, score);
+			JPanel pnl2 = printUserNumResult("B", bList, score, pnl22, testPanelB);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
@@ -114,12 +129,12 @@ class Result extends JFrame {
 
 			add(pnl2);
 		}
-
-		// C 항목 정보
+//
+//		// C 항목 정보
 		if (cList.size() == 6) {
 			int correctCount = compareNum("C", cList);
 			String score = whatScore(correctCount, "C", cList);
-			JPanel pnl2 = printUserNumResult("C", cList, score);
+			JPanel pnl2 = printUserNumResult("C", cList, score, pnl33, testPanelC);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
@@ -132,7 +147,7 @@ class Result extends JFrame {
 		if (dList.size() == 6) {
 			int correctCount = compareNum("D", dList);
 			String score = whatScore(correctCount, "D", dList);
-			JPanel pnl2 = printUserNumResult("D", dList, score);
+			JPanel pnl2 = printUserNumResult("D", dList, score, pnl44, testPanelD);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
@@ -145,7 +160,7 @@ class Result extends JFrame {
 		if (eList.size() == 6) {
 			int correctCount = compareNum("E", eList);
 			String score = whatScore(correctCount, "E", eList);
-			JPanel pnl2 = printUserNumResult("E", eList, score);
+			JPanel pnl2 = printUserNumResult("E", eList, score, pnl55, testPanelE);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
@@ -214,10 +229,33 @@ class Result extends JFrame {
 
 					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
 					pnlTotMoney.add(lblMoney);
-					
-					pnlTotScore.add(getTotalScore(), "Left");
 
+					pnlTotScore.add(getTotalScore(), "Left");
+					
+					addColor(aList, testPanelA);
+					addColor(bList, testPanelB);
+					addColor(cList, testPanelC);
+					addColor(dList, testPanelD);
+					addColor(eList, testPanelE);
 					count++;
+//						// 2등전용 보너스번호 공 라벨
+//						if (score.equals("2등") && num == bonusNum) {
+//							JLabel lblSecond = new JLabel();
+//							if (num <= 10) {
+//								lblSecond.setIcon(pBN.circle10);
+//							} else if (num <= 20) {
+//								lblSecond.setIcon(pBN.circle20);
+//							} else if (num <= 30) {
+//								lblSecond.setIcon(pBN.circle30);
+//							} else if (num <= 40) {
+//								lblSecond.setIcon(pBN.circle40);
+//							} else if (num <= 50) {
+//								lblSecond.setIcon(pBN.circle50);
+//							}
+//							lblSecond.setHorizontalTextPosition(JLabel.CENTER);
+//							lblSecond.setBackground(new Color(255, 0, 0, 0));
+//							pnls[i].add(lblSecond);
+//						}
 				}
 			}
 		});
@@ -248,25 +286,46 @@ class Result extends JFrame {
 	 * @param key, arrList, score
 	 * @return JPanel
 	 */
-	JPanel printUserNumResult(String key, ArrayList<UserSelectNum> arrList, String score) {
-		JPanel pnl = new JPanel(new FlowLayout());
-		JPanel pnl1 = new JPanel();
-		pnl1.setLayout(new OverlayLayout(pnl1));
-		JPanel pnl2 = new JPanel();
-		pnl2.setLayout(new OverlayLayout(pnl2));
-		JPanel pnl3 = new JPanel();
-		pnl3.setLayout(new OverlayLayout(pnl3));
-		JPanel pnl4 = new JPanel();
-		pnl4.setLayout(new OverlayLayout(pnl4));
-		JPanel pnl5 = new JPanel();
-		pnl5.setLayout(new OverlayLayout(pnl5));
-		JPanel pnl6 = new JPanel();
-		pnl6.setLayout(new OverlayLayout(pnl6));
+	// pnltest가 laylayout
+	// 지금 큰 패널이 laylayout이라서 문제가 생기는 거임
+	void addColor(ArrayList<UserSelectNum> test, ArrayList<JPanel> test2) {
+		int i = 0;
 
-		JPanel[] pnls = { pnl1, pnl2, pnl3, pnl4, pnl5, pnl6 };
+		for (UserSelectNum elem : test) {
+			int num = elem.getLotteryNum();
+
+			// 당첨 공 라벨
+			if (elem.isWin()) {
+				JLabel lblCorrect = new JLabel();
+				if (num <= 10) {
+					lblCorrect.setIcon(pBN.circle10);
+				} else if (num <= 20) {
+					lblCorrect.setIcon(pBN.circle20);
+				} else if (num <= 30) {
+					lblCorrect.setIcon(pBN.circle30);
+				} else if (num <= 40) {
+					lblCorrect.setIcon(pBN.circle40);
+				} else if (num <= 50) {
+					lblCorrect.setIcon(pBN.circle50);
+				}
+				lblCorrect.setHorizontalTextPosition(JLabel.CENTER);
+				lblCorrect.setBackground(new Color(255, 0, 0, 0));
+				test2.get(i).add(lblCorrect);
+			}
+
+			i++;
+		}
+	}
+
+	JPanel printUserNumResult(String key, ArrayList<UserSelectNum> arrList, String score, JPanel pnlTest,
+			ArrayList<JPanel> jpnlTest) {
+		JPanel pnl = new JPanel(new FlowLayout());
 
 		int i = 0;
 		for (UserSelectNum elem : arrList) {
+			pnlTest = new JPanel();
+			pnlTest.setLayout(new OverlayLayout(pnlTest));
+
 			int num = elem.getLotteryNum();
 			int index = num - 1;
 
@@ -275,8 +334,8 @@ class Result extends JFrame {
 			lblNumIcon.setIcon(pBN.numImg[index]);
 			lblNumIcon.setHorizontalTextPosition(JLabel.CENTER);
 			lblNumIcon.setBackground(new Color(255, 0, 0, 0));
-			pnls[i].add(lblNumIcon);
-			pnls[i].setBackground(new Color(255, 0, 0, 0));
+			pnlTest.add(lblNumIcon);
+			pnlTest.setBackground(new Color(255, 0, 0, 0));
 
 			// auto 라벨
 			if (elem.isAuto()) {
@@ -284,7 +343,8 @@ class Result extends JFrame {
 				lblAuto.setIcon(new ImageIcon(Result.class.getResource("/image/auto수정.png")));
 				lblAuto.setHorizontalTextPosition(JLabel.CENTER);
 				lblAuto.setBackground(new Color(255, 0, 0, 0));
-				pnls[i].add(lblAuto);
+				pnlTest.add(lblAuto);
+
 			}
 
 			// 2등전용 보너스번호 공 라벨
@@ -303,31 +363,15 @@ class Result extends JFrame {
 				}
 				lblSecond.setHorizontalTextPosition(JLabel.CENTER);
 				lblSecond.setBackground(new Color(255, 0, 0, 0));
-				pnls[i].add(lblSecond);
+				pnlTest.add(lblSecond);
 			}
 
 			// 당첨 공 라벨
-			if (elem.isWin()) {
-				JLabel lblCorrect = new JLabel();
-				if (num <= 10) {
-					lblCorrect.setIcon(pBN.circle10);
-				} else if (num <= 20) {
-					lblCorrect.setIcon(pBN.circle20);
-				} else if (num <= 30) {
-					lblCorrect.setIcon(pBN.circle30);
-				} else if (num <= 40) {
-					lblCorrect.setIcon(pBN.circle40);
-				} else if (num <= 50) {
-					lblCorrect.setIcon(pBN.circle50);
-				}
-				lblCorrect.setHorizontalTextPosition(JLabel.CENTER);
-				lblCorrect.setBackground(new Color(255, 0, 0, 0));
-				pnls[i].add(lblCorrect);
-			}
-
-			pnl.add(pnls[i]);
+			pnl.add(pnlTest);
+			jpnlTest.add(pnlTest);
 			i++;
 		}
+
 		return pnl;
 	}
 
@@ -435,11 +479,11 @@ class Result extends JFrame {
 		drawPnl.repaint();
 	}
 
-	void addDrawNumber(JPanel addPnl, int index) {
+	void addDrawNumber(JPanel addPnl, int elem) {
 		// 숫자아이콘 라벨
 		JLabel lblNum = new JLabel(); // Label에 숫자 아이콘 입력
-		int elem = index - 1;
-		lblNum.setIcon(pBN.numImg[elem]); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
+		int index = elem - 1;
+		lblNum.setIcon(pBN.numImg[index]); // 번호당 아이콘 입력, iconArr은 1~45 숫자가 있음
 		lblNum.setHorizontalTextPosition(JLabel.CENTER);
 		lblNum.setBackground(new Color(255, 0, 0, 0));
 		addPnl.setBackground(new Color(255, 0, 0, 0));
