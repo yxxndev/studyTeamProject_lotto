@@ -55,8 +55,6 @@ public class Start extends JFrame {
 				dispose();
 			}
 		});
-		btnExit.setIcon(new ImageIcon(Start.class.getResource("/image/exit.png")));
-		btnExit.setRolloverIcon(new ImageIcon(Start.class.getResource("/image/exitClick.png")));
 		btnExit.setIcon(new ImageIcon(Start.class.getResource("/image/cancleBtn2.png")));
 		btnExit.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/cancleBtn2Click.png")));
 		btnExit.setBorderPainted(false);
@@ -65,8 +63,8 @@ public class Start extends JFrame {
 		panel.add(btnExit);
 		
 		JLabel background = new JLabel("");
-		background.setIcon(new ImageIcon(Start.class.getResource("/image/bgStart.png")));
-		background.setBounds(0, 0, 1280, 671);
+		background.setIcon(new ImageIcon(Start.class.getResource("/image/bgStartFinal.png")));
+		background.setBounds(0, 0, 1280, 700);
 		panel.add(background);
 		
 		ImageIcon img2 = new ImageIcon(Start.class.getResource("/image/exit.png"));
