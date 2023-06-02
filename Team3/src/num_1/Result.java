@@ -537,7 +537,7 @@ class Result extends JFrame {
 		btn2.setRolloverIcon(img4);
 		btn2.setBorderPainted(false);
 		btn2.setContentAreaFilled(false);
-		btn2.setBounds(320, 660, 126, 45);
+		btn2.setBounds(330, 660, 126, 45);
 
 		btn2.addActionListener(new ActionListener() {
 			@Override
@@ -560,7 +560,7 @@ class Result extends JFrame {
 		btn1.setRolloverIcon(img3);
 		btn1.setBorderPainted(false);
 		btn1.setContentAreaFilled(false);
-		btn1.setBounds(130, 660, 126, 45);
+		btn1.setBounds(140, 660, 126, 45);
 
 		btn1.addActionListener(new ActionListener() {
 			@Override
