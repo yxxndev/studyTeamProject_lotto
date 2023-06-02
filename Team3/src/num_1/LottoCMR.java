@@ -42,6 +42,7 @@ public class LottoCMR extends JFrame {
 	public LottoCMR(DataBase dataBase) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 50, 1290, 735);
+		setLocationRelativeTo(null); // 중앙 위치
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
