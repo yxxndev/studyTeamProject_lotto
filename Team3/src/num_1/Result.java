@@ -632,6 +632,7 @@ class Result extends JFrame {
 		JButton btn1 = new JButton(img1);
 		btn1.setRolloverIcon(img3);
 		btn1.setBorderPainted(false);
+		btn1.setFocusPainted(false);
 		btn1.setContentAreaFilled(false);
 		btn1.setBounds(130, 645, 150, 70);
 
