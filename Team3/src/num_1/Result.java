@@ -51,20 +51,14 @@ class Result extends JFrame {
 	private JPanel bgPnl;
 	private JPanel setScore = new JPanel(null);
 
-	private JPanel pnl11;
-	private JPanel pnl22;
-	private JPanel pnl33;
-	private JPanel pnl44;
-	private JPanel pnl55;
-	private JPanel pnl66;
+	private JPanel pnlNum;
 
-	ArrayList<JPanel> testPanelA = new ArrayList<>();
-	ArrayList<JPanel> testPanelB = new ArrayList<>();
-	ArrayList<JPanel> testPanelC = new ArrayList<>();
-	ArrayList<JPanel> testPanelD = new ArrayList<>();
-	ArrayList<JPanel> testPanelE = new ArrayList<>();
+	ArrayList<JPanel> pnlListA = new ArrayList<>();
+	ArrayList<JPanel> pnlListB = new ArrayList<>();
+	ArrayList<JPanel> pnlListC = new ArrayList<>();
+	ArrayList<JPanel> pnlListD = new ArrayList<>();
+	ArrayList<JPanel> pnlListE = new ArrayList<>();
 
-	JPanel[] pnls = { pnl11, pnl22, pnl33, pnl44, pnl55, pnl66 };
 
 	public Result(DataBase data) {
 		aList = data.map.get("A");
@@ -80,13 +74,13 @@ class Result extends JFrame {
 		Collections.sort(eList);
 
 		// 당첨번호 숫자조정용
-//		lotteryNumRan();
-		lotteryNums.add(11);
-		lotteryNums.add(2);
-		lotteryNums.add(3);
-		lotteryNums.add(4);
-		lotteryNums.add(5);
-		lotteryNums.add(7);
+		lotteryNumRan();
+//		lotteryNums.add(11);
+//		lotteryNums.add(2);
+//		lotteryNums.add(3);
+//		lotteryNums.add(4);
+//		lotteryNums.add(5);
+//		lotteryNums.add(7);
 		bonusNum = 6;
 
 		// ---------------------------------------------
@@ -108,7 +102,7 @@ class Result extends JFrame {
 		if (aList.size() == 6) {
 			int correctCount = compareNum("A", aList);
 			String score = whatScore(correctCount, "A", aList);
-			JPanel pnl2 = printUserNumResult("A", aList, score, pnl11, testPanelA);
+			JPanel pnl2 = printUserNumResult("A", aList, score, pnlNum, pnlListA);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
@@ -121,7 +115,7 @@ class Result extends JFrame {
 		if (bList.size() == 6) {
 			int correctCount = compareNum("B", bList);
 			String score = whatScore(correctCount, "B", bList);
-			JPanel pnl2 = printUserNumResult("B", bList, score, pnl22, testPanelB);
+			JPanel pnl2 = printUserNumResult("B", bList, score, pnlNum, pnlListB);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
@@ -134,7 +128,7 @@ class Result extends JFrame {
 		if (cList.size() == 6) {
 			int correctCount = compareNum("C", cList);
 			String score = whatScore(correctCount, "C", cList);
-			JPanel pnl2 = printUserNumResult("C", cList, score, pnl33, testPanelC);
+			JPanel pnl2 = printUserNumResult("C", cList, score, pnlNum, pnlListC);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
@@ -147,7 +141,7 @@ class Result extends JFrame {
 		if (dList.size() == 6) {
 			int correctCount = compareNum("D", dList);
 			String score = whatScore(correctCount, "D", dList);
-			JPanel pnl2 = printUserNumResult("D", dList, score, pnl44, testPanelD);
+			JPanel pnl2 = printUserNumResult("D", dList, score, pnlNum, pnlListD);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
@@ -160,7 +154,7 @@ class Result extends JFrame {
 		if (eList.size() == 6) {
 			int correctCount = compareNum("E", eList);
 			String score = whatScore(correctCount, "E", eList);
-			JPanel pnl2 = printUserNumResult("E", eList, score, pnl55, testPanelE);
+			JPanel pnl2 = printUserNumResult("E", eList, score, pnlNum, pnlListE);
 			moneyPlus(score);
 
 			pnl2.setBackground(new Color(255, 0, 0, 0));
@@ -210,10 +204,10 @@ class Result extends JFrame {
 		add(pnlBallImage);
 
 		// 추첨 버튼
-		JButton btnTest = new JButton("추첨 버튼");
-		btnTest.setBounds(800, 30, 200, 50);
-		add(btnTest);
-		btnTest.addActionListener(new ActionListener() {
+		JButton btnVote = new JButton("추첨 버튼");
+		btnVote.setBounds(800, 30, 200, 50);
+		add(btnVote);
+		btnVote.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (count < 7) {
@@ -232,11 +226,11 @@ class Result extends JFrame {
 
 					pnlTotScore.add(getTotalScore(), "Left");
 					
-					addColor(aList, testPanelA);
-					addColor(bList, testPanelB);
-					addColor(cList, testPanelC);
-					addColor(dList, testPanelD);
-					addColor(eList, testPanelE);
+					addColor(aList, pnlListA);
+					addColor(bList, pnlListB);
+					addColor(cList, pnlListC);
+					addColor(dList, pnlListD);
+					addColor(eList, pnlListE);
 					count++;
 //						// 2등전용 보너스번호 공 라벨
 //						if (score.equals("2등") && num == bonusNum) {
@@ -288,10 +282,10 @@ class Result extends JFrame {
 	 */
 	// pnltest가 laylayout
 	// 지금 큰 패널이 laylayout이라서 문제가 생기는 거임
-	void addColor(ArrayList<UserSelectNum> test, ArrayList<JPanel> test2) {
+	void addColor(ArrayList<UserSelectNum> selectNum, ArrayList<JPanel> panel) {
 		int i = 0;
 
-		for (UserSelectNum elem : test) {
+		for (UserSelectNum elem : selectNum) {
 			int num = elem.getLotteryNum();
 
 			// 당첨 공 라벨
@@ -310,21 +304,21 @@ class Result extends JFrame {
 				}
 				lblCorrect.setHorizontalTextPosition(JLabel.CENTER);
 				lblCorrect.setBackground(new Color(255, 0, 0, 0));
-				test2.get(i).add(lblCorrect);
+				panel.get(i).add(lblCorrect);
 			}
 
 			i++;
 		}
 	}
 
-	JPanel printUserNumResult(String key, ArrayList<UserSelectNum> arrList, String score, JPanel pnlTest,
-			ArrayList<JPanel> jpnlTest) {
-		JPanel pnl = new JPanel(new FlowLayout());
+	JPanel printUserNumResult(String key, ArrayList<UserSelectNum> arrList, String score, JPanel pnl,
+			ArrayList<JPanel> pnlList) {
+		JPanel mainPnl = new JPanel(new FlowLayout());
 
 		int i = 0;
 		for (UserSelectNum elem : arrList) {
-			pnlTest = new JPanel();
-			pnlTest.setLayout(new OverlayLayout(pnlTest));
+			pnl = new JPanel();
+			pnl.setLayout(new OverlayLayout(pnl));
 
 			int num = elem.getLotteryNum();
 			int index = num - 1;
@@ -334,8 +328,8 @@ class Result extends JFrame {
 			lblNumIcon.setIcon(pBN.numImg[index]);
 			lblNumIcon.setHorizontalTextPosition(JLabel.CENTER);
 			lblNumIcon.setBackground(new Color(255, 0, 0, 0));
-			pnlTest.add(lblNumIcon);
-			pnlTest.setBackground(new Color(255, 0, 0, 0));
+			pnl.add(lblNumIcon);
+			pnl.setBackground(new Color(255, 0, 0, 0));
 
 			// auto 라벨
 			if (elem.isAuto()) {
@@ -343,7 +337,7 @@ class Result extends JFrame {
 				lblAuto.setIcon(new ImageIcon(Result.class.getResource("/image/auto수정.png")));
 				lblAuto.setHorizontalTextPosition(JLabel.CENTER);
 				lblAuto.setBackground(new Color(255, 0, 0, 0));
-				pnlTest.add(lblAuto);
+				pnl.add(lblAuto);
 
 			}
 
@@ -363,16 +357,16 @@ class Result extends JFrame {
 				}
 				lblSecond.setHorizontalTextPosition(JLabel.CENTER);
 				lblSecond.setBackground(new Color(255, 0, 0, 0));
-				pnlTest.add(lblSecond);
+				pnl.add(lblSecond);
 			}
 
 			// 당첨 공 라벨
-			pnl.add(pnlTest);
-			jpnlTest.add(pnlTest);
+			mainPnl.add(pnl);
+			pnlList.add(pnl);
 			i++;
 		}
 
-		return pnl;
+		return mainPnl;
 	}
 
 	/**
