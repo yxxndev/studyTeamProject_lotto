@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -70,7 +71,6 @@ class Result extends JFrame {
 	private final int VIRTUAL_CIRCLE_RADIUS = 80; // 가상의 원의 반지름
 	private final ImageIcon[] BALL_IMAGES = new ImageIcon[BALL_COUNT];
 	private JPanel drawPnl = new JPanel();
-	private JPanel bigPnl;
 
 	public Result(DataBase data) {
 		aList = data.map.get("A");
@@ -86,7 +86,7 @@ class Result extends JFrame {
 		Collections.sort(eList);
 
 		// 당첨번호 숫자조정용
-	//	lotteryNumRan();
+		// lotteryNumRan();
 		lotteryNums.add(1);
 		lotteryNums.add(2);
 		lotteryNums.add(3);
@@ -94,14 +94,14 @@ class Result extends JFrame {
 		lotteryNums.add(5);
 		lotteryNums.add(7);
 		bonusNum = 6;
-
+		
+		
 		// ---------------------------------------------
-
-		bigPnl = new JPanel();
-		bigPnl.setBounds(0, 0, 800, 800);
-		bigPnl.setBackground(new Color(255, 0, 0, 0));
-		bigPnl.setLayout(null);
-		add(bigPnl);
+//		JPanel panel = new JPanel();
+//		panel.setLayout(null);
+//		lbl.setBounds(0, 0, 1200, 800);
+//		panel.add(lbl);
+//		add(panel);
 
 		JButton btnExit = exitBtn();
 		add(btnExit);
@@ -191,7 +191,6 @@ class Result extends JFrame {
 		JPanel pnlTotScore = new JPanel(new FlowLayout());
 		pnlTotScore.setBounds(250, 185, 200, 50);
 		pnlTotScore.setBackground(new Color(255, 0, 0, 0));
-		
 
 		// 총 가격 패널
 		JPanel pnlTotMoney = new JPanel(new FlowLayout());
@@ -204,6 +203,16 @@ class Result extends JFrame {
 		drawPnl.setBackground(new Color(255, 0, 0, 0));
 		drawPnl.setBounds(55, 120, 550, 80);
 		add(drawPnl);
+		
+		// 공굴러가는거
+		JPanel pnlBallImage = loadBallImages();
+		pnlBallImage.setBounds(470, 100, 800, 600);
+		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
+		add(pnlBallImage);
+		
+		JPanel bgPnl = new JPanel();
+		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/result1280.png"))));
+		
 
 		// 추첨 버튼
 		JButton btnTest = new JButton("테스트용 버튼");
@@ -220,61 +229,28 @@ class Result extends JFrame {
 					printScore("C", cList);
 					printScore("D", dList);
 					printScore("E", eList);
-					
+
 					pnlTotScore.add(getTotalScore(), "Left");
 
-					bigPnl.add(pnlTotScore);
-					bigPnl.add(pnlTotMoney);
+					bgPnl.add(pnlTotScore);
+					bgPnl.add(pnlTotMoney);
 					count++;
 				}
 			}
 		});
+		
 
 		btnTest.setBounds(0, 0, 100, 100);
 		add(btnTest);
-
-		// ---------------------------------------------------------------------------
-
-		// 섹션1 생성 : "추첨 결과" 텍스트
-		JLabel section1 = new JLabel(new ImageIcon(Result.class.getResource("/image/headerTest.png")));
-		section1.setBounds(0, 0, 600, 110);
-		add(section1);
-
-//		// 섹션2 생성: 당첨번호 출력
-//		JLabel section2 = new JLabel(new ImageIcon(Result.class.getResource("/image/testSection2.png")));
-//		section2.setBounds(0, 150, 600, 100);
-//		add(section2);
-
-		// 섹션3 생성: 당첨 최고 등수 + 당첨 총 금액 출력
-		JLabel section3 = new JLabel(new ImageIcon(Result.class.getResource("/image/reword수정.png")));
-		section3.setBounds(0, 200, 600, 70);
-		add(section3);
-
-		// 섹션4 생성: 유저 번호 출력 (A~E)
-		JLabel section4 = new JLabel(new ImageIcon(Result.class.getResource("/image/result.png")));
-		section4.setBounds(0, 300, 600, 350);
-		add(section4);
-
-		// 추첨 이미지
-		JPanel pnlBallImage = loadBallImages();
-		pnlBallImage.setBounds(470, 100, 800, 600);
-		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
-		add(pnlBallImage);
-
-		// 배경깔기
-		JPanel bgPnl = new JPanel();
-		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
-		bgPnl.setBounds(0, 0, 600, 800);
+		
+		
+		
+		bgPnl.setBounds(-35, -35, 1280, 800);
 		bgPnl.add(bgLbl);
-
-		JPanel bgPnl2 = new JPanel();
-		JLabel bgLbl2 = new JLabel((new ImageIcon(Result.class.getResource("/image/background.png"))));
-		bgPnl2.setBounds(600, 0, 600, 800);
-		bgPnl2.add(bgLbl2);
-
 		add(bgPnl);
-		add(bgPnl2);
-
+		
+		
+		// ---------------------------------------------------------------------------
 		setBackground(Color.WHITE);
 		setTitle("추첨 결과");
 		setSize(1200, 800);
@@ -432,7 +408,7 @@ class Result extends JFrame {
 
 			test.setBackground(new Color(255, 0, 0, 0));
 
-			bigPnl.add(test);
+			add(test);
 			scores.add(lbl3.getText());
 		}
 	}
