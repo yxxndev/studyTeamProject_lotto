@@ -2,6 +2,7 @@ package num_1;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -21,6 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import sun.awt.IconInfo;
+
 public class LottoCMR extends JFrame {
 
 	ImageIcon icon = new ImageIcon("paper.png");
@@ -38,9 +41,9 @@ public class LottoCMR extends JFrame {
 
 	public LottoCMR(DataBase dataBase) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1280, 700);
+		setBounds(0, 50 , 1290, 735);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -54,7 +57,7 @@ public class LottoCMR extends JFrame {
 		btnAllAuto.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allAutoClick.png")));
 		btnAllAuto.setBorderPainted(false);
 		btnAllAuto.setContentAreaFilled(false);
-		btnAllAuto.setBounds(630, 603, 246, 45);
+		btnAllAuto.setBounds(630, 625, 246, 45);
 		panel_3.add(btnAllAuto);
 		
 //		전체 자동 작동 메소드 삽입 // 2차추가
@@ -74,7 +77,7 @@ public class LottoCMR extends JFrame {
 		btnAllCancle.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allCancleClick.png")));
 		btnAllCancle.setBorderPainted(false);
 		btnAllCancle.setContentAreaFilled(false);
-		btnAllCancle.setBounds(888, 603, 138, 45);
+		btnAllCancle.setBounds(888, 625, 138, 45);
 		panel_3.add(btnAllCancle);
 //		전체취소 작동메소드 삽입
 		btnAllCancle.addActionListener(new ActionListener() {
@@ -88,32 +91,33 @@ public class LottoCMR extends JFrame {
 		});
 
 		paylbl = new JLabel("0");
-		paylbl.setBounds(1062, 563, 82, 30);
+		paylbl.setBounds(1058, 581, 82, 30);
+		paylbl.setFont(new Font("Impact", Font.PLAIN, 18));
 		paylbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_3.add(paylbl);
 
 		panelA = new JPanel();
-		panelA.setBounds(259, 10, 165, 522);
+		panelA.setBounds(259, 10, 167, 519);
 		panel_3.add(panelA);
 		panelA.setLayout(null);
 
 		panelB = new JPanel();
-		panelB.setBounds(445, 10, 165, 522);
+		panelB.setBounds(445, 10, 167, 519);
 		panel_3.add(panelB);
 		panelB.setLayout(null);
 
 		panelC = new JPanel();
-		panelC.setBounds(630, 10, 165, 522);
+		panelC.setBounds(630, 10, 167, 519);
 		panel_3.add(panelC);
 		panelC.setLayout(null);
 
 		panelD = new JPanel();
-		panelD.setBounds(817, 10, 165, 522);
+		panelD.setBounds(817, 10, 167, 519);
 		panel_3.add(panelD);
 		panelD.setLayout(null);
 
 		panelE = new JPanel();
-		panelE.setBounds(1000, 10, 165, 522);
+		panelE.setBounds(1000, 10, 167, 519);
 		panel_3.add(panelE);
 		panelE.setLayout(null);
 
@@ -130,28 +134,28 @@ public class LottoCMR extends JFrame {
 		addLabel(panelE, keyE, dataBase);
 
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperA.png")));
-		lblNewLabel_1.setBounds(0, 0, 165, 522);
+		lblNewLabel_1.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperAfinal.png")));
+		lblNewLabel_1.setBounds(0, 0, 167, 519);
 		panelA.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperB.png")));
-		lblNewLabel_2.setBounds(0, 0, 165, 522);
+		lblNewLabel_2.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperBfinal.png")));
+		lblNewLabel_2.setBounds(0, 0, 167, 519);
 		panelB.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperC.png")));
-		lblNewLabel_3.setBounds(0, 0, 165, 522);
+		lblNewLabel_3.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperCfinal.png")));
+		lblNewLabel_3.setBounds(0, 0, 167, 519);
 		panelC.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperD.png")));
-		lblNewLabel_4.setBounds(0, 0, 165, 522);
+		lblNewLabel_4.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperDfinal.png")));
+		lblNewLabel_4.setBounds(0, 0, 167, 519);
 		panelD.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("");
-		lblNewLabel_5.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperE.png")));
-		lblNewLabel_5.setBounds(0, 0, 165, 522);
+		lblNewLabel_5.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paperEfinal.png")));
+		lblNewLabel_5.setBounds(0, 0, 167, 519);
 		panelE.add(lblNewLabel_5);
 
 		JButton btnBuy = new JButton("");
@@ -159,7 +163,7 @@ public class LottoCMR extends JFrame {
 		btnBuy.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/purchaseClick.png")));
 		btnBuy.setBorderPainted(false);
 		btnBuy.setContentAreaFilled(false);
-		btnBuy.setBounds(1039, 603, 126, 45);
+		btnBuy.setBounds(1039, 625, 126, 45);
 		panel_3.add(btnBuy);
 		btnBuy.addActionListener(new ActionListener() {
 			@Override
@@ -172,8 +176,8 @@ public class LottoCMR extends JFrame {
 		});
 
 		JLabel paper = new JLabel("New label");
-		paper.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/paper.png")));
-		paper.setBounds(0, 0, 1254, 651);
+		paper.setIcon(new ImageIcon(LottoCMR.class.getResource("/image/bgImg2final.png")));
+		paper.setBounds(0, 0, 1280, 700);
 		panel_3.add(paper);
 
 		setVisible(true);
@@ -212,10 +216,18 @@ public class LottoCMR extends JFrame {
 		pasteBtn.setBounds(140, 399, 20, 28);
 		panel.add(pasteBtn);
 
-		// --------------------------------------------------------
+		// 게임당 자동 및 반자동 선택 버튼 + 이미지(자동 및 반자동 선택, 취소)------
 		JButton autoBtn = new JButton("");
+		JLabel autoBtnImg = new JLabel((new ImageIcon(LottoCMR.class.getResource("/image/isAuto.png"))));
+		JLabel cancleBtnImg = new JLabel((new ImageIcon(LottoCMR.class.getResource("/image/isCancle.png"))));
 		autoBtn.setBounds(140, 442, 20, 28);
+		autoBtnImg.setBounds(-42, 444, 250, 26);
+		cancleBtnImg.setBounds(8, 487, 250, 26);
+		
+		
 		panel.add(autoBtn);
+		panel.add(autoBtnImg);
+		panel.add(cancleBtnImg);
 
 		// --------------------------------------------------------
 
