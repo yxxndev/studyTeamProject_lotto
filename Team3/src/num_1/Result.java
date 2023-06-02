@@ -518,6 +518,10 @@ class Result extends JFrame {
 	// ---------------------------------------------------------------------------------
 
 	// 버튼2(종료) 생성
+	
+	/**
+	 * 종료버튼 액션에 결과 확인 안할 시 경고창 출력 기능 추가
+	 */
 	JButton exitBtn() {
 		ImageIcon img2 = new ImageIcon(Result.class.getResource("/image/exit.png"));
 		ImageIcon img4 = new ImageIcon(Result.class.getResource("/image/exitClick.png"));
@@ -530,18 +534,17 @@ class Result extends JFrame {
 		btn2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (count == 8) {
 					setVisible(false);
 					System.exit(0); // 완전히 종료
-				}else {
-					JOptionPane.showMessageDialog(null, "결과를 확인하고 가십시오", "경고", JOptionPane.WARNING_MESSAGE);
-				}
 			}
 		});
 		return btn2;
 	}
 
 	// 버튼1(다시하기) 생성
+	/**
+	 * 다시하기버튼 액션에 결과 확인 안할 시 경고창 출력 기능 추가
+	 */
 	JButton againBtn() {
 		ImageIcon img1 = new ImageIcon(Result.class.getResource("/image/again.png"));
 		ImageIcon img3 = new ImageIcon(Result.class.getResource("/image/againClick.png"));
