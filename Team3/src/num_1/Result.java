@@ -595,11 +595,11 @@ class Result extends JFrame {
 		pnlPlusNum.add(lblPlusBall);
 		drawPnl.add(pnlPlusNum);
 
-//		try {
-//			Thread.sleep(30); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			Thread.sleep(50); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		drawPnl.revalidate();
 		// repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 키워드.
