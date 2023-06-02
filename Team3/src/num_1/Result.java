@@ -199,17 +199,17 @@ class Result extends JFrame {
 
 		// 공굴러가는거
 		JPanel pnlBallImage = loadBallImages();
-		pnlBallImage.setBounds(490, 65, 800, 600);
+		pnlBallImage.setBounds(490, -50, 800, 600);
 		pnlBallImage.setBackground(new Color(255, 0, 0, 0));
 		add(pnlBallImage);
 
 		// 추첨 버튼
 		JButton lotteryBtn = new JButton();
-		lotteryBtn.setIcon(new ImageIcon(Start.class.getResource("/image/lotteryBtn.png")));
-		lotteryBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/lotteryBtnClick.png")));
+		lotteryBtn.setIcon(new ImageIcon(Start.class.getResource("/image/allLotteryBtn.png")));
+		lotteryBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allLotteryBtnClick.png")));
 		lotteryBtn.setBorderPainted(false);
 		lotteryBtn.setContentAreaFilled(false);
-		lotteryBtn.setBounds(720, 650, 126, 45);
+		lotteryBtn.setBounds(775, 605, 76, 70);
 		add(lotteryBtn);
 		lotteryBtn.addActionListener(new ActionListener() {
 			@Override
@@ -260,11 +260,11 @@ class Result extends JFrame {
 
 		// 전체 추첨 버튼
 		JButton lotteryAllBtn = new JButton();
-		lotteryAllBtn.setIcon(new ImageIcon(Start.class.getResource("/image/lotteryBtn.png")));
-		lotteryAllBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/lotteryBtnClick.png")));
+		lotteryAllBtn.setIcon(new ImageIcon(Start.class.getResource("/image/allLotteryBtn.png")));
+		lotteryAllBtn.setRolloverIcon(new ImageIcon(LottoCMR.class.getResource("/image/allLotteryBtnClick.png")));
 		lotteryAllBtn.setBorderPainted(false);
 		lotteryAllBtn.setContentAreaFilled(false);
-		lotteryAllBtn.setBounds(1000, 650, 126, 45);
+		lotteryAllBtn.setBounds(932, 605, 76, 70);
 		add(lotteryAllBtn);
 		lotteryAllBtn.addActionListener(new ActionListener() {
 			@Override
@@ -297,7 +297,7 @@ class Result extends JFrame {
 		});
 
 		bgPnl = new JPanel();
-		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/resultAddBox.png"))));
+		JLabel bgLbl = new JLabel((new ImageIcon(Result.class.getResource("/image/resultBg2.png"))));
 
 		bgPnl.setBounds(-35, -35, 1280, 800);
 		bgPnl.add(bgLbl);
