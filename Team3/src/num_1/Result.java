@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
+import javax.swing.RepaintManager;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
@@ -217,41 +218,51 @@ class Result extends JFrame {
 		lotteryBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Thread thread = new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						if (count < 7) {
-							printDrawNumber();
-							count++;
-						} else if (count == 7) {
-							drawBounsNumber();
-							printScore("A", aList);
-							printScore("B", bList);
-							printScore("C", cList);
-							printScore("D", dList);
-							printScore("E", eList);
-							
-							lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
-							pnlTotMoney.add(lblMoney);
-							
-							pnlTotScore.add(getTotalScore(), "Left");
-							
-							addColor(aList, pnlListA);
-							addColor(bList, pnlListB);
-							addColor(cList, pnlListC);
-							addColor(dList, pnlListD);
-							addColor(eList, pnlListE);
-							count++;
-							
-							btnAgain.setEnabled(true);
-							lotteryBtn.setEnabled(false);
-							lotteryAllBtn.setEnabled(false);
-							
-						}
-					}
-				});
-				thread.start();
+				if (count < 7) {
+					printDrawNumber();
+					count++;
+				} else if (count == 7) {
+					drawBounsNumber();
+					printScore("A", aList);
+					printScore("B", bList);
+					printScore("C", cList);
+					printScore("D", dList);
+					printScore("E", eList);
+
+					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
+					pnlTotMoney.add(lblMoney);
+
+					pnlTotScore.add(getTotalScore(), "Left");
+
+					addColor(aList, pnlListA);
+					addColor(bList, pnlListB);
+					addColor(cList, pnlListC);
+					addColor(dList, pnlListD);
+					addColor(eList, pnlListE);
+					count++;
+
+					btnAgain.setEnabled(true);
+					lotteryBtn.setEnabled(false);
+					lotteryAllBtn.setEnabled(false);
+//						// 2등전용 보너스번호 공 라벨
+//						if (score.equals("2등") && num == bonusNum) {
+//							JLabel lblSecond = new JLabel();
+//							if (num <= 10) {
+//								lblSecond.setIcon(pBN.circle10);
+//							} else if (num <= 20) {
+//								lblSecond.setIcon(pBN.circle20);
+//							} else if (num <= 30) {
+//								lblSecond.setIcon(pBN.circle30);
+//							} else if (num <= 40) {
+//								lblSecond.setIcon(pBN.circle40);
+//							} else if (num <= 50) {
+//								lblSecond.setIcon(pBN.circle50);
+//							}
+//							lblSecond.setHorizontalTextPosition(JLabel.CENTER);
+//							lblSecond.setBackground(new Color(255, 0, 0, 0));
+//							pnls[i].add(lblSecond);
+//						}
+				}
 			}
 		});
 
@@ -265,41 +276,34 @@ class Result extends JFrame {
 		lotteryAllBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Thread thread = new Thread(new Runnable() {
-				    public void run() {
-				        // 스레드가 실행될 코드 작성
-				    	
-				    	if (count < 8) {
-				    		for (int i = count; i < 7; i++) {
-				    			count = i;
-				    			printDrawNumber();
-				    		}
-				    		drawBounsNumber();
-				    		printScore("A", aList);
-				    		printScore("B", bList);
-				    		printScore("C", cList);
-				    		printScore("D", dList);
-				    		printScore("E", eList);
-				    		
-				    		lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
-				    		pnlTotMoney.add(lblMoney);
-				    		
-				    		pnlTotScore.add(getTotalScore(), "Left");
-				    		
-				    		addColor(aList, pnlListA);
-				    		addColor(bList, pnlListB);
-				    		addColor(cList, pnlListC);
-				    		addColor(dList, pnlListD);
-				    		addColor(eList, pnlListE);
-				    		count = 8;
-				    		
-				    		btnAgain.setEnabled(true);
-				    		lotteryBtn.setEnabled(false);
-				    		lotteryAllBtn.setEnabled(false);
-				    	}
-				    }
-				});
-				thread.start();
+				if (count < 8) {
+					for (int i = count; i < 7; i++) {
+						count = i;
+						printDrawNumber();
+					}
+					drawBounsNumber();
+					printScore("A", aList);
+					printScore("B", bList);
+					printScore("C", cList);
+					printScore("D", dList);
+					printScore("E", eList);
+
+					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
+					pnlTotMoney.add(lblMoney);
+
+					pnlTotScore.add(getTotalScore(), "Left");
+
+					addColor(aList, pnlListA);
+					addColor(bList, pnlListB);
+					addColor(cList, pnlListC);
+					addColor(dList, pnlListD);
+					addColor(eList, pnlListE);
+					count = 8;
+
+					btnAgain.setEnabled(true);
+					lotteryBtn.setEnabled(false);
+					lotteryAllBtn.setEnabled(false);
+				}
 			}
 		});
 
@@ -477,6 +481,7 @@ class Result extends JFrame {
 	}
 
 	void printDrawNumber() {
+		drawPnl.setVisible(false);
 		switch (count) {
 		case 1:
 			JPanel pnl1 = new JPanel();
@@ -509,10 +514,7 @@ class Result extends JFrame {
 			addDrawNumber(pnl6, lotteryNums.get(5));
 			break;
 		}
-		
-
-		drawPnl.revalidate();
-		drawPnl.repaint();
+		drawPnl.setVisible(true);
 	}
 
 	void addDrawNumber(JPanel addPnl, int elem) {
@@ -546,6 +548,8 @@ class Result extends JFrame {
 	}
 
 	void drawBounsNumber() {
+		drawPnl.setVisible(false);
+		
 		JPanel pnlPlusNum = new JPanel(); // 보너스 숫자 Panel
 		pnlPlusNum.setLayout(new OverlayLayout(pnlPlusNum));
 		pnlPlusNum.setBackground(new Color(255, 0, 0, 0));
@@ -581,15 +585,7 @@ class Result extends JFrame {
 		pnlPlusNum.add(lblPlusBall);
 		drawPnl.add(pnlPlusNum);
 
-		try {
-			Thread.sleep(50); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		drawPnl.revalidate();
-		// repaint 작동전에 호출하여 패널을 다시 그리도록 하여 레이아웃을 재구성하도록 돕는 키워드.
-		drawPnl.repaint();
+		drawPnl.setVisible(true);
 	}
 
 	// ---------------------------------------------------------------------------------
