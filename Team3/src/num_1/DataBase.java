@@ -45,4 +45,10 @@ public class DataBase {
 		}
 		return sizeCheck;
 	}
+
+	public void setMap(Map<String, ArrayList<UserSelectNum>> map) {
+		this.map = map;
+	}
+	
+	
 }

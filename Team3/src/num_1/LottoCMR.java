@@ -309,7 +309,7 @@ public class LottoCMR extends JFrame {
 						list.add(elem);
 					}
 					dataBase.map.put(key, list);
-
+					
 					for (int i = 0; i < lbls.length; i++) {
 						lbls[i].setIcon(null);
 					}

@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
-import javax.swing.RepaintManager;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
@@ -218,51 +217,41 @@ class Result extends JFrame {
 		lotteryBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (count < 7) {
-					printDrawNumber();
-					count++;
-				} else if (count == 7) {
-					drawBounsNumber();
-					printScore("A", aList);
-					printScore("B", bList);
-					printScore("C", cList);
-					printScore("D", dList);
-					printScore("E", eList);
-
-					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
-					pnlTotMoney.add(lblMoney);
-
-					pnlTotScore.add(getTotalScore(), "Left");
-
-					addColor(aList, pnlListA);
-					addColor(bList, pnlListB);
-					addColor(cList, pnlListC);
-					addColor(dList, pnlListD);
-					addColor(eList, pnlListE);
-					count++;
-
-					btnAgain.setEnabled(true);
-					lotteryBtn.setEnabled(false);
-					lotteryAllBtn.setEnabled(false);
-//						// 2등전용 보너스번호 공 라벨
-//						if (score.equals("2등") && num == bonusNum) {
-//							JLabel lblSecond = new JLabel();
-//							if (num <= 10) {
-//								lblSecond.setIcon(pBN.circle10);
-//							} else if (num <= 20) {
-//								lblSecond.setIcon(pBN.circle20);
-//							} else if (num <= 30) {
-//								lblSecond.setIcon(pBN.circle30);
-//							} else if (num <= 40) {
-//								lblSecond.setIcon(pBN.circle40);
-//							} else if (num <= 50) {
-//								lblSecond.setIcon(pBN.circle50);
-//							}
-//							lblSecond.setHorizontalTextPosition(JLabel.CENTER);
-//							lblSecond.setBackground(new Color(255, 0, 0, 0));
-//							pnls[i].add(lblSecond);
-//						}
-				}
+				Thread thread = new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						if (count < 7) {
+							printDrawNumber();
+							count++;
+						} else if (count == 7) {
+							drawBounsNumber();
+							printScore("A", aList);
+							printScore("B", bList);
+							printScore("C", cList);
+							printScore("D", dList);
+							printScore("E", eList);
+							
+							lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
+							pnlTotMoney.add(lblMoney);
+							
+							pnlTotScore.add(getTotalScore(), "Left");
+							
+							addColor(aList, pnlListA);
+							addColor(bList, pnlListB);
+							addColor(cList, pnlListC);
+							addColor(dList, pnlListD);
+							addColor(eList, pnlListE);
+							count++;
+							
+							btnAgain.setEnabled(true);
+							lotteryBtn.setEnabled(false);
+							lotteryAllBtn.setEnabled(false);
+							
+						}
+					}
+				});
+				thread.start();
 			}
 		});
 
@@ -276,34 +265,41 @@ class Result extends JFrame {
 		lotteryAllBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (count < 8) {
-					for (int i = count; i < 7; i++) {
-						count = i;
-						printDrawNumber();
-					}
-					drawBounsNumber();
-					printScore("A", aList);
-					printScore("B", bList);
-					printScore("C", cList);
-					printScore("D", dList);
-					printScore("E", eList);
-
-					lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
-					pnlTotMoney.add(lblMoney);
-
-					pnlTotScore.add(getTotalScore(), "Left");
-
-					addColor(aList, pnlListA);
-					addColor(bList, pnlListB);
-					addColor(cList, pnlListC);
-					addColor(dList, pnlListD);
-					addColor(eList, pnlListE);
-					count = 8;
-
-					btnAgain.setEnabled(true);
-					lotteryBtn.setEnabled(false);
-					lotteryAllBtn.setEnabled(false);
-				}
+				Thread thread = new Thread(new Runnable() {
+				    public void run() {
+				        // 스레드가 실행될 코드 작성
+				    	
+				    	if (count < 8) {
+				    		for (int i = count; i < 7; i++) {
+				    			count = i;
+				    			printDrawNumber();
+				    		}
+				    		drawBounsNumber();
+				    		printScore("A", aList);
+				    		printScore("B", bList);
+				    		printScore("C", cList);
+				    		printScore("D", dList);
+				    		printScore("E", eList);
+				    		
+				    		lblMoney.setHorizontalAlignment(SwingConstants.RIGHT);
+				    		pnlTotMoney.add(lblMoney);
+				    		
+				    		pnlTotScore.add(getTotalScore(), "Left");
+				    		
+				    		addColor(aList, pnlListA);
+				    		addColor(bList, pnlListB);
+				    		addColor(cList, pnlListC);
+				    		addColor(dList, pnlListD);
+				    		addColor(eList, pnlListE);
+				    		count = 8;
+				    		
+				    		btnAgain.setEnabled(true);
+				    		lotteryBtn.setEnabled(false);
+				    		lotteryAllBtn.setEnabled(false);
+				    	}
+				    }
+				});
+				thread.start();
 			}
 		});
 
@@ -514,11 +510,6 @@ class Result extends JFrame {
 			break;
 		}
 		
-		try {
-			Thread.sleep(30); // drawPnl.revalidate();를 돕기 위한 딜레이를 주는 키워드
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 
 		drawPnl.revalidate();
 		drawPnl.repaint();
