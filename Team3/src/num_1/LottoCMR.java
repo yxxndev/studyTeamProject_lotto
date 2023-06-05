@@ -350,6 +350,13 @@ public class LottoCMR extends JFrame {
 						btn.setIcon(null);
 						btnAllCancle.setEnabled(true);
 					}
+					if (dataBase.allMarkingEmpty()) {
+						btnAllCancle.setEnabled(false);
+					}
+					
+					if (dataBase.allMarkingCheck()) {
+						btnAllAuto.setEnabled(false);
+					}
 				}
 			});
 		}

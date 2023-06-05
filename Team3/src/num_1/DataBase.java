@@ -18,7 +18,7 @@ public class DataBase {
 		map.put("C", new ArrayList<UserSelectNum>());
 		map.put("D", new ArrayList<UserSelectNum>());
 		map.put("E", new ArrayList<UserSelectNum>());
-		
+
 		mapLbls.put("A", new JLabel[45]);
 		mapLbls.put("B", new JLabel[45]);
 		mapLbls.put("C", new JLabel[45]);
@@ -35,13 +35,23 @@ public class DataBase {
 	public Map<String, ArrayList<UserSelectNum>> getMap() {
 		return map;
 	}
-	
+
 	public boolean allMarkingCheck() {
 		boolean sizeCheck = true;
 		for (ArrayList<UserSelectNum> list : map.values()) {
-		    if (list.size() != 6) {
-		    	sizeCheck = false;
-		    }
+			if (list.size() != 6) {
+				sizeCheck = false;
+			}
+		}
+		return sizeCheck;
+	}
+
+	public boolean allMarkingEmpty() {
+		boolean sizeCheck = true;
+		for (ArrayList<UserSelectNum> list : map.values()) {
+			if (list.size() != 0) {
+				sizeCheck = false;
+			}
 		}
 		return sizeCheck;
 	}
