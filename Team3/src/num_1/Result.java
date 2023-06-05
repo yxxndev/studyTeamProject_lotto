@@ -46,8 +46,8 @@ class Result extends JFrame {
 
 	private final int SPEED = 1;
 	private final int BALL_COUNT = 45; // 공 갯수
-	private final int BALL_DISTANCE = 35; // 원과의 거리
-	private final int VIRTUAL_CIRCLE_RADIUS = 130; // 가상의 원의 반지름
+	private final int BALL_DISTANCE = 80; // 원과의 거리
+	private final int VIRTUAL_CIRCLE_RADIUS = 80; // 가상의 원의 반지름
 	private final ImageIcon[] BALL_IMAGES = new ImageIcon[BALL_COUNT];
 	private JPanel drawPnl = new JPanel();
 	private JPanel bgPnl;
@@ -831,9 +831,9 @@ class Result extends JFrame {
 					double randomAngle = Math.random() * 2 * Math.PI;
 
 					x = (int) (getWidth() / 2
-							+ Math.round(offsetX + Math.min(BALL_DISTANCE, 35) * Math.sin(randomAngle)));
+							+ Math.round(offsetX + Math.min(BALL_DISTANCE, 100) * Math.sin(randomAngle)));
 					y = (int) (getHeight() / 2
-							+ Math.round(offsetY + Math.min(BALL_DISTANCE, 35) * Math.cos(randomAngle)));
+							+ Math.round(offsetY + Math.min(BALL_DISTANCE, 100) * Math.cos(randomAngle)));
 
 					ImageIcon ballImage = BALL_IMAGES[i];
 
@@ -847,5 +847,3 @@ class Result extends JFrame {
 		return panel;
 	}
 }
-
-//
