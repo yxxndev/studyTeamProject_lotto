@@ -13,7 +13,6 @@ class PrintBallNumber {
 
 	public PrintBallNumber() {
 		for (int i = 0; i < numImg.length; i++) {
-//			numImg[i] = new ImageIcon(numImg[i+1]+".png");
 			String str = String.valueOf((i + 1));
 			numImg[i] = new ImageIcon(PrintBallNumber.class.getResource("/image/" + str + ".png"));
 		}

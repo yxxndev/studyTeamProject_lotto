@@ -535,7 +535,7 @@ public class LottoCMR extends JFrame {
 
 			if (markedNum > 0 && markedNum < 6) { // 조건 마다 메시지 한 줄 씩 추가
 				if (message.equals("")) {
-					message += "[!] 복권의 번호는 [총 6개]가 되어야 합니다.\n번호가 부족한 게임: " + "[" + keys + "] ";
+					message += "[!] 복권의 번호는 [총 6개]가 되어야 합니다.";
 				} else {
 					message += "[" + keys + "] ";
 				}
