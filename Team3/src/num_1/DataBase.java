@@ -30,13 +30,19 @@ public class DataBase {
 		mapCopy.put("C", new JButton());
 		mapCopy.put("D", new JButton());
 		mapCopy.put("E", new JButton());
-
-//		add();
-
-//		resultTest();
 	}
 
 	public Map<String, ArrayList<UserSelectNum>> getMap() {
 		return map;
+	}
+	
+	public boolean allMarkingCheck() {
+		boolean sizeCheck = true;
+		for (ArrayList<UserSelectNum> list : map.values()) {
+		    if (list.size() != 6) {
+		    	sizeCheck = false;
+		    }
+		}
+		return sizeCheck;
 	}
 }

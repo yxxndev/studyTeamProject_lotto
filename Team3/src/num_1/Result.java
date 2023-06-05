@@ -822,7 +822,6 @@ class Result extends JFrame {
 
 			String imagePath = "/image/ball_" + i + ".png";
 			BALL_IMAGES[ran] = new ImageIcon(getClass().getResource(imagePath));
-			setSize(600, 600);
 		}
 
 		Timer timer = new Timer(40, new ActionListener() {
